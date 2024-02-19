@@ -16,16 +16,23 @@ Mitch - javascript, python, html, css, React, React native
 
 
 ## Roles:
+
  ### Sprint 0 and 1
+
 PO: Amelia
+
 SM: Lucas
 
 ### Sprint 2
+
 PO: Trishika
+
 SM: Mitchell Brenner
 
 ### Sprint 3
+
 PO: Bora Depecik
+
 SM: Jordan Bucher
 
 
