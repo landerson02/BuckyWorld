@@ -1,11 +1,17 @@
 # BuckyWorld
 
 ## Members and strengths: 
+
 Amelia - java, C, javascript/html/css, react/react native, android studio, graphic design
+
 Bora - java,docker,python
-Lucas - frontend, python, js/ts, java, 
+
+Lucas - frontend, python, js/ts, java
+
 Jordan - java, c/c++, python, little bit of html and javascript
+
 Trishika - java, python, react/react native, javascript, html, css
+
 Mitch - javascript, python, html, css, React, React native
 
 
