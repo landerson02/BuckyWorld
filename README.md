@@ -1,5 +1,37 @@
 # BuckyWorld
 
+## Members and strengths: 
+Amelia - java, C, javascript/html/css, react/react native, android studio, graphic design
+Bora - java,docker,python
+Lucas - frontend, python, js/ts, java, 
+Jordan - java, c/c++, python, little bit of html and javascript
+Trishika - java, python, react/react native, javascript, html, css
+Mitch - javascript, python, html, css, React, React native
+
+
+## Roles:
+ ### Sprint 0 and 1
+PO: Amelia
+SM: Lucas
+
+### Sprint 2
+PO: Trishika
+SM: Mitchell Brenner
+
+### Sprint 3
+PO: Bora Depecik
+SM: Jordan Bucher
+
+
+## Tech Stack:
+Frontend: React
+Backend: Java 
+How to connect them?:  spring / springboot
+Next.js
+
+
+
+
 
 
 ## Getting started
