@@ -6,6 +6,12 @@ ex.  `docker pull ubuntu:latest`
 
 ## Create a Dockerfile for installations/commands to run
 
+### docker commands:
+
+We still need to choose an image to pull from
+
+helpful documentation for how to use docker commands
+
 [docs](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
 ## Create a docker-compose.yml file
