@@ -34,9 +34,8 @@ Ex:
 
 ## Formatting and Indentation
 
-- Use _ spaces/tabs for indentation (?)
-- Limit lines to _ characters (?)
-- Single quotes vs double quotes (?)
+- Use 4 spaces per tab for indentation (?)
+- Limit lines to 100 characters (?)
 
 Ex: 
 
