@@ -34,8 +34,8 @@ Ex:
 
 ## Formatting and Indentation
 
-- Use 4 spaces per tab for indentation (?)
-- Limit lines to 100 characters (?)
+- Use 4 spaces per tab for indentation
+- Limit lines to 100 characters
 
 Ex: 
 
