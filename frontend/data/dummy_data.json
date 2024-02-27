@@ -1,0 +1,67 @@
+{
+    "Users": [
+        {
+            "Username": "badger1",
+            "Password": "redwhite1",
+            "TotalPoints": 120
+        },
+        {
+            "Username": "badger2",
+            "Password": "redwhite2",
+            "TotalPoints": 85
+        },
+        {
+            "Username": "badger3",
+            "Password": "redwhite3",
+            "TotalPoints": 240
+        }
+    ],
+    "Events": [
+        {
+            "EventID": 1,
+            "Name": "Memorial Union Terrace",
+            "Description": "Go to the Memorial Union Terrace and hang out by the lake",
+            "Latitude": 43.0762,
+            "Longitude": -89.3995,
+            "Points": 10
+        },
+        {
+            "EventID": 2,
+            "Name": "Union South",
+            "Description": "Go bowling at Union South",
+            "Latitude": 43.0718,
+            "Longitude": -89.4083,
+            "Points": 20
+        },
+        {
+            "EventID": 3,
+            "Name": "Business School",
+            "Description": "UW Madison Business School",
+            "Latitude": 43.0738,
+            "Longitude": -89.4019,
+            "Points": 15
+        }
+    ],
+    "Attended": [
+        {
+            "AttendedID": 1,
+            "Username": "badger1",
+            "EventID": 1
+        },
+        {
+            "AttendedID": 2,
+            "Username": "badger1",
+            "EventID": 2
+        },
+        {
+            "AttendedID": 3,
+            "Username": "badger2",
+            "EventID": 3
+        },
+        {
+            "AttendedID": 4,
+            "Username": "badger3",
+            "EventID": 4
+        }
+    ]
+}
