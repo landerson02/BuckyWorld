@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
 import EventListItem from "@/app/components/EventListItem";
-import fakeLocations from "@/data/dummy_data.json";
 
 type EventType = {
     EventID: number;
@@ -30,7 +29,7 @@ const EventsList = () => {
         const dummyEvents: EventType[] = data.Events;
         dummyEvents.push({EventID: 14, Description: "Test", Latitude: 0, Longitude: 0, Name: "Test", Points: 8});
         setEvents(dummyEvents);
-    }, []);
+    }, [data.Events]);
 
     return (
           <div className={'flex flex-row items-center w-full overflow-x-scroll border-t border-black ps-3 gap-3 h-[20%]'}>
