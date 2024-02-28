@@ -1,18 +1,22 @@
 'use client';
 import { useState, useEffect } from "react";
 import EventListItem from "@/app/components/EventListItem";
+import fakeLocations from "@/data/dummy_data.json";
 
-type fakeLocationType = {
-    id: number;
-    name: string;
-    address: string;
+type EventType = {
+    EventID: number;
+    Name: string;
+    Description: string;
+    Latitude: number;
+    Longitude: number;
+    Points: number;
 }
 
 const EventsList = () => {
-    // Create locations state
-    const [locations, setLocations] = useState<fakeLocationType[]>([]);
+    // Create events state
+    const [events, setEvents] = useState<EventType[]>([]);
 
-    // TODO: Replace 'url' with the actual API endpoint
+    // TODO: Replace 'url' with the actual API endpoint and remove fake data
     // Fetch locations data
     // useEffect(() => {
     //   fetch('url')
@@ -21,19 +25,17 @@ const EventsList = () => {
     // }, []);
 
     // Load fake data while in development
+    let data = require('../../data/dummy_data.json');
     useEffect(() => {
-        const fakeLocations = [
-            { id: 1, name: 'Location 1', address: '123 X St', visited: true},
-            { id: 2, name: 'Location 2', address: '456 Y St', visited: false},
-            { id: 3, name: 'Location 3', address: '789 Z St', visited: true},
-        ];
-        setLocations(fakeLocations);
+        const dummyEvents: EventType[] = data.Events;
+        dummyEvents.push({EventID: 14, Description: "Test", Latitude: 0, Longitude: 0, Name: "Test", Points: 8});
+        setEvents(dummyEvents);
     }, []);
 
     return (
-          <div className={'flex flex-row items-center w-full overflow-x-scroll border border-black gap-2 h-[20%]'}>
-              {locations.map(location => (
-                  <EventListItem key={location.id} location={location} />
+          <div className={'flex flex-row items-center w-full overflow-x-scroll border-t border-black ps-3 gap-3 h-[20%]'}>
+              {events.map(event => (
+                  <EventListItem key={event.EventID} event={event} />
               ))}
           </div>
     )
