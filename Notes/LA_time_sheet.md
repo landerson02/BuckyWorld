@@ -1,13 +1,27 @@
-## This file is used to track any work done by Lucas Anderson
+# Lucas Anderson Time Sheet
+
+## 2/27
+#### Issue #38
+- time spent: 30 mins
+
+## 2/25
+- time spent: 60 mins
+- Read Next documentation
+- Created most of locationslist component
+
+## 2/23
+- time spent: 60 mins
+- met with group and decided a plan
+- Created several issues to lay out next steps
 
 ## 2/21
-- 15 mins
+- time spent: 15 mins
 ##### Issue #17
 - Create /notes/API_CALLS.md
 - Organize and document API calls
 
 ## 2/20
-- 30 mins
+- time spent: 30 mins
 ##### Issue #17
 - Research API calls
 - Determine which api calls will be needed
