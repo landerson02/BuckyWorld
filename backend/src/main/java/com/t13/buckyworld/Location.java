@@ -1,13 +1,43 @@
 package com.t13.buckyworld;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "LOCATION")
 public class Location {
+    public Location(){
+        
+    }
+    public Location(long id,String locationName, double latitude, double longitude, String pictureUrl, String description){
+        this.id = id;
+        this.locationName = locationName;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.pictureUrl = pictureUrl;
+        this.description = description;
+    }
+    @Id
+    @Column(name = "ID")
+    private long id;
+
+    @Column(name = "NAME")
     private String locationName;
+
+    @Column(name = "LATITUDE")
     private double latitude;
+
+    @Column(name = "LONGITUDE")
     private double longitude;
+
+    @Column(name = "URL")
     private String pictureUrl;
-    private String additionalInfo;
-    
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
     public String getLocationName() {
         return locationName;
     }
@@ -32,12 +62,11 @@ public class Location {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
-    public String getAdditionalInfo() {
-        return additionalInfo;
+    public String getDescription() {
+        return description;
     }
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
 
 }
