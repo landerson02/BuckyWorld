@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'buckyworld_db'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: 'buckyworld_user'
+      MYSQL_PASSWORD: 'buckyworld_user'
+      MYSQL_ROOT_PASSWORD: 'buckymon'
+    ports:
+      - "5001:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
