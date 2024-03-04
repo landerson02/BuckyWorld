@@ -17,3 +17,20 @@ https://spring.io/quickstart
 - Finishing location controller
 - Added time sheet to gitlab
 - 30 mins 
+
+# 2/27/24
+- Started at 1:00PM
+- Making test class for location controller
+- https://stackoverflow.com/questions/43911867/tests-for-spring-boot-application-are-not-run
+- https://stackoverflow.com/questions/55145066/plugin-with-id-org-springframework-boot-not-found
+- https://github.com/gradle/gradle/issues/19497
+- 1 hour 42 minutes
+
+# 3/2/24
+- Merged Location.java, LocationController.java, LocationControllerTests.java to main
+- 10 minutes
+
+# 3/3/24
+- Worked with Bora to resolve updates/merge conflicts to Location.java and LocationController.java
+- Temporarily commented out tests until full backend implementation is finished.
+- 20 minutes
