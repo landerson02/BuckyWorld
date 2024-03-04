@@ -26,20 +26,12 @@ function Page() {
         <p style={{marginTop: '-10px', fontSize: '16px'}}>POINTS</p>
       </div>
       <APIProvider apiKey={'AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI'}>
-        <div style={{height: '100vh'}}>
-          <Map center={position} zoom={15} mapId={'f292b91ec3d6c7d6'}
-            options={
-              {
-                mapTypeControl: false,
-                fullscreenControl: false,
-                streetViewControl: false,
-              }
-            }
-          >
+        <div style={{height: '90vh'}}>
+            <Map center={position} zoom={15} mapId={'f292b91ec3d6c7d6'}>
             {
               events && events.map((event: any, index: number) => {
                 return (
-                  <EventMarker key={index} position={{lat : event.Latitude, lng: event.Longitude}} title={event.Name} description={event.Description} />
+                  <EventMarker key={index} lat={event.latitude} lng={event.longitude} title={event.name} description={event.description} />
                 );
               })
             }

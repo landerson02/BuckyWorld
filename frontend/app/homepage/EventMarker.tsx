@@ -6,7 +6,7 @@ function EventMarker(props: any) {
 
     return (
         <>
-            <AdvancedMarker position={props.position} onClick={() => setIsOpen(true)}> 
+            <AdvancedMarker position={{lat: parseFloat(props.lat), lng: parseFloat(props.lng)}} onClick={() => setIsOpen(true)}> 
               <Pin 
                 background={'#FF5A64'}
                 borderColor={'white'}
@@ -15,7 +15,7 @@ function EventMarker(props: any) {
             </AdvancedMarker>
             {
               open && (
-                <InfoWindow position={props.position} onCloseClick={() => setIsOpen(false)}> 
+                <InfoWindow position={{lat: parseFloat(props.lat), lng: parseFloat(props.lng)}} onCloseClick={() => setIsOpen(false)}> 
                   <div style={{display: 'flex', flexDirection: 'column'}}>
                     <h1 style={{color:'#FF0000', fontWeight:'bold', margin:'10px 0px 10px 0px'}}>{props.title}</h1>
                     <p>{props.description}</p>
