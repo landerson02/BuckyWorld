@@ -18,28 +18,28 @@
     ],
     "Events": [
         {
-            "EventID": 1,
-            "Name": "Memorial Union Terrace",
-            "Description": "Go to the Memorial Union Terrace and hang out by the lake",
-            "Latitude": 43.0762,
-            "Longitude": -89.3995,
-            "Points": 10
+            "id": 1,
+            "locationName": "Memorial Union Terrace",
+            "latitude": 43.0762,
+            "longitude": -89.3995,
+            "pictureUrl": "test_url",
+            "description": "Go to the Memorial Union Terrace and hang out by the lake"
         },
         {
-            "EventID": 2,
-            "Name": "Union South",
-            "Description": "Go bowling at Union South",
-            "Latitude": 43.0718,
-            "Longitude": -89.4083,
-            "Points": 20
+            "id": 2,
+            "locationName": "Union South",
+            "latitude": 43.0718,
+            "longitude": -89.4083,
+            "pictureUrl": "test_url",
+            "description": "Go bowling at Union South"
         },
         {
-            "EventID": 3,
-            "Name": "Business School",
-            "Description": "UW Madison Business School",
-            "Latitude": 43.0738,
-            "Longitude": -89.4019,
-            "Points": 15
+            "id": 3,
+            "locationName": "Business School",
+            "latitude": 43.0738,
+            "longitude": -89.4019,
+            "pictureUrl": "test_url",
+            "description": "UW Madison Business School"
         }
     ],
     "Attended": [
