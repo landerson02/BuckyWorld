@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import EventListItem from "@/app/components/EventListItem";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 type EventType = {
     EventID: number;
@@ -14,6 +15,7 @@ type EventType = {
 const EventsList = () => {
     // Create events state
     const [events, setEvents] = useState<EventType[]>([]);
+    const [isOpen, setIsOpen] = useState(true);
 
     // TODO: Replace 'url' with the actual API endpoint and remove fake data
     // Fetch locations data
@@ -32,11 +34,17 @@ const EventsList = () => {
     }, [data.Events]);
 
     return (
-          <div className={'flex flex-row items-center w-full overflow-x-scroll border-t border-black ps-3 gap-3 h-[20%]'}>
-              {events.map(event => (
-                  <EventListItem key={event.EventID} event={event} />
-              ))}
-          </div>
+        <div className={'w-full flex flex-col items-center'}>
+            <div className={'flex flex-row justify-center z-1 bg-white rounded-t-[50%] w-12 items-center'}>
+                <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? <FaChevronDown /> : <FaChevronUp />}</button>
+            </div>
+            {isOpen ? <div className={'flex flex-row items-center w-full overflow-x-scroll ' +
+                'border-t border-black ps-3 gap-3 h-48 z-2 bg-white'}>
+                {events.map(event => (
+                    <EventListItem key={event.EventID} event={event} />
+                ))}
+            </div> : null}
+        </div>
     )
 }
 

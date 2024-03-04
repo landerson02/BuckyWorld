@@ -1,5 +1,10 @@
 # Lucas Anderson Time Sheet
 
+## 2/29
+#### Issue #26
+- Finish component
+- time spent: 60 mins
+
 ## 2/27
 #### Issue #38
 - time spent: 30 mins
