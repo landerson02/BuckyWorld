@@ -1,5 +1,10 @@
 # Lucas Anderson Time Sheet
 
+## 3/5
+#### Issue #44
+- time spent: 60 mins
+- Added functions to call APIs and pass data to frontend
+
 ## 3/4
 #### Issue #49
 - time spent: 60 mins
