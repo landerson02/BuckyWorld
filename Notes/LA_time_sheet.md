@@ -5,6 +5,10 @@
 - time spent: 60 mins
 - Added functions to call APIs and pass data to frontend
 
+#### Issue #50
+- time spent: 30 mins
+- Added ts types for users, locations, and attended that will be returned from the API
+
 ## 3/4
 #### Issue #49
 - time spent: 60 mins
