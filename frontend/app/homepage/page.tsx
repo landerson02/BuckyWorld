@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import  EventMarker from './EventMarker';
 import { getLocations } from '@/lib/Service';
+import { Location_type } from '@/lib/Types';
 
 
 // Define the React component (following naming convention)
@@ -12,14 +13,14 @@ function Page() {
   // curr position
   const position = { lat: 43.0722, lng: -89.4008 };
 
-  const [locations, setLocations] = useState([] as any[]);
+  const [locations, setLocations] = useState<Location_type[]>([]);
   
   // Dummy data
   let events = require('../../data/dummy_data.json').Events;
 
   // Fetch locations data
   useEffect(() => {
-    getLocations().then((data) => {
+    getLocations().then((data:Location_type[]) => {
       setLocations(data);
       console.log(data);
     });
@@ -40,9 +41,9 @@ function Page() {
         <div style={{height: '90vh'}}>
             <Map center={position} zoom={14} mapId={'f292b91ec3d6c7d6'}>
             {
-              events && events.map((event: any, index: number) => {
+              locations && locations.map((location: any, index: number) => {
                 return (
-                  <EventMarker key={index} lat={event.latitude} lng={event.longitude} title={event.locationName} description={event.description} />
+                  <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
                 );
               })
             }

@@ -13,14 +13,17 @@ public class BuckyworldApplication {
 		SpringApplication.run(BuckyworldApplication.class, args);
 	}
 
-	// This is a bean that allows for CORS (Cross-Origin Resource Sharing) to be enabled
-	// This is necessary for the front-end on port 3000 to communicate with the back-end on port 8080
+	// This is a bean that allows for CORS (Cross-Origin Resource Sharing) to be
+	// enabled
+	// This is necessary for the front-end on port 3000 to communicate with the
+	// back-end on port 8080
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE")
+						.allowedOrigins("http://localhost:3000");
 			}
 		};
 	}
