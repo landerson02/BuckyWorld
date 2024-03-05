@@ -1,5 +1,10 @@
 # Lucas Anderson Time Sheet
 
+## 3/4
+#### Issue #49
+- time spent: 60 mins
+- Fixed Cors issues by adding a bean to the main application class
+
 ## 2/29
 #### Issue #26
 - Finish component
