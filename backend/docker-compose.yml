@@ -5,8 +5,8 @@ services:
     environment:
       MYSQL_DATABASE: 'buckyworld_db'
       MYSQL_ROOT_HOST: '%'
-      MYSQL_USER: 'buckyworld_user'
-      MYSQL_PASSWORD: 'buckyworld_user'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'buckymon'
       MYSQL_ROOT_PASSWORD: 'buckymon'
     ports:
       - "5001:3306"
