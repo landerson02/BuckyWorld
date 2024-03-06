@@ -1,7 +1,8 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 
 function EventMarker(props: any) {
+    // state for the info window
     const [open, setIsOpen] = useState(false);
 
     return (
