@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import  EventMarker from './EventMarker';
-import { getLocations } from '@/lib/Service';
+import { getLocations, UserLocation, getUserLocation } from '@/lib/Service';
 import { Location_type } from '@/lib/Types';
 
 
@@ -13,16 +13,31 @@ function Page() {
   const position = { lat: 43.0722, lng: -89.4008 };
   // locations
   const [locations, setLocations] = useState<Location_type[]>([]);
+  // user location
+  const [userLocation, setUserLocation] = useState<UserLocation>(null);
+  
+  // Dummy data
+  let events = require('../../data/dummy_data.json').Events;
   // user points
   const [points, setPoints] = useState(0);
 
   // Fetch locations data
   useEffect(() => {
-    getLocations().then((data:Location_type[]) => {
+    getLocations().then((data: Location_type[]) => {
       setLocations(data);
       console.log(data);
     });
   }, []);
+  
+  // Fetch user location data
+  useEffect(() => {
+    getUserLocation().then((value: UserLocation | null) => {
+      setUserLocation(value);
+      console.log(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, [])
 
 
   return (
