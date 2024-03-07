@@ -1,5 +1,16 @@
 # Lucas Anderson Time Sheet
 
+## 3/7
+#### Issue #53
+- time spent 60 mins
+- Added sign up page
+- styled sign in more
+
+## 3/6
+#### Issue #53
+- time spent 60 mins
+- Added sign in page without functionality
+
 ## 3/5
 #### Issue #44
 - time spent: 60 mins
