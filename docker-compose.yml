@@ -12,5 +12,14 @@ services:
       - "5001:3306"
     volumes:
       - db-data:/var/lib/mysql
+  backend:
+    build: backend/
+    ports: 
+      - 8080:8080
+    volumes:
+      - backend:/backend
+    
+
 volumes:
   db-data:
+  backend:
