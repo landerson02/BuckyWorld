@@ -14,7 +14,7 @@ function Page() {
   // locations
   const [locations, setLocations] = useState<Location_type[]>([]);
   // user location
-  const [userLocation, setUserLocation] = useState<UserLocation>(null);
+  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   
   // Dummy data
   let events = require('../../data/dummy_data.json').Events;
