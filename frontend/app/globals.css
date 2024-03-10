@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.primary-button {
+    background-color: #66B566;
+    color: #ffffff; 
+    width: 10rem;
+    padding-top: 1rem; 
+    padding-bottom: 1rem; 
+    border-radius: 9999px; 
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.secondary-button {
+    background-color: #ffffff;
+    color:#ff5a64;
+    border: 2px solid #ff5a64;
+    width: 10rem;
+    padding-top: 1rem; 
+    padding-bottom: 1rem; 
+    border-radius: 9999px; 
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.disabled-button {
+    background-color: #bebebe;
+    color: #ffffff; 
+    width: 10rem;
+    padding-top: 1rem; 
+    padding-bottom: 1rem; 
+    border-radius: 9999px; 
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.primary-text{
+    color: black;
+}
+
+/* may need to modify or remove based on the variety of things that can be considered not-applicable */
+.not-applicable {
+    color: #bebebe;
+}
+
+/* may need to modify or remove based on different shapes */
+.shapes-other {
+    background-color: #7db3e5;
+}
