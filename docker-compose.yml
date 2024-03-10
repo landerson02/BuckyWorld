@@ -13,11 +13,11 @@ services:
     volumes:
       - db-data:/var/lib/mysql
   backend:
-    build: backend/
+    build: ./backend
     ports: 
       - 8080:8080
   frontend:
-    build: frontend/
+    build: ./frontend
     ports:
       - "3000:3000"
 

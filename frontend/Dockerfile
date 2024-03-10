@@ -1,11 +1,13 @@
 FROM node:latest as builder
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json .
+COPY package-lock.json .
+RUN ls -al
 
 COPY . .
-RUN npm run build
+
+RUN npm install
 
 FROM node:latest
 WORKDIR /app
@@ -16,4 +18,4 @@ COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
