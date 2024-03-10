@@ -5,12 +5,23 @@ services:
     environment:
       MYSQL_DATABASE: 'buckyworld_db'
       MYSQL_ROOT_HOST: '%'
-      MYSQL_USER: 'root'
+      MYSQL_USER: '%'
       MYSQL_PASSWORD: 'buckymon'
       MYSQL_ROOT_PASSWORD: 'buckymon'
     ports:
       - "5001:3306"
     volumes:
       - db-data:/var/lib/mysql
+  backend:
+    build: ./backend
+    ports: 
+      - 8080:8080
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
 volumes:
   db-data:
