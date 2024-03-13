@@ -1,5 +1,10 @@
 # Lucas Anderson Time Sheet
 
+## 3/13
+#### Issue #73
+- time spent: 30 mins
+- Reorganized file structure to make home page
+
 ## 3/7
 #### Issue #53
 - time spent 60 mins
