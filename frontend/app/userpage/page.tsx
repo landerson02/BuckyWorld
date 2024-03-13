@@ -26,21 +26,16 @@ export default function UserPage() {
 
             {/* Buttons do not currently do anything when pressed */}
             {/* py makes the buttons more vertical, mt is for top margin */}
-            <button className="bg-green-500 text-white w-40 py-4 rounded-full mt-16">
+            <button className="primary-button">
                 Account
             </button>
-            <button className="bg-green-500 text-white w-40 py-4 rounded-full mt-2">
+            <button className="primary-button">
                 Leaderboard
             </button>
-            <button className="bg-green-500 text-white w-40 py-4 rounded-full mt-2 mb-8">
+            <button className="primary-button">
                 Logout
             </button>
 
-            {/* Arrows do not currently do anything, we need to modify*/}
-            <div className="flex absolute bottom-0 left-0 py-8 space-x-7 right-0 px-6 bg-gray-300 text-3xl">
-                <span className="text-gray-600 ">{"<--"}</span>
-                <span className="text-gray-600">{"-->"}</span>
-            </div>
         </div>
     );
 }
