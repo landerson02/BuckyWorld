@@ -16,6 +16,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    //Add attend location code here
+    
+    public int saveUser(long uID, String username) {
+        return userService.saveUser(uID, username);
+    }
     
 }
