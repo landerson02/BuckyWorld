@@ -10,18 +10,18 @@ import jakarta.persistence.Table;
 @Table(name = "USERS")
 public class User {
     public User() {
-
-
+        points = 0;
     }
 
     public User(long userID, String username){
-        this.userId = userID;
-        this.username = username;
+        this();
+        this.userID = userID;
+        this.username = username; 
     }
 
     @Id
     @Column(name = "ID")
-    private long userId;
+    private long userID;
 
     @Column(name = "USERNAME")
     private String username;
@@ -40,12 +40,12 @@ public class User {
         return username;
     }
 
-    public void setUserID(long userId){
-        this.userId = userId;
+    public void setUserID(long userID){
+        this.userID = userID;
     }
     
     public long getUserID(){
-        return userId;
+        return userID;
     }
 
     public void setPoints(int points) {
