@@ -1,6 +1,7 @@
 module.exports = {
-  plugins: {
+  /*plugins: {
     tailwindcss: {},
     autoprefixer: {},
-  },
+  },*/
+  presets: ['@babel/preset-env', '@babel/preset-react']
 };
