@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Page from './Page';
+import Page from '../signin/page.tsx';
 
 describe('Page', () => {
   test('renders the signin form', () => {

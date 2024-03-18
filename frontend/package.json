@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --config=./app/jest.babel.js"
   },
   "dependencies": {
     "@vis.gl/react-google-maps": "^0.7.1",

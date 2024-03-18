@@ -22,16 +22,16 @@ public class LocationControllerTest {
      @MockBean
     private LocationService locationService;
 
-    // @Test
-    // public void testGetLocation() throws Exception {
-    //     mockMvc.perform(get("/api/location")
-    //             .param("loc", "TestLocation"))
-    //             .andExpect(status().isOk())
-    //             .andExpect(jsonPath("$.locationName").value("TestLocation"))
-    //             .andExpect(jsonPath("$.latitude").value(43.075388))
-    //             .andExpect(jsonPath("$.longitude").value(-89.398991))
-    //             .andExpect(jsonPath("$.pictureUrl").value(""));
-    // }
+    @Test
+    public void testGetLocation() throws Exception {
+        mockMvc.perform(get("/api/location")
+                .param("loc", "TestLocation"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.locationName").value("TestLocation"))
+                .andExpect(jsonPath("$.latitude").value(43.075388))
+                .andExpect(jsonPath("$.longitude").value(-89.398991))
+                .andExpect(jsonPath("$.pictureUrl").value(""));
+    }
     @Test
     public void testGetLocationById() throws Exception {
         // Assuming a valid location with id 1
@@ -55,7 +55,6 @@ public class LocationControllerTest {
                 .andExpect(jsonPath("$[0].name").value("Test Location 1"))
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].name").value("Test Location 2"))
-                // Add more assertions as needed
                 ;
     }
 }
