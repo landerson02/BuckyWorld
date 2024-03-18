@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    //Automatically instantiates userRepository and connects it with the database using @Autowired
     @Autowired
     private UserRepository userRepository;
     public UserService() {
@@ -36,7 +37,7 @@ public class UserService {
      * Saves a user to the database
      * @param uID
      * @param username
-     * @return
+     * @return 2 if the user ID exists in the database, 1 if the username string is null or empty, and 0 if success
      */
     public int saveUser(long uID, String username) {
         if (userRepository.existsById(uID)) {

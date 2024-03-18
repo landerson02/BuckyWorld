@@ -16,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    
+    //Controller method to call UserService.java saveUser() method. Refer to UserService.java for documentation
     public int saveUser(long uID, String username) {
         return userService.saveUser(uID, username);
     }
