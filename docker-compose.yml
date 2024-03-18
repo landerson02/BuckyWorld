@@ -1,27 +1,25 @@
 version: '3.8'
 services:
   db:
-    image: mysql:latest
+    image: mysql:latest # gets mysql image from registery
     environment:
-      MYSQL_DATABASE: 'buckyworld_db'
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: 'buckyworld_db' # Creates mysql db called buckyworld_db
+      MYSQL_ROOT_HOST: '%' # anyone can be given root permissions (may need to change later)
       MYSQL_USER: '%'
       MYSQL_PASSWORD: 'buckymon'
       MYSQL_ROOT_PASSWORD: 'buckymon'
     ports:
-      - "5001:3306"
+      - "5001:3306" # maps port 3306 on container to 5001 on bost
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql # for persistance
   backend:
-    build: ./backend
+    build: ./backend # runs dockerfile in backend directory
     ports: 
       - 8080:8080
   frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
+    build: ./frontend
     ports:
       - "3000:3000"
 
-volumes:
+volumes: # specify volumes
   db-data:
