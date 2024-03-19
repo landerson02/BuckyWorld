@@ -13,10 +13,11 @@ public class User {
         points = 0;
     }
 
-    public User(long userID, String username){
+    public User(long userID, String username, String password){
         this();
         this.userID = userID;
         this.username = username; 
+        this.password = password;
     }
 
     @Id
@@ -29,8 +30,8 @@ public class User {
     @Column(name = "POINTS")
     private int points;
 
-    //Add references to password
-
+    @Column(name = "PASSWORD") //Temporary addition since uID is the only distinct identifier for users and the only other thing to differentiate users so far was username
+    private String password;
 
     public void setUsername(String username){
         this.username = username;
@@ -54,5 +55,14 @@ public class User {
 
     public int getPoints() {
         return points;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    //ALSO TEMPORARY DON'T WORRY
+    public String getPassword() {
+        return password;
     }
 }
