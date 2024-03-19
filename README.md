@@ -39,6 +39,12 @@ The main customers of this application are UW-Madison students and faculty, as w
   * In the case that the landmark is unvisited, the pin may be red and thumbnail data saturated.
 - There may be a hamburger-menu button on the upper left that links to the menu page. _(The menu page need not be populated to fulfill this criteria)_
 
+3. **Page to Add Landmarks** (priority = **low**)
+- there must exist a page for users to add landmarks to the map page
+- there shall be a way for the user to drop a pin on a location on the map
+- there shall be a place for the user to enter the url of an image, description, and point value for the location
+
+
 
 ### Use Cases & User Stories
 
@@ -46,12 +52,12 @@ The main customers of this application are UW-Madison students and faculty, as w
 **Landmark Table**
 
 * There must be a database of landmarks comprised of the following fields:
-  * `id` 
-  * `name`
-  * `latitude`
-  * `longitude`
-  * `url`
-  * `description`
+  * `id` (primary key)
+  * `name` **string**
+  * `latitude` **double**
+  * `longitude` **double**
+  * `url` **string**
+  * `description` **string**
   * `points` (number of points the landmark is worth)
 
 **User Table**
@@ -65,18 +71,24 @@ The main customers of this application are UW-Madison students and faculty, as w
 
 * There must be a table that exemplifies the relation between the attended entity and user entity comprised of the following fields:
   * `attendedId` (primary key) **integer**
-  * `username` **string**
-  * `eventId` **integer**
+  * `username` (foreign key) **string**
+  * `eventId` **integer** (foreign key)
+
 
 **Location Comparing**
 
 * There shall be a location-comparing script that compares a landmark's location coordinates to the current location coordinates of the user, returning the absolute value of the distance in miles between them (Granularity of measurement must be determined by team)
 * This script shall be runnable from the map page (It must be able to run for all landmarks to determine the order in which thumbnails are displayed) and the landmark pages (It must be able to run for the landmark whose page is open to determine if the user is close enough.)
 
-**Keeping Track of Visted Landmarks**
+
+**Earning points**
+* The application must successfully update the user table in the database to reflect newly earned points for the user upon attendance of a lcoation
+* The user table should increment the total points attribute to it's current value plus the point value of the location that the user visited
 
 
+### API Calls
 
+[here](./Notes/API_Calls.md)
 
 ### User Interface Requirements
 
