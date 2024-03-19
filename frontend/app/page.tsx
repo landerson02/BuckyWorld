@@ -48,7 +48,7 @@ function Home() {
     <>
       {/* POINTS DIV */}
       <div style={{position: 'fixed', zIndex: '100', top: '80px', margin: '10px', fontWeight: 'bolder', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Link href={'./userpage'}><FaUserCircle style={{ fontSize: '48px', color: '#ffffff', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link>
+        <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link>
         <h1 style={{fontSize: '64px', color: '#FF5A64', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>{points}</h1>
         <p style={{marginTop: '-10px', fontSize: '16px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>POINTS</p>
       </div>
