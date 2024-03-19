@@ -12,12 +12,20 @@ The main customers of this application are UW-Madison students and faculty, as w
 
 ### Running The Application
 
-To run locally, go to the buckymongo directory and run `docker compose up --build`
-
+To run locally, go to the buckymongo directory and run `docker compose up --build`, make sure you have docker running on your computer
 
 **Note**: it is not recommended to run the app on the vm until we get a pipeline set up with automatic updates
 
-To see what is running on the vm, on your local computer, run `user@cs506-team-13 -L localhost:3000:localhost:3000` in a new terminal window
+To see what is running on the vm, on your local computer, run `ssh user@cs506-team-13.cs.wisc.edu -L localhost:3000:localhost:3000` in a new terminal window
+
+In general, to access the shared repository on the vm
+
+run `ssh user@cs506-team-13.cs.wisc.edu`
+
+then `cd /nobackup/buckymongo/`
+
+you should be inside the repository
+
 
 ### User Requirements
 
