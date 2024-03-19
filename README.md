@@ -10,6 +10,15 @@
 
 The main customers of this application are UW-Madison students and faculty, as well as potential future badgers. People who are interested in promoting a certain event on campus are encouraged to use the app to encourage other people to visit their events. In the context of the purpose of the application, the CS506 teaching team are also emphasized as customers of this application.
 
+### Running The Application
+
+To run locally, go to the buckymongo directory and run `docker compose up --build`
+
+
+**Note**: it is not recommended to run the app on the vm until we get a pipeline set up with automatic updates
+
+To see what is running on the vm, on your local computer, run `user@cs506-team-13 -L localhost:3000:localhost:3000` in a new terminal window
+
 ### User Requirements
 
 1. **Landmark Pages**
