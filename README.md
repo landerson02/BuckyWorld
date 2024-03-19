@@ -8,12 +8,11 @@
 
 ### Customer
 
-The main customers of this application are UW-Madison students and faculty, as well as potential future badgers. In the context of the purpose of the application, the CS506 teaching team are also emphasized as customers of this application.
+The main customers of this application are UW-Madison students and faculty, as well as potential future badgers. People who are interested in promoting a certain event on campus are encouraged to use the app to encourage other people to visit their events. In the context of the purpose of the application, the CS506 teaching team are also emphasized as customers of this application.
 
 ### User Requirements
 
 1. **Landmark Pages**
-**Definition of done:**
 
 - There must exist a page for each landmark in the database.
 - The general page elements shall be:
@@ -28,8 +27,56 @@ The main customers of this application are UW-Madison students and faculty, as w
   * If the number returned is less than or equal to **y**, The landmark shall be set to its visited state\*\*, and the current date must be recorded. **(By way of** **not yet described behavior, see _Landmark States_ epic)** The users total point count (though not displayed on this page) shall be updated to include the number of `points` the landmark is worth. The page must be refreshed to update fields that check for landmark completeness.
   * If the number returned is greater than **y**, there is a popup indicating that the verification was unsuccessful, with text instructions to move closer to the landmark or try again.
 
+2. **Map Page**
+
+- The map shall be oriented on each page load such that the device's location is centered.
+- Dragging a finger / clicked mouse on the screen shall cause the map view to scroll/move around, revealing and hiding landmark pins as they come in/out of the window.
+- There shall be a way for the user to see how many points they have directly on the map page
+- There shall be a button on the bottom of the screen that, on click, pulls up a sub-page\* populated with landmark thumbnails. On every load of this page, the location-comparing script shall be run for each landmark. _(note: Location-comparing script must be functioning but need not be accurate to fulfill this criterion)_ The thumbnails shall, for each landmark that exists in the database display the landmark data `photo` and `name`, as well as the location-comparing script's returned value (distance from user) for that landmark. The landmark thumbnails must be displayed left to right in order of smallest to largest distance from user. The displayed landmark thumbnails should be scrollable horizontally. There must be a **way** to exit this sub-page and return to the map page.
+- On click, landmark pins and thumbnails direct user to their corresponding landmark page. _(The landmark page need not be populated to fulfill this criterion)_
+- On every page-load the landmark pins and thumbnails shall check to see if their landmark is visited **(See Landmark Stages epic)**
+  * In the case that the landmark that they both represent is visited, the pin may be green and thumbnail data desaturated.
+  * In the case that the landmark is unvisited, the pin may be red and thumbnail data saturated.
+- There may be a hamburger-menu button on the upper left that links to the menu page. _(The menu page need not be populated to fulfill this criteria)_
+
 
 ### Use Cases & User Stories
+
+
+**Landmark Table**
+
+* There must be a database of landmarks comprised of the following fields:
+  * `id` 
+  * `name`
+  * `latitude`
+  * `longitude`
+  * `url`
+  * `description`
+  * `points` (number of points the landmark is worth)
+
+**User Table**
+
+* There must be a table of users comprised of the following fields:
+  * `username` (primary key) **string**
+  * `password` **string**
+  * `total points` **integer**
+
+**Attended Table**
+
+* There must be a table that exemplifies the relation between the attended entity and user entity comprised of the following fields:
+  * `attendedId` (primary key) **integer**
+  * `username` **string**
+  * `eventId` **integer**
+
+**Location Comparing**
+
+* There shall be a location-comparing script that compares a landmark's location coordinates to the current location coordinates of the user, returning the absolute value of the distance in miles between them (Granularity of measurement must be determined by team)
+* This script shall be runnable from the map page (It must be able to run for all landmarks to determine the order in which thumbnails are displayed) and the landmark pages (It must be able to run for the landmark whose page is open to determine if the user is close enough.)
+
+**Keeping Track of Visted Landmarks**
+
+
+
 
 ### User Interface Requirements
 
