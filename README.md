@@ -12,6 +12,23 @@ The main customers of this application are UW-Madison students and faculty, as w
 
 ### User Requirements
 
+1. **Landmark Pages**
+**Definition of done:**
+
+- There must exist a page for each landmark in the database.
+- The general page elements shall be:
+  - A square frame for the landmark's `photo`
+  - A field for the `name` of the landmark
+  - A field for the landmark's `description`\*
+  - An "I'm here" button
+    * When the landmark is unvisited, the button color shall be saturated, and when pressed, must begin the location-comparing script. Otherwise (when the landmark is visited) the button color shall be desaturated, and when pressed, must prompt popup text to show for **x** amount of time before hiding, which reads "you already checked in here today!"
+  - A field for the number of points the landmark is associated with
+    - When the landmark is unvisited this field's color is saturated, otherwise this field's color is desaturated.
+- When "I'm here" button is pressed, the location-comparing script which returns a number (the distance between the user and the landmark) must be prompted to run. _(location-comparing script need not be accurate to fulfill this requirement, but it must return a number for this requirement to be testable)_
+  * If the number returned is less than or equal to **y**, The landmark shall be set to its visited state\*\*, and the current date must be recorded. **(By way of** **not yet described behavior, see _Landmark States_ epic)** The users total point count (though not displayed on this page) shall be updated to include the number of `points` the landmark is worth. The page must be refreshed to update fields that check for landmark completeness.
+  * If the number returned is greater than **y**, there is a popup indicating that the verification was unsuccessful, with text instructions to move closer to the landmark or try again.
+
+
 ### Use Cases & User Stories
 
 ### User Interface Requirements
