@@ -51,4 +51,14 @@ public class UserService {
         userRepository.save(newUser);
         return 0;
     }
+
+    public Optional<User> login(String username, String password) {
+        List<User> users = userRepository.findByUsername(username);
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getPassword().equals(password)) {
+                return Optional.of(users.get(i));
+            }
+        }
+        return Optional.empty();
+    }
 }
