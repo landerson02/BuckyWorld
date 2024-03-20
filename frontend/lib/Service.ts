@@ -1,8 +1,12 @@
 
+// get the BACKEND_URL from the .env file
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
+
 export async function getLocations() {
-  const url = 'http://localhost:8080/locations';
+  const url = `${BASE_URL}/locations`;
+  console.log('locations path: ', url);
   try {
-    console.log('fetching')
+    console.log('fetching locations');
     const res = await fetch(url, {
       method: "GET",
       headers: {
@@ -19,7 +23,7 @@ export async function getLocations() {
 }
 
 export async function getLocationById(id: number) {
-  const url = `http://localhost:8080/location?id=${id}`;
+  const url = `${BASE_URL}/location?id=${id}`;
   try {
     const res = await fetch(url, {
       method: "GET",

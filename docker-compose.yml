@@ -1,7 +1,28 @@
 version: '3.8'
 services:
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    env_file:
+      - ./.env
+  backend:
+    build: ./backend # runs dockerfile in backend directory
+    container_name: backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING.PROFILES.ACTIVE=default
+    depends_on:
+      - db
+    env_file:
+      - ./.env
   db:
     image: mysql:latest # gets mysql image from registery
+    container_name: database
     environment:
       MYSQL_DATABASE: 'buckyworld_db' # Creates mysql db called buckyworld_db
       MYSQL_ROOT_HOST: '%' # anyone can be given root permissions (may need to change later)
@@ -12,14 +33,8 @@ services:
       - "5001:3306" # maps port 3306 on container to 5001 on bost
     volumes:
       - db-data:/var/lib/mysql # for persistance
-  backend:
-    build: ./backend # runs dockerfile in backend directory
-    ports: 
-      - 8080:8080
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
+
+
 
 volumes: # specify volumes
   db-data:
