@@ -15,4 +15,4 @@ RUN ./gradlew build
 FROM openjdk:latest 
 WORKDIR /app 
 COPY --from=builder /app/build/libs/*.jar /app/app.jar
-ENTRYPOINT ["java","-jar","app.jar"] # runs backend
+ENTRYPOINT ["java","-jar","app.jar"]
