@@ -18,7 +18,7 @@ export async function getLocations() {
       },
     });
     if(!res.ok) { // if the response is not ok, throw an error
-      throw new Error("Failed to get locations");
+      console.error("Failed to get locations");
     }
     // return the json response
     return await res.json();
@@ -29,7 +29,7 @@ export async function getLocations() {
 
 /**
  * Fetches a location by its id
- * returns a promise that resolves to a location
+ * @param id the id of the location to fetch
  */
 export async function getLocationById(id: number) {
   const url = `${BASE_URL}/location?id=${id}`;
@@ -41,7 +41,7 @@ export async function getLocationById(id: number) {
       },
     });
     if(!res.ok) { // if the response is not ok, throw an error
-      throw new Error("Failed to get location");
+      console.error("Failed to get location");
     }
     // return the json response
     return await res.json();
@@ -77,4 +77,61 @@ export async function getUserLocation(): Promise<UserLocation | null> {
       reject(null);
     }
   });
+}
+
+/**
+ * Fetches the user account by username and password
+ * Returns a promise that resolves to the user account if it exists, otherwise null
+ * @param username
+ * @param password
+ */
+export async function login(username: string, password: string) {
+  // url in UserController.java for login
+  const url = `${BASE_URL}/login`;
+  try {
+    const res = await fetch(url, {
+      method: "POST", // POST request to create a new user
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({username, password}), // Send the username and password in the body
+    });
+    if(!res.ok) { // if the response is not ok, throw an error
+      console.error("Failed to login");
+    }
+    // return the json response
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Creates a new user account and stores it in the db
+ * Returns a promise that resolves to either 0, 1, or 2
+ * 0: user account created successfully
+ * 1: username is invalid
+ * 2: username already exists
+ * @param uID
+ * @param username
+ * @param password
+ */
+export async function createUserAccount(uID: number, username: string, password: string) {
+  // url defined in UserController.java for creating a new user
+  const url = `${BASE_URL}/save-user?uID=${uID}&username=${username}`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if(!res.ok) { // if the response is not ok, throw an error
+      console.error("Failed to create user");
+    }
+    // return the json response
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
 }
