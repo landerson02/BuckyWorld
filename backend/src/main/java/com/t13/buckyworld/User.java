@@ -15,15 +15,11 @@ public class User {
 
     public User(long userID, String username, String password){
         this();
-        this.userID = userID;
         this.username = username; 
         this.password = password;
     }
 
     @Id
-    @Column(name = "ID")
-    private long userID;
-
     @Column(name = "USERNAME")
     private String username;
 
