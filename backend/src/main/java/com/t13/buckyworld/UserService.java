@@ -39,15 +39,15 @@ public class UserService {
      * @param username
      * @return 2 if the user ID exists in the database, 1 if the username string is null or empty, and 0 if success
      */
-    public int saveUser(long uID, String username) {
-        if (userRepository.existsById(uID)) {
+    public int saveUser(String username, String password) {
+        if (userRepository.existsByUsername(username)) {
             return 2;
         }
         if (username == null || username.isEmpty()) {
             return 1;
         }
 
-        User newUser = new User(uID, username);
+        User newUser = new User(username, password);
         userRepository.save(newUser);
         return 0;
     }

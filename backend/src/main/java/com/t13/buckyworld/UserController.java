@@ -22,8 +22,8 @@ public class UserController {
     //Controller method to call UserService.java saveUser() method. Refer to UserService.java for documentation
     //Change RequestParam to RequestHeader for some fields to make more secure later
     @GetMapping("/save-user")
-    public int saveUser(@RequestParam("uID") long uID, @RequestParam("username") String username) {
-        return userService.saveUser(uID, username);
+    public int saveUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        return userService.saveUser(username, password);
     }
     @PostMapping("login")
     public Optional<User> login(@RequestParam("username") String username, @RequestParam("password") String password) {
