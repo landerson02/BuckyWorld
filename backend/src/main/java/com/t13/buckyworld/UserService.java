@@ -38,7 +38,7 @@ public class UserService {
     /**
      * Saves a user to the database
      * @param username the User's username
-     * @return 2 if the username exists in the database, 1 if the username string is null or empty, and 0 if success
+     * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
         if (userRepository.existsByUsername(username))) {
@@ -50,9 +50,15 @@ public class UserService {
 
         User newUser = new User(username, password);
         userRepository.save(newUser);
-        return 0;
+        return ResponseEntity.ok().build();
     }
 
+    /**
+     * Finds a user in the database to give to current user session
+     * @param username the user's username
+     * @param password the user's password
+     * @return Http status codes depending on if the user is found, body of response is null if any error occurred, returns ok (code 200) and user object if found
+     */
     public ResponseEntity<User> login(String username, String password) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
