@@ -42,15 +42,15 @@ public class UserService {
      */
     public ResponseEntity<User> saveUser(String username, String password) {
         if (userRepository.existsByUsername(username))) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); //Code 409
         }
         if (username == null || username.isEmpty()) { //Username was empty
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
         }
 
         User newUser = new User(username, password);
         userRepository.save(newUser);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build(); //Code 200
     }
 
     /**
@@ -63,14 +63,14 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             // Username not found
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); //Code 404
         } else {
             if (user.getPassword().equals(password)) {
                 // Login successful
-                return ResponseEntity.ok(user);
+                return ResponseEntity.ok(user); //Code 200 and user in body
             } else {
                 // Incorrect password
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); //Code 401
             }
         }
     }
