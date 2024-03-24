@@ -13,7 +13,7 @@ public class User {
         points = 0;
     }
 
-    public User(long userID, String username, String password){
+    public User(String username, String password){
         this();
         this.username = username; 
         this.password = password;

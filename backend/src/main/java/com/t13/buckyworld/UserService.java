@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Service
 public class UserService {
@@ -35,16 +37,15 @@ public class UserService {
 
     /**
      * Saves a user to the database
-     * @param uID
-     * @param username
-     * @return 2 if the user ID exists in the database, 1 if the username string is null or empty, and 0 if success
+     * @param username the User's username
+     * @return 2 if the username exists in the database, 1 if the username string is null or empty, and 0 if success
      */
-    public int saveUser(String username, String password) {
-        if (userRepository.existsByUsername(username)) {
-            return 2;
+    public ResponseEntity<User> saveUser(String username, String password) {
+        if (userRepository.existsByUsername(username))) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
-        if (username == null || username.isEmpty()) {
-            return 1;
+        if (username == null || username.isEmpty()) { //Username was empty
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         User newUser = new User(username, password);
@@ -52,13 +53,19 @@ public class UserService {
         return 0;
     }
 
-    public Optional<User> login(String username, String password) {
-        List<User> users = userRepository.findByUsername(username);
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getPassword().equals(password)) {
-                return Optional.of(users.get(i));
+    public ResponseEntity<User> login(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            // Username not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            if (user.getPassword().equals(password)) {
+                // Login successful
+                return ResponseEntity.ok(user);
+            } else {
+                // Incorrect password
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
             }
         }
-        return Optional.empty();
     }
 }
