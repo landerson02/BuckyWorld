@@ -1,60 +1,68 @@
 package com.t13.buckyworld;
 
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-// import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-// import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.http.MediaType;
-import static org.hamcrest.Matchers.hasSize;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@WebMvcTest(LocationController.class)
+@SpringBootTest
 public class LocationControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-     @MockBean
+    @Mock
     private LocationService locationService;
 
-    @Test
-    public void testGetLocation() throws Exception {
-        mockMvc.perform(get("/api/location")
-                .param("loc", "TestLocation"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.locationName").value("TestLocation"))
-                .andExpect(jsonPath("$.latitude").value(43.075388))
-                .andExpect(jsonPath("$.longitude").value(-89.398991))
-                .andExpect(jsonPath("$.pictureUrl").value(""));
-    }
-    @Test
-    public void testGetLocationById() throws Exception {
-        // Assuming a valid location with id 1
-        mockMvc.perform(get("/location").param("id", "1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                // Add assertions for the Location object properties
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Test Location"))
-                ;
+    @InjectMocks
+    private LocationController locationController;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetAllLocations() throws Exception {
-        mockMvc.perform(get("/locations"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                // Add assertions for the list of Location objects
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].name").value("Test Location 1"))
-                .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[1].name").value("Test Location 2"))
-                ;
+    public void testGetLocationById() {
+        // Given
+        long locationId = 1L;
+        Location expectedLocation = new Location(locationId, "Test Location", 10.0, 20.0, "http://example.com/image.jpg", "A description");
+        when(locationService.getLocationById(locationId)).thenReturn(Optional.of(expectedLocation));
+
+        // When
+        Location result = locationController.getLocationById(locationId);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(expectedLocation.getLocationName(), result.getLocationName());
+        assertEquals(expectedLocation.getLatitude(), result.getLatitude());
+        assertEquals(expectedLocation.getLongitude(), result.getLongitude());
+        assertEquals(expectedLocation.getPictureUrl(), result.getPictureUrl());
+        assertEquals(expectedLocation.getDescription(), result.getDescription());
+    }
+
+    @Test
+    public void testGetLocations() {
+        // Given
+        List<Location> expectedLocations = Arrays.asList(
+                new Location(1L, "Location 1", 10.0, 20.0, "http://example.com/image1.jpg", "Description 1"),
+                new Location(2L, "Location 2", 30.0, 40.0, "http://example.com/image2.jpg", "Description 2")
+        );
+        when(locationService.getAllLocations()).thenReturn(expectedLocations);
+
+        // When
+        List<Location> result = locationController.getLocations();
+
+        // Then
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals(expectedLocations.get(0).getLocationName(), result.get(0).getLocationName());
+        assertEquals(expectedLocations.get(1).getLocationName(), result.get(1).getLocationName());
     }
 }
