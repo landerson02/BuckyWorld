@@ -47,7 +47,7 @@ public class UserService {
             return 1;
         }
 
-        User newUser = new User(uID, username);
+        User newUser = new User(uID, username, "");
         userRepository.save(newUser);
         return 0;
     }
