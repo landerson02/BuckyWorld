@@ -56,10 +56,21 @@ you should be inside the repository
   * In the case that the landmark is unvisited, the pin may be red and thumbnail data saturated.
 - There may be a hamburger-menu button on the upper left that links to the menu page. _(The menu page need not be populated to fulfill this criteria)_
 
-3. **Page to Add Landmarks** (priority = **low**)
+
+4. **Page to Add Landmarks** (priority = **low**)
 - there must exist a page for users to add landmarks to the map page
 - there shall be a way for the user to drop a pin on a location on the map
 - there shall be a place for the user to enter the url of an image, description, and point value for the location
+
+5. **User Login**
+- For a user that has previously registered an account, there must be an area for a username and password to be entered
+- there must be a login button
+- upon click, the login button must route the user to the map page
+
+6. **User Registration**
+- For a user that does not already have an account, there must be an area for the user to enter a username of their choice (given that it is not already taken by another user), a password, and an area for them to retype the password
+- there must be a sign in button
+- upon click, the sign in button must route the user to the map page
 
 
 
@@ -69,26 +80,27 @@ you should be inside the repository
 **Landmark Table**
 
 * There must be a database of landmarks comprised of the following fields:
-  * `id` (primary key)
+  * `id` **integer** (primary key)
   * `name` **string**
   * `latitude` **double**
   * `longitude` **double**
   * `url` **string**
   * `description` **string**
-  * `points` (number of points the landmark is worth)
+  * `points` **integer** (number of points the landmark is worth)
 
 **User Table**
 
 * There must be a table of users comprised of the following fields:
-  * `username` (primary key) **string**
+  * `id` **integer** (primary key) 
+  * `username` **string** (unique)
   * `password` **string**
   * `total points` **integer**
 
 **Attended Table**
 
 * There must be a table that exemplifies the relation between the attended entity and user entity comprised of the following fields:
-  * `attendedId` (primary key) **integer**
-  * `username` (foreign key) **string**
+  * `attendedId` **integer** (primary key) 
+  * `username` **string** (foreign key)
   * `eventId` **integer** (foreign key)
 
 
@@ -99,8 +111,29 @@ you should be inside the repository
 
 
 **Earning points**
+
 * The application must successfully update the user table in the database to reflect newly earned points for the user upon attendance of a lcoation
 * The user table should increment the total points attribute to it's current value plus the point value of the location that the user visited
+
+
+**Account Management**
+
+* Upon login through the login page, the existance of the user name must be verified in the user table, in other words, the username that was entered should be in the table
+  * If the username was found, the password that the user entered in the interface must match the password for that username in the database
+  * If the password the user entered and the password in the database do not match, the user will instead recieve an "incorrect password" alert upon pressing the login button
+  * If the password the user entered and the password in the database match, the user will be routed to the map page
+* Upon pressing the sign in button on the sign in page
+  * If any of the password, confirmation password, or username fields are empty, the user must be notified through an alert to fill out the remaining field(s)
+  * If the password and confirmation passwords do not match, the user must be notified through an alert that the password and confirmation password do not match
+  * If the username already exists in the users table, the user must be notified through an alert to choose a different username
+  * Otherwise, the users username and password should be stored in the users table with a default point value of 0, and the user should be routed to the map page
+
+**Landmark Pages**
+
+
+
+
+
 
 
 ### API Calls
