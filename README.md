@@ -150,11 +150,56 @@ you should be inside the repository
 
 ### Use Cases & User Stories
 
+#### Use Cases
+
+* Landmark Page Display and Interaction
+  * 1: Display landmark details including photo, name, description, and points
+  * 2: Enable users to check in at landmarks, updating the landmark's state and the user's points based on location verification.
+
+* Map Page Usage
+  * 3: Load and center the map on the user's current location, allowing interaction like scrolling and zooming.
+  * 4: Display nearby landmarks and their details, sorted by proximity.
+
+* User Account Registration and Login
+  * 6: Facilitate new user registration, including username and password setup.
+  * 7: Allow existing users to log in by verifying credentials against the database.
+
+* Account Management
+  * 8: Enable logged-in users to log out, redirecting them to the login page.
+  * 9: Offer account settings adjustments, including username and password changes.
+
+* Database Interaction
+  * 10: Store and retrieve landmark and user data, including check-in records, to support the application's functionality.
+
+* Game Mechanics and Location Comparison
+  * 11: Implement a location-comparing script to facilitate checking in and displaying nearby landmarks accurately
+  * 12: Update user points based on landmark visits and reset points according to game rules.
+
+* Leaderboard Dynamics
+  * 13: Display a leaderboard showing users ranked by points to encourage competition and engagement.
 
 
+#### Stories
 
+* Registering and Managing Accounts
+  * As a new user, I want to create an account with a unique username and password, enabling me to log in, log out, and manage my account settings.
 
+* Participating in the Leaderboard
+   * As a user, I want to see my position on the leaderboard
+   * As a user I want to see the leaderboard of the top 10 users ranked (priority = **low**)
 
+* Viewing Landmark Information
+  * As a user, I want to access a page for each landmark so I can learn about it, see its photo, and check in to earn points
+
+* Checking in at Landmarks
+  * As a user, I want to press an "I'm here" button at a landmark to check in, earning points and marking it as visited.
+
+* Navigating the Map
+  * As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
+  * As a user, I want to zoom in/out and drag the map to navigate to different areas of the map
+
+* Exploring Nearby Landmarks
+  * As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
 
 
 
