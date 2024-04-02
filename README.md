@@ -215,11 +215,11 @@ now enter the needed queries
 
 **Navigating the Map**
 * As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
- * As a user, I want to zoom in/out and drag the map to navigate to different areas of the map
+* As a user, I want to zoom in/out and drag the map to navigate to different areas of the map
 
 
 
-* Exploring Nearby Landmarks
+**Exploring Nearby Landmarks**
   * As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
 
 
