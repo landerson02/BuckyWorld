@@ -99,7 +99,7 @@ now enter the needed queries
 7. **Landmark Table**
 
 * There must be a database of landmarks comprised of the following fields:
-  * `id` **integer** (primary key)
+  * `id` **long** (primary key)
   * `name` **string**
   * `latitude` **double**
   * `longitude` **double**
@@ -110,7 +110,7 @@ now enter the needed queries
 8. **User Table**
 
 * There must be a table of users comprised of the following fields:
-  * `id` **integer** (primary key) 
+  * `id` **long** (primary key) 
   * `username` **string** (unique)
   * `password` **string**
   * `total points` **integer**
@@ -118,9 +118,9 @@ now enter the needed queries
 9. **Attended Table**
 
 * There must be a table that exemplifies the relation between the attended entity and user entity comprised of the following fields:
-  * `attendedId` **integer** (primary key) 
-  * `username` **string** (foreign key)
-  * `eventId` **integer** (foreign key)
+  * `id` **long** (primary key) 
+  * `uid` **long** (foreign key)
+  * `lid` **long** (foreign key)
 
 
 #### Game Requirements
