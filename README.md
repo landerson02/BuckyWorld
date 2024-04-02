@@ -239,7 +239,7 @@ Location services must be turned on for the user’s browser.
 ![architecture diagram](Notes/System_Architecture_Diagram.png)
 
 
-Note: ER diagram will be updated in sprint 2
+
 ![ER diagram](Notes/ER_Diagram.png)
 
 
