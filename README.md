@@ -152,31 +152,31 @@ you should be inside the repository
 
 #### Use Cases
 
-* Landmark Page Display and Interaction
-  * 1: Display landmark details including photo, name, description, and points
-  * 2: Enable users to check in at landmarks, updating the landmark's state and the user's points based on location verification.
-
-* Map Page Usage
-  * 3: Load and center the map on the user's current location, allowing interaction like scrolling and zooming.
-  * 4: Display nearby landmarks and their details, sorted by proximity.
-
-* User Account Registration and Login
-  * 6: Facilitate new user registration, including username and password setup.
-  * 7: Allow existing users to log in by verifying credentials against the database.
-
-* Account Management
-  * 8: Enable logged-in users to log out, redirecting them to the login page.
-  * 9: Offer account settings adjustments, including username and password changes.
-
-* Database Interaction
-  * 10: Store and retrieve landmark and user data, including check-in records, to support the application's functionality.
-
-* Game Mechanics and Location Comparison
-  * 11: Implement a location-comparing script to facilitate checking in and displaying nearby landmarks accurately
-  * 12: Update user points based on landmark visits and reset points according to game rules.
-
-* Leaderboard Dynamics
-  * 13: Display a leaderboard showing users ranked by points to encourage competition and engagement.
+**Landmark Page Display and Interaction**
+* 1: Display landmark details including photo, name, description, and points
+* 2: Enable users to check in at landmarks, updating the landmark's state and the user's points based on location verification.
+  
+**Map Page Usage**
+* 3: Load and center the map on the user's current location, allowing interaction like scrolling and zooming.
+* 4: Display nearby landmarks and their details, sorted by proximity.
+  
+**User Account Registration and Login**
+* 6: Facilitate new user registration, including username and password setup.
+* 7: Allow existing users to log in by verifying credentials against the database.  
+  
+**Account Management**
+* 8: Enable logged-in users to log out, redirecting them to the login page.
+* 9: Offer account settings adjustments, including username and password changes.  
+  
+**Database Interaction**
+* 10: Store and retrieve landmark and user data, including check-in records, to support the application's functionality.
+  
+**Game Mechanics and Location Comparison**
+* 11: Implement a location-comparing script to facilitate checking in and displaying nearby landmarks accurately
+* 12: Update user points based on landmark visits and reset points according to game rules.
+  
+**Leaderboard Dynamics**
+* 13: Display a leaderboard showing users ranked by points to encourage competition and engagement.
 
 
 #### Stories
