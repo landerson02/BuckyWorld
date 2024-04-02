@@ -181,30 +181,30 @@ you should be inside the repository
 
 #### Stories
 
-* Registering and Managing Accounts
-  * As a new user, I want to create an account with a unique username and password, enabling me to log in, log out, and manage my account settings.
+**Registering and Managing Accounts**
+* As a new user, I want to create an account with a unique username and password, enabling me to log in, log out, and manage my account settings.
 
 
 
-* Participating in the Leaderboard
-   * As a user, I want to see my position on the leaderboard
-   * As a user I want to see the leaderboard of the top 10 users ranked (priority = **low**)
+**Participating in the Leaderboard**
+* As a user, I want to see my position on the leaderboard
+* As a user I want to see the leaderboard of the top 10 users ranked (priority = **low**)
 
 
 
-* Viewing Landmark Information
-  * As a user, I want to access a page for each landmark so I can learn about it, see its photo, and check in to earn points
+**Viewing Landmark Information**
+* As a user, I want to access a page for each landmark so I can learn about it, see its photo, and check in to earn points
 
 
 
-* Checking in at Landmarks
-  * As a user, I want to press an "I'm here" button at a landmark to check in, earning points and marking it as visited.
+**Checking in at Landmarks**
+* As a user, I want to press an "I'm here" button at a landmark to check in, earning points and marking it as visited.
 
 
 
-* Navigating the Map
-  * As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
-  * As a user, I want to zoom in/out and drag the map to navigate to different areas of the map
+**Navigating the Map**
+* As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
+ * As a user, I want to zoom in/out and drag the map to navigate to different areas of the map
 
 
 
