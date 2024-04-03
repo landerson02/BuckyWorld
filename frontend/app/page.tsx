@@ -7,6 +7,7 @@ import { getLocations, UserLocation, getUserLocation } from '@/lib/Service';
 import { Location_type } from '@/lib/Types';
 import { FaUserCircle } from "react-icons/fa";
 import Link from 'next/link';
+import EventsList from './components/EventsList';
 
 
 // Define the React component (following naming convention)
@@ -45,7 +46,7 @@ function Home() {
 
   return (
     
-    <>
+    <div className='flex flex-col h-[100vh]'>
       {/* POINTS DIV */}
       <div style={{position: 'fixed', zIndex: '100', top: '80px', margin: '10px', fontWeight: 'bolder', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link>
@@ -53,29 +54,32 @@ function Home() {
         <p style={{marginTop: '-10px', fontSize: '16px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>POINTS</p>
       </div>
       {/* Wrap the Map component with APIProvider and provide the API key */}
-      <APIProvider apiKey={'AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI'}>
-        <div style={{height: '90vh'}}>
-            <Map 
-              defaultCenter={position} 
-              defaultZoom={defaultZoom} 
-              mapId={'f292b91ec3d6c7d6'} 
-              zoomControl={false}
-              mapTypeControl={false}
-              streetViewControl={false}
-              fullscreenControl={false}
-              maxZoom={defaultZoom + 2}
-              minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
-            {
-              locations && locations.map((location: any, index: number) => {
-                return (
-                  <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
-                );
-              })
-            }
-          </Map>
-        </div>
-      </APIProvider>
-    </>
+        <APIProvider apiKey={'AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI'}>
+          <div className='flex-grow'>
+              <Map 
+                defaultCenter={position} 
+                defaultZoom={defaultZoom} 
+                mapId={'f292b91ec3d6c7d6'}
+                zoomControl={false}
+                mapTypeControl={false}
+                streetViewControl={false}
+                fullscreenControl={false}
+                maxZoom={defaultZoom + 2}
+                minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
+              {
+                locations && locations.map((location: any, index: number) => {
+                  return (
+                    <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
+                  );
+                })
+              }
+            </Map>
+          </div>
+        </APIProvider>
+      <div className='bottom-0'>
+        <EventsList />
+      </div>
+    </div>
   );
 }
 
