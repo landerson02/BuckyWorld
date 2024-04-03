@@ -41,7 +41,7 @@ public class UserService {
      * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
-        if (userRepository.existsByUsername(username))) {
+        if (userRepository.existsByUsername(username)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null); //Code 409
         }
         if (username == null || username.isEmpty()) { //Username was empty
