@@ -1,25 +1,28 @@
 'use client'
 import { login } from "@/lib/Service";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import {User_type} from "@/lib/Types";
+import {UserContext} from "@/lib/UserContext";
 
 export default function Page() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isBadCredentials, setIsBadCredentials] = useState(false);
 
+  // Get the user context
+  const { user, setUser } = useContext(UserContext);
+
+  // Handles the sign in form submission
   const submitSignIn = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!username || !password) {
+    if (!username || !password) { // Make sure both fields are non-empty
       setIsBadCredentials(true);
       return;
     }
     setIsBadCredentials(false);
-    console.log('submitted');
-    // TODO: Add sign in functionality
 
     login(username, password).then((data: User_type) => {
-      // TODO: Add account context for global stats
+      setUser(data);
     });
   }
 
@@ -42,7 +45,6 @@ export default function Page() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder=""
         />
         {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
         <button

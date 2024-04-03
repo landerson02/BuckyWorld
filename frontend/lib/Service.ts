@@ -30,6 +30,7 @@ export async function getLocations() {
 /**
  * Fetches a location by its id
  * @param id the id of the location to fetch
+ * returns the location if it exists
  */
 export async function getLocationById(id: number) {
   const url = `${BASE_URL}/location?id=${id}`;
@@ -109,12 +110,8 @@ export async function login(username: string, password: string) {
 }
 
 /**
- * Creates a new user account and stores it in the db
- * Returns a promise that resolves to either 0, 1, or 2
- * 0: user account created successfully
- * 1: username is invalid
- * 2: username already exists
- * @param uID
+ * Saves the user account in the database
+ * returns a 200 if successful
  * @param username
  * @param password
  */

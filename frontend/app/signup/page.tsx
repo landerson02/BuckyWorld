@@ -1,6 +1,8 @@
 'use client'
-import React, { useState } from "react";
-import { createUserAccount } from "@/lib/Service";
+import React, { useContext, useState } from "react";
+import {login, createUserAccount} from "@/lib/Service";
+import { User_type } from "@/lib/Types";
+import { UserContext } from "@/lib/UserContext";
 
 export default function Page() {
   // States for the current form values
@@ -10,19 +12,23 @@ export default function Page() {
   // boolean for if the passwords match
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
-  // Function to submit the sign up form
+  // Load in user context
+  const { user, setUser } = useContext(UserContext);
+
+  // Function to submit the sign-up form
   const submitSignUp = (e: React.FormEvent) => {
     e.preventDefault();
+    // TODO: Add blank username/password checks
     if (password !== confirmPassword) { // Make sure passwords match
       setPasswordsMatch(false);
       return;
     }
     setPasswordsMatch(true);
-    console.log('submitted');
-    // TODO: Add sign up functionality
-    createUserAccount(username, password).then((data) => {
-      // TODO: create context?
-      console.log(data);
+
+    // Create the user account in the db, then log in
+    createUserAccount(username, password);
+    login(username, password).then((data: User_type) => {
+      setUser(data);
     });
   }
 
