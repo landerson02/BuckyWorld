@@ -1,5 +1,7 @@
 'use client'
-import React, {useState} from "react";
+import { login } from "@/lib/Service";
+import React, { useState } from "react";
+import {User_type} from "@/lib/Types";
 
 export default function Page() {
   const [username, setUsername] = useState('');
@@ -8,13 +10,17 @@ export default function Page() {
 
   const submitSignIn = (event: React.FormEvent) => {
     event.preventDefault();
-    if(!username || !password) {
+    if (!username || !password) {
       setIsBadCredentials(true);
       return;
     }
     setIsBadCredentials(false);
     console.log('submitted');
     // TODO: Add sign in functionality
+
+    login(username, password).then((data: User_type) => {
+      // TODO: Add account context for global stats
+    });
   }
 
   return (

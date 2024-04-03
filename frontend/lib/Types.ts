@@ -1,11 +1,12 @@
 
 export type Location_type = {
   id: number
-  locationname: string
+  locationName: string
   description: string
   pictureUrl: string
   latitude: number
   longitude: number
+  points: number
 }
 
 export type User_type = {

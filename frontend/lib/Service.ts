@@ -1,4 +1,3 @@
-
 // get the BACKEND_URL from the .env file
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
 
@@ -17,7 +16,8 @@ export async function getLocations() {
         "Content-Type": "application/json",
       },
     });
-    if(!res.ok) { // if the response is not ok, throw an error
+    if (!res.ok) {
+      // if the response is not ok, throw an error
       console.error("Failed to get locations");
     }
     // return the json response
@@ -40,7 +40,8 @@ export async function getLocationById(id: number) {
         "Content-Type": "application/json",
       },
     });
-    if(!res.ok) { // if the response is not ok, throw an error
+    if (!res.ok) {
+      // if the response is not ok, throw an error
       console.error("Failed to get location");
     }
     // return the json response
@@ -65,15 +66,15 @@ export async function getUserLocation(): Promise<UserLocation | null> {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          resolve({lat: latitude, long: longitude});
+          resolve({ lat: latitude, long: longitude });
         },
         (error) => {
-          console.error('Error getting user location: ', error.message);
+          console.error("Error getting user location: ", error.message);
           reject(null);
-        }
+        },
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error("Geolocation is not supported by this browser.");
       reject(null);
     }
   });
@@ -82,8 +83,8 @@ export async function getUserLocation(): Promise<UserLocation | null> {
 /**
  * Fetches the user account by username and password
  * Returns a promise that resolves to the user account if it exists, otherwise null
- * @param username
- * @param password
+ * @param username username of the account
+ * @param password password of the account
  */
 export async function login(username: string, password: string) {
   // url in UserController.java for login
@@ -94,9 +95,10 @@ export async function login(username: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({username, password}), // Send the username and password in the body
+      body: JSON.stringify({ username, password }), // Send the username and password in the body
     });
-    if(!res.ok) { // if the response is not ok, throw an error
+    if (!res.ok) {
+      // if the response is not ok, throw an error
       console.error("Failed to login");
     }
     // return the json response
@@ -116,17 +118,19 @@ export async function login(username: string, password: string) {
  * @param username
  * @param password
  */
-export async function createUserAccount(uID: number, username: string, password: string) {
+export async function createUserAccount(username: string, password: string) {
   // url defined in UserController.java for creating a new user
-  const url = `${BASE_URL}/save-user?uID=${uID}&username=${username}`;
+  const url = `${BASE_URL}/save-user`;
   try {
     const res = await fetch(url, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ username, password }),
     });
-    if(!res.ok) { // if the response is not ok, throw an error
+    if (!res.ok) {
+      // if the response is not ok, throw an error
       console.error("Failed to create user");
     }
     // return the json response

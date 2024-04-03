@@ -1,27 +1,36 @@
 'use client'
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { createUserAccount } from "@/lib/Service";
 
 export default function Page() {
+  // States for the current form values
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState(true);
+  // boolean for if the passwords match
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+  // Function to submit the sign up form
   const submitSignUp = (e: React.FormEvent) => {
     e.preventDefault();
-    if(password !== confirmPassword) {
-      setPasswordMatch(false);
+    if (password !== confirmPassword) { // Make sure passwords match
+      setPasswordsMatch(false);
       return;
     }
-    setPasswordMatch(true);
+    setPasswordsMatch(true);
     console.log('submitted');
     // TODO: Add sign up functionality
+    createUserAccount(username, password).then((data) => {
+      // TODO: create context?
+      console.log(data);
+    });
   }
 
   return (
     <div className={'h-screen flex flex-col items-center'}>
       <div className={'text-2xl font-light pt-12'}>Create your account</div>
 
+      {/*Form with username, password, and confirm password inputs*/}
       <form className={'flex flex-col pt-12 text-2xl font-light'} onSubmit={submitSignUp}>
         <label className={'text-xl'}>Username</label>
         <input
@@ -44,7 +53,8 @@ export default function Page() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        {!passwordMatch && <div className={'text-red-500 pt-4'}>Passwords do not match</div>}
+        {/*If passwords don't match after submitting, this will show*/}
+        {!passwordsMatch && <div className={'text-red-500 pt-4'}>Passwords do not match</div>}
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-24 h-10 self-center'}
           type="submit"
@@ -53,6 +63,7 @@ export default function Page() {
         </button>
       </form>
 
+      {/*Link to the login page if the user already has an account*/}
       <div className={'pt-12 text-[#FF5A64] font-light'}>Already a user?</div>
       <a
         href={'/signin'}
