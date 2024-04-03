@@ -11,6 +11,7 @@ export default function Page() {
   const [confirmPassword, setConfirmPassword] = useState('');
   // boolean for if the passwords match
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [isBadCredentials, setIsBadCredentials] = useState(false);
 
   // Load in user context
   const { user, setUser } = useContext(UserContext);
@@ -18,12 +19,16 @@ export default function Page() {
   // Function to submit the sign-up form
   const submitSignUp = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Add blank username/password checks
+    if(!username || !password) { // Make sure both fields are non-empty
+      setIsBadCredentials(true);
+      return;
+    }
     if (password !== confirmPassword) { // Make sure passwords match
       setPasswordsMatch(false);
       return;
     }
     setPasswordsMatch(true);
+    setIsBadCredentials(true);
 
     // Create the user account in the db, then log in
     createUserAccount(username, password);
@@ -60,7 +65,9 @@ export default function Page() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         {/*If passwords don't match after submitting, this will show*/}
-        {!passwordsMatch && <div className={'text-red-500 pt-4'}>Passwords do not match</div>}
+        {!passwordsMatch && <div className={'text-red-500 pt-4 font-light text-sm'}>Passwords do not match</div>}
+        {/*If the username or password is invalid, this will show*/}
+        {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-24 h-10 self-center'}
           type="submit"
