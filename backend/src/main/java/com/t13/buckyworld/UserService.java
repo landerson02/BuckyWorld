@@ -41,14 +41,14 @@ public class UserService {
      * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
-        if (userRepository.existsByUsername(username))) {
+        if (userRepository.existsByUsername(username)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null); //Code 409
         }
         if (username == null || username.isEmpty()) { //Username was empty
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
         }
 
-        User newUser = new User(uID, username, "");
+        User newUser = new User(username, password);
         userRepository.save(newUser);
         return ResponseEntity.ok().build(); //Code 200
     }

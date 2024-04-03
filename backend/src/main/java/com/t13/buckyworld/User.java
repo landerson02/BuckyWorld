@@ -2,6 +2,8 @@ package com.t13.buckyworld;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -20,6 +22,10 @@ public class User {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private long id;
+
     @Column(name = "USERNAME")
     private String username;
 
@@ -38,11 +44,11 @@ public class User {
     }
 
     public void setUserID(long userID){
-        this.userID = userID;
+        this.id = userID;
     }
     
     public long getUserID(){
-        return userID;
+        return id;
     }
 
     public void setPoints(int points) {
