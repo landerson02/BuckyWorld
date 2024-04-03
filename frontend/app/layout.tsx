@@ -16,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <UserProvider> {/* Wrap the entire application to make the user data global */}
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </UserProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <UserProvider> {/* Wrap the entire application to make the user data global */}
+          {children}
+        </UserProvider>
+      </body>
+    </html>
   );
 }
