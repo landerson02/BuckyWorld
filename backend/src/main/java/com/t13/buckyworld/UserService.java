@@ -47,6 +47,9 @@ public class UserService {
         if (username == null || username.isEmpty()) { //Username was empty
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
         }
+        if (password == null || password.isEmpty()) { //Username was empty
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
+        }
 
         User newUser = new User(username, password);
         userRepository.save(newUser);
