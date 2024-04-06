@@ -1,3 +1,7 @@
 # use this command to install unit test for frontend
 npm install --save-dev @testing-library/react 
 npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom babel-jest
+
+# use this command to run test
+npm test   # run all test
+npm test -- <test-file-path>
