@@ -34,3 +34,16 @@ https://spring.io/quickstart
 - Worked with Bora to resolve updates/merge conflicts to Location.java and LocationController.java
 - Temporarily commented out tests until full backend implementation is finished.
 - 20 minutes
+
+# 3/5/24
+- Started at 1:10
+- Worked to setup remote access to the database or remotely hosting the entire application on a remote server.
+- 1 hour 40 minutes
+
+# 3/14/24
+- Started at 3:30
+- Worked for 1 hour
+- Created Users mySQL table
+- Created saveUser() method in UserController.java and UserService.java
+- Added javadoc comments to UserController.java and UserService.java
+

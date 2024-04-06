@@ -1,5 +1,14 @@
 # Lucas Anderson Time Sheet
 
+## 3/19
+#### Issue #64
+- time spent: 60 mins
+- Added environment variables to docker file to access backend endpoints in frontend
+## 3/16
+#### Issue #64
+- time spent: 60 mins
+- Research how to configure docker file to access backend endpoints in frontend
+
 ## 3/13
 #### Issue #73
 - time spent: 30 mins

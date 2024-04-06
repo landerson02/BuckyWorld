@@ -22,8 +22,12 @@ public class BuckyworldApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE")
-						.allowedOrigins("http://localhost:3000");
+			    // Get the frontend URL from the .env file
+			    String frontendURL = System.getenv("FRONTEND_URL");
+				registry.addMapping("/**")
+						.allowedMethods("GET", "PUT", "POST", "DELETE")
+						.allowedOrigins(frontendURL);
+
 			}
 		};
 	}
