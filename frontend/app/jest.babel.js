@@ -1,3 +1,4 @@
 module.exports = {
-    presets: ['next/babel', '@babel/preset-react'],
+  testEnvironment: 'jsdom',
+  presets: ['next/babel', '@babel/preset-react'],
   };

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Page from '../signup/page.tsx';;
+import Page from '../signup/page.tsx';
 
 describe('Page Component', () => {
   test('updates input fields correctly', () => {
