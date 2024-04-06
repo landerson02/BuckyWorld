@@ -5,7 +5,7 @@ describe('Page Component', () => {
   test('updates input fields correctly', () => {
     render(<Page />);
     const usernameInput = screen.getByLabelText(/username/i);
-    const passwordInput = screen.getByLabelText(/password/i);
+    const passwordInput = screen.getByLabelText(/^password$/i);
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
     // Simulate user typing
