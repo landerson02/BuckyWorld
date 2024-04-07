@@ -1,5 +1,10 @@
 # Lucas Anderson Time Sheet
 
+## 4/7
+#### Issue #79
+- time spent: 150 mins
+- Debug and fix issues with adding accounts
+
 ## 3/21
 #### Issue #79
 - time spent: 60 mins

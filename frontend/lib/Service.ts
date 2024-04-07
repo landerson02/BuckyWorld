@@ -111,7 +111,7 @@ export async function login(username: string, password: string) {
 
 /**
  * Saves the user account in the database
- * returns a 200 if successful
+ * @returns the status of the response
  * @param username
  * @param password
  */
@@ -126,12 +126,8 @@ export async function createUserAccount(username: string, password: string) {
       },
       body: JSON.stringify({ username, password }),
     });
-    if (!res.ok) {
-      // if the response is not ok, throw an error
-      console.error("Failed to create user");
-    }
-    // return the json response
-    return await res.json();
+    // Return the status of the response
+    return res.status;
   } catch (error) {
     console.log(error);
   }

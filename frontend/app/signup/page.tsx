@@ -1,8 +1,9 @@
 'use client'
 import React, { useContext, useState } from "react";
-import {login, createUserAccount} from "@/lib/Service";
+import { login, createUserAccount } from "@/lib/Service";
 import { User_type } from "@/lib/Types";
 import { UserContext } from "@/lib/UserContext";
+import Link from "next/link";
 
 export default function Page() {
   // States for the current form values
@@ -17,9 +18,9 @@ export default function Page() {
   const { user, setUser } = useContext(UserContext);
 
   // Function to submit the sign-up form
-  const submitSignUp = (e: React.FormEvent) => {
+  async function submitSignUp(e: React.FormEvent) {
     e.preventDefault();
-    if(!username || !password) { // Make sure both fields are non-empty
+    if (!username || !password) { // Make sure both fields are non-empty
       setIsBadCredentials(true);
       return;
     }
@@ -31,10 +32,15 @@ export default function Page() {
     setIsBadCredentials(true);
 
     // Create the user account in the db, then log in
-    createUserAccount(username, password);
-    login(username, password).then((data: User_type) => {
-      setUser(data);
+    const res = await createUserAccount(username, password) as number;
+    // check if the response is ok
+    if (res !== 200) {
+      return;
+    }
+    await login(username, password).then((data: User_type) => {
+      setUser(data); // Set the user context
     });
+    // TODO: Redirect to the home page
   }
 
   return (
@@ -68,13 +74,16 @@ export default function Page() {
         {!passwordsMatch && <div className={'text-red-500 pt-4 font-light text-sm'}>Passwords do not match</div>}
         {/*If the username or password is invalid, this will show*/}
         {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
+        { /*<Link href={'/'}>*/}
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-24 h-10 self-center'}
           type="submit"
         >
           Register
         </button>
+        { /*</Link>*/}
       </form>
+      <button onClick={() => { console.log(user) }}>print user</button>
 
       {/*Link to the login page if the user already has an account*/}
       <div className={'pt-12 text-[#FF5A64] font-light'}>Already a user?</div>
