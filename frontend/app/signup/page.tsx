@@ -49,22 +49,25 @@ export default function Page() {
 
       {/*Form with username, password, and confirm password inputs*/}
       <form className={'flex flex-col pt-12 text-2xl font-light'} onSubmit={submitSignUp}>
-        <label className={'text-xl'}>Username</label>
+        <label htmlFor="username" className={'text-xl'}>Username</label>
         <input
+          id="username"
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label className={'pt-4 text-xl'}>Password</label>
+        <label htmlFor="password" className={'pt-4 text-xl'}>Password</label>
         <input
+          id="password"
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label className={'pt-4 text-xl'}>Confirm Password</label>
+        <label htmlFor="confirmPassword" className={'pt-4 text-xl'}>Confirm Password</label>
         <input
+          id="confirmPassword"
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
           type="password"
           value={confirmPassword}

@@ -17,7 +17,7 @@ export default function UserPage() {
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
 
             {/* Profile picture does not currently have a way to upload the picture*/}
-            <div className="w-24 h-24 bg-gray-300 rounded-full"></div>
+            <div data-testid="profile-picture" className="w-24 h-24 bg-gray-300 rounded-full"></div>
             
             {/* username and points */}
             <h1 className="text-xl font-bold mt-4 text-black">{name}</h1>

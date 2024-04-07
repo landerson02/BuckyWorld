@@ -31,7 +31,7 @@ export default function Page() {
       <div className={'font-medium text-2xl pt-12'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
 
-      <form className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
+      <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label className={'text-xl'}>Username</label>
         <input
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
