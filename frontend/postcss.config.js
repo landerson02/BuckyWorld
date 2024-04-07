@@ -3,5 +3,4 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
-  // preset: ['@babel/preset-env', '@babel/preset-react']
 };
