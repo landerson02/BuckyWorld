@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 
 function EventMarker(props: any) {
     // state for the info window
@@ -7,7 +10,9 @@ function EventMarker(props: any) {
 
     return (
         <>
-            <AdvancedMarker position={{lat: parseFloat(props.lat), lng: parseFloat(props.lng)}} onClick={() => setIsOpen(true)}> 
+          <AdvancedMarker position={{lat: parseFloat(props.lat), lng: parseFloat(props.lng)}} 
+            onClick={() => window.location.href = 'signin'
+          }> 
               <Pin 
                 background={'#FF5A64'}
                 borderColor={'white'}
@@ -20,7 +25,7 @@ function EventMarker(props: any) {
                   <div style={{display: 'flex', flexDirection: 'column'}}>
                     <h1 style={{color:'#FF0000', fontWeight:'bold', margin:'10px 0px 10px 0px'}}>{props.title}</h1>
                     <p>{props.description}</p>
-                    <a href='#' style={{color: 'blue', margin:'10px 0px 10px 0px'}}>More Info</a>
+                    <Link href='#' style={{color: 'blue', margin:'10px 0px 10px 0px'}}>More Info</Link>
                   </div>
                 </InfoWindow>
               )

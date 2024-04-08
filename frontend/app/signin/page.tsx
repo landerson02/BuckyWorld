@@ -1,10 +1,13 @@
 'use client'
 import React, {useState} from "react";
+import { signIn, useSession } from "next-auth/react";
 
-export default function Page() {
+export default function SignInPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isBadCredentials, setIsBadCredentials] = useState(false);
+
+  const { data: session } = useSession();
 
   const submitSignIn = (event: React.FormEvent) => {
     event.preventDefault();
@@ -17,10 +20,13 @@ export default function Page() {
     // TODO: Add sign in functionality
   }
 
+
   return (
     <div className={'h-screen flex flex-col items-center'}>
       <div className={'font-medium text-2xl pt-12'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
+
+      <button onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} >Sign in with Google</button>
 
       <form className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label className={'text-xl'}>Username</label>

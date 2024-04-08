@@ -8,6 +8,9 @@ import { Location_type } from '@/lib/Types';
 import { FaUserCircle } from "react-icons/fa";
 import Link from 'next/link';
 import EventsList from './components/EventsList';
+import { signIn, signOut, useSession } from 'next-auth/react'
+import Image from 'next/image';
+import SignInPage from './signin/page';
 
 
 // Define the React component (following naming convention)
@@ -43,43 +46,61 @@ function Home() {
     });
   }, [])
 
+  const { data: session } = useSession()
 
   return (
-    
-    <div className='flex flex-col h-[100vh] relative'>
-      {/* POINTS DIV */}
-      <div style={{position: 'fixed', zIndex: '100', top: '80px', margin: '10px', fontWeight: 'bolder', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link>
-        <h1 style={{fontSize: '64px', color: '#FF5A64', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>{points}</h1>
-        <p style={{marginTop: '-10px', fontSize: '16px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>POINTS</p>
-      </div>
-      {/* Wrap the Map component with APIProvider and provide the API key */}
-        <APIProvider apiKey={'AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI'}>
-          <div className='flex-grow'>
-              <Map 
-                defaultCenter={position} 
-                defaultZoom={defaultZoom} 
-                mapId={'f292b91ec3d6c7d6'}
-                zoomControl={false}
-                mapTypeControl={false}
-                streetViewControl={false}
-                fullscreenControl={false}
-                maxZoom={defaultZoom + 2}
-                minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
-              {
-                locations && locations.map((location: any, index: number) => {
-                  return (
-                    <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
-                  );
-                })
-              }
-            </Map>
+    <>
+      {
+        session ? (
+            <div className='flex flex-col h-[100vh] relative'>
+              {/* POINTS DIV */}
+              <div style={{position: 'fixed', zIndex: '100', top: '80px', margin: '10px', fontWeight: 'bolder', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              {/* <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link> */}
+              <Link href={'./userpage'} >
+                <Image src={session?.user?.image!} alt="user" width={100} height={100} className='rounded-full' />
+              </Link>
+              <h1 style={{fontSize: '64px', color: '#FF5A64', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>{points}</h1>
+              <p style={{marginTop: '-10px', fontSize: '16px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}}>POINTS</p>
+              
+            </div>
+            {/* Wrap the Map component with APIProvider and provide the API key */}
+              <APIProvider apiKey={'AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI'}>
+                <div className='flex-grow'>
+                    <Map 
+                      defaultCenter={position} 
+                      defaultZoom={defaultZoom} 
+                      mapId={'f292b91ec3d6c7d6'}
+                      zoomControl={false}
+                      mapTypeControl={false}
+                      streetViewControl={false}
+                      fullscreenControl={false}
+                      maxZoom={defaultZoom + 2}
+                      minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
+                    {
+                      locations && locations.map((location: any, index: number) => {
+                        return (
+                          <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
+                        );
+                      })
+                    }
+                    {
+                      userLocation && <EventMarker lat={userLocation?.lat} lng={userLocation?.long} title={'Event 1'} description={'Description 1'} />
+                    }
+                  </Map>
+                </div>
+              </APIProvider>
+            <div className='bottom-0'>
+              <EventsList />
+            </div>
           </div>
-        </APIProvider>
-      <div className='bottom-0'>
-        <EventsList />
-      </div>
-    </div>
+        ) : (
+          <SignInPage />
+        )
+      }
+    </>
+        
+        // <SignInPage />
+    
   );
 }
 
