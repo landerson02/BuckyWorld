@@ -2,7 +2,9 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
 // import { Router, useRouter } from 'next/router';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 
 
 export default function UserPage() {
@@ -22,7 +24,11 @@ export default function UserPage() {
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-
+            <Link href="/"
+                className='absolute top-4 left-4 bg-green-500 h-10 w-10 rounded-full flex items-center justify-center'
+            >
+                <ChevronLeftIcon className= 'text-white rounded-full text-5xl pr-1'/>
+            </Link>
             {/* Profile picture does not currently have a way to upload the picture*/}
             {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
             <Image 

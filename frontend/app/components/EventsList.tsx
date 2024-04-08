@@ -44,8 +44,8 @@ const EventsList = () => {
                     <div className={'flex flex-row items-center w-full overflow-x-scroll ' +
                                 'border-t border-black ps-3 gap-3 h-48 z-2 bg-white'}>
                         {
-                            events.map(event => (
-                                <EventListItem key={event.EventID} event={event} />
+                            events.map((event, i) => (
+                                <EventListItem key={i} event={event} />
                             ))
                         }
                     </div>
