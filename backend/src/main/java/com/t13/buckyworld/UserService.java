@@ -1,6 +1,5 @@
 package com.t13.buckyworld;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +36,8 @@ public class UserService {
 
     /**
      * Saves a user to the database
-     * @param username the User's username
+     * @param username The user's username
+     * @param password The user's password
      * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
@@ -45,9 +45,6 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null); //Code 409
         }
         if (username == null || username.isEmpty()) { //Username was empty
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
-        }
-        if (password == null || password.isEmpty()) { //Username was empty
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
         }
 
