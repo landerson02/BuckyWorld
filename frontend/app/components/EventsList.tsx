@@ -34,7 +34,7 @@ const EventsList = () => {
     }, [data.Events]);
 
     return (
-        <>
+        <div className="">
         {
             isOpen ? 
                 <div className="flex flex-col">
@@ -57,7 +57,7 @@ const EventsList = () => {
                     </button>
                 </div>
             }
-        </>
+        </div>
         // <div className={`w-full flex flex-col items-center`}>
         //     <div className={`flex flex-row justify-center z-1 bg-white rounded-t-[50%] w-12 items-center`}>
         //         <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? <FaChevronDown /> : <FaChevronUp />}</button>

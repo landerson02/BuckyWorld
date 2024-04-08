@@ -46,7 +46,7 @@ function Home() {
 
   return (
     
-    <div className='flex flex-col h-[100vh]'>
+    <div className='flex flex-col h-[100vh] relative'>
       {/* POINTS DIV */}
       <div style={{position: 'fixed', zIndex: '100', top: '80px', margin: '10px', fontWeight: 'bolder', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link>
