@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "Landmark")
@@ -11,15 +13,17 @@ public class Landmark {
     public Landmark(){
         
     }
-    public Landmark(long id,String locationName, double latitude, double longitude, String pictureUrl, String description){
+    public Landmark(long id,String locationName, double latitude, double longitude, String pictureUrl, String description, int points){
         this.id = id;
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
         this.pictureUrl = pictureUrl;
         this.description = description;
+        this.points = points;
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
 
@@ -37,6 +41,9 @@ public class Landmark {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "POINTS")
+    private int points;
 
     public String getLandmarkName() {
         return locationName;
@@ -67,6 +74,14 @@ public class Landmark {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPoints() {
+        return this.points;
+    }
+
+    public void setPoints(int points){
+        this.points = points;
     }
 
 }
