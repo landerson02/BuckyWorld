@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 public class LocationControllerTest {
 
     @Mock
@@ -29,7 +28,7 @@ public class LocationControllerTest {
     }
 
     @Test
-    public void testGetLocationById() {
+    public void testGetLocationById_ExistingLocation() {
         // Given
         long locationId = 1L;
         Location expectedLocation = new Location(locationId, "Test Location", 10.0, 20.0, "http://example.com/image.jpg", "A description");
@@ -48,7 +47,20 @@ public class LocationControllerTest {
     }
 
     @Test
-    public void testGetLocations() {
+    public void testGetLocationById_NonExistingLocation() {
+        // Given
+        long locationId = 1L;
+        when(locationService.getLocationById(locationId)).thenReturn(Optional.empty());
+
+        // When
+        Location result = locationController.getLocationById(locationId);
+
+        // Then
+        assertNull(result);
+    }
+
+    @Test
+    public void testGetLocations_MultipleLocations() {
         // Given
         List<Location> expectedLocations = Arrays.asList(
                 new Location(1L, "Location 1", 10.0, 20.0, "http://example.com/image1.jpg", "Description 1"),
@@ -64,5 +76,18 @@ public class LocationControllerTest {
         assertEquals(2, result.size());
         assertEquals(expectedLocations.get(0).getLocationName(), result.get(0).getLocationName());
         assertEquals(expectedLocations.get(1).getLocationName(), result.get(1).getLocationName());
+    }
+
+    @Test
+    public void testGetLocations_EmptyList() {
+        // Given
+        when(locationService.getAllLocations()).thenReturn(Collections.emptyList());
+
+        // When
+        List<Location> result = locationController.getLocations();
+
+        // Then
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 }
