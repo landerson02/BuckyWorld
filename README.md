@@ -10,6 +10,17 @@
 
 The main customers of this application are UW-Madison students and faculty, as well as potential future badgers. People who are interested in promoting a certain event on campus are encouraged to use the app to encourage other people to visit their events. In the context of the purpose of the application, the CS506 teaching team are also emphasized as customers of this application.
 
+### Merge rules
+
+**Main Branch**
+
+Any merges to the main branch will require 1 approver from team 13. The approver may not be the person who made the code changes and/or created the merge request. The approver must evaluate the changes and run the application on their machine to ensure the new changes do not break the application.
+
+**Dev Branch**
+
+For issues that involve developing any new feature, changes must first be merged into the dev branch before merging to main.
+**Exception**: if code on the main branch is broken (meaning any previously working features have stopped working due to a breaking change), a member of team 13 can make a merge request directly to the main branch given approval.
+
 ### Running The Application
 
 To run locally, go to the buckymongo directory and run `docker compose up --build`, make sure you have docker running on your computer
