@@ -6,10 +6,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
  * Fetches all the locations from the backend
  * returns a promise that resolves to an array of locations
  */
-export async function getLocations() {
+export async function getLandmarks() {
   // the url to fetch the locations from
   // depends on whether its running locally or on the vm
-  const url = `${BASE_URL}/locations`;
+  const url = `${BASE_URL}/landmarks`;
   try {
     const res = await fetch(url, {
       method: "GET",
@@ -18,7 +18,7 @@ export async function getLocations() {
       },
     });
     if(!res.ok) { // if the response is not ok, throw an error
-      throw new Error("Failed to get locations");
+      throw new Error("Failed to get landmarks");
     }
     // return the json response
     return await res.json();
@@ -32,7 +32,7 @@ export async function getLocations() {
  * returns a promise that resolves to a location
  */
 export async function getLocationById(id: number) {
-  const url = `${BASE_URL}/location?id=${id}`;
+  const url = `${BASE_URL}/landmark?id=${id}`;
   try {
     const res = await fetch(url, {
       method: "GET",

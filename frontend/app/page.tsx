@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { APIProvider, AdvancedMarker, Map, Pin } from '@vis.gl/react-google-maps';
 import EventMarker from './components/EventMarker';
-import { getLocations, UserLocation, getUserLocation } from '@/lib/Service';
+import { getLandmarks, UserLocation, getUserLocation } from '@/lib/Service';
 import { Location_type } from '@/lib/Types';
 import { FaUserCircle } from "react-icons/fa";
 import Link from 'next/link';
@@ -26,7 +26,7 @@ function Home() {
 
   // Fetch locations data
   useEffect(() => {
-    getLocations().then((data: Location_type[]) => {
+    getLandmarks().then((data: Location_type[]) => {
       setLocations(data);
       console.log(data);
     });
