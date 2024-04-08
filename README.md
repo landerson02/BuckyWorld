@@ -1,7 +1,5 @@
 # Requirements and Specification Document
 
-## editing to test group access token git pull
-
 ## T13 BuckyWorld
 
 ### Project Abstract
