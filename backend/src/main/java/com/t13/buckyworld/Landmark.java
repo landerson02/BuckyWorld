@@ -6,12 +6,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "LOCATION")
-public class Location {
-    public Location(){
+@Table(name = "Landmark")
+public class Landmark {
+    public Landmark(){
         
     }
-    public Location(long id,String locationName, double latitude, double longitude, String pictureUrl, String description){
+    public Landmark(long id,String locationName, double latitude, double longitude, String pictureUrl, String description){
         this.id = id;
         this.locationName = locationName;
         this.latitude = latitude;
@@ -38,10 +38,10 @@ public class Location {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    public String getLocationName() {
+    public String getLandmarkName() {
         return locationName;
     }
-    public void setLocationName(String locationName) {
+    public void setLandmarkName(String locationName) {
         this.locationName = locationName;
     }
     public double getLatitude() {
