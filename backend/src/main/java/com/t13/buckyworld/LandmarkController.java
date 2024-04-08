@@ -11,11 +11,11 @@ import org.springframework.http.MediaType;
 
 
 @RestController
-public class LocationController {
-    private LocationService locationService;
+public class LandmarkController {
+    private LandmarkService landmarkService;
 
-    public LocationController(LocationService locationService){
-        this.locationService = locationService;
+    public LandmarkController(LandmarkService landmarkService){
+        this.landmarkService = landmarkService;
     }
 
     // @GetMapping("/location")
@@ -23,18 +23,18 @@ public class LocationController {
     //     return locationService.getLocationById(id).orElse(null);
     // }
     @GetMapping(value = "/location", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Location getLocationById(@RequestParam("id") Long id) {
+    public @ResponseBody Landmark getLandmarkById(@RequestParam("id") Long id) {
         // return locationService.getLocationById(id).orElse(null);
-        System.out.println("Received request for location with id: " + id);
-        Location location = locationService.getLocationById(id).orElse(null);
-        System.out.println("Returning location: " + location);
-        return location;
+        System.out.println("Received request for landmark with id: " + id);
+        Landmark landmark = landmarkService.getLandmarkById(id).orElse(null);
+        System.out.println("Returning landmark: " + landmark);
+        return landmark;
     }
 
     @GetMapping("/locations")
-    public List<Location> getLocations(){
-        List<Location> locations = locationService.getAllLocations();
-        return locations;
+    public List<Landmark> getLandmarks(){
+        List<Landmark> landmarks = landmarkService.getAllLandmarks();
+        return landmarks;
     }
     
 }
