@@ -1,6 +1,15 @@
 # Lucas Anderson Time Sheet
 
 ## 4/7
+#### Issue #103
+- time spent: 60 mins
+- Fix errors that were pushed to main, preventing the app from running
+#### Issue #79
+- time spent: 60 mins
+- Finally fix all account issues
+- Add client side error messages to signup/signin
+
+## 4/6
 #### Issue #79
 - time spent: 150 mins
 - Debug and fix issues with adding accounts

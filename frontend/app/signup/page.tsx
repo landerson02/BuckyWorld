@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react";
 import { login, createUserAccount } from "@/lib/Service";
 import { User_type } from "@/lib/Types";
 import { UserContext } from "@/lib/UserContext";
-import Link from "next/link";
 
 export default function Page() {
   // States for the current form values
@@ -13,6 +12,7 @@ export default function Page() {
   // boolean for if the passwords match
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [isBadCredentials, setIsBadCredentials] = useState(false);
+  const [signUpFailed, setSignUpFailed] = useState(false);
 
   // Load in user context
   const { user, setUser } = useContext(UserContext);
@@ -29,18 +29,19 @@ export default function Page() {
       return;
     }
     setPasswordsMatch(true);
-    setIsBadCredentials(true);
+    setIsBadCredentials(false);
+    setSignUpFailed(false);
 
     // Create the user account in the db, then log in
     const res = await createUserAccount(username, password) as number;
-    // check if the response is ok
     if (res !== 200) {
+      setSignUpFailed(true);
       return;
     }
     await login(username, password).then((data: User_type) => {
       setUser(data); // Set the user context
     });
-    // TODO: Redirect to the home page
+    // TODO: Add redirect to the home page
   }
 
   return (
@@ -77,14 +78,15 @@ export default function Page() {
         {!passwordsMatch && <div className={'text-red-500 pt-4 font-light text-sm'}>Passwords do not match</div>}
         {/*If the username or password is invalid, this will show*/}
         {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
-        { /*<Link href={'/'}>*/}
+        {/*If the sign-up failed, this will show*/}
+        {signUpFailed && <div className={'text-red-500 pt-4 font-light text-sm'}>Username is either invalid or taken</div>}
+
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-24 h-10 self-center'}
           type="submit"
         >
           Register
         </button>
-        { /*</Link>*/}
       </form>
       <button onClick={() => { console.log(user) }}>print user</button>
 

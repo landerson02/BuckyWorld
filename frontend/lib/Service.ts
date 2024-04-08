@@ -83,7 +83,7 @@ export async function getUserLocation(): Promise<UserLocation | null> {
 
 /**
  * Fetches the user account by username and password
- * Returns a promise that resolves to the user account if it exists, otherwise null
+ * Returns either the user account in a promise, or an error message
  * @param username username of the account
  * @param password password of the account
  */
@@ -98,12 +98,11 @@ export async function login(username: string, password: string) {
       },
       body: JSON.stringify({ username, password }), // Send the username and password in the body
     });
-    if (!res.ok) {
-      // if the response is not ok, throw an error
-      console.error("Failed to login");
-    }
-    // return the json response
-    return await res.json();
+    // If the repsponse is not okay, return the error message
+    if (res.status === 404) return "Username not found";
+    if (res.status === 401) return "Incorrect password";
+    // Otherwise return the user account
+    return res.json();
   } catch (error) {
     console.log(error);
   }
@@ -112,8 +111,8 @@ export async function login(username: string, password: string) {
 /**
  * Saves the user account in the database
  * @returns the status of the response
- * @param username
- * @param password
+ * @param username username of the account
+ * @param password password of the account
  */
 export async function createUserAccount(username: string, password: string) {
   // url defined in UserController.java for creating a new user

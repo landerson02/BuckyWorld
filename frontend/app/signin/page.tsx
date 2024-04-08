@@ -1,28 +1,46 @@
 'use client'
 import { login } from "@/lib/Service";
-import React, {useContext, useState} from "react";
-import {User_type} from "@/lib/Types";
-import {UserContext} from "@/lib/UserContext";
+import React, { useContext, useState } from "react";
+import { User_type } from "@/lib/Types";
+import { UserContext } from "@/lib/UserContext";
 
 export default function Page() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isBadCredentials, setIsBadCredentials] = useState(false);
+
+  const [isBadCredentials, setIsBadCredentials] = useState(false); // If the username or password is blank
+
+  // States for login errors
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isErrorShowing, setIsErrorShowing] = useState(false);
 
   // Get the user context
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   // Handles the sign in form submission
   const submitSignIn = (event: React.FormEvent) => {
     event.preventDefault();
+
+    // Reset error states
+    setIsBadCredentials(false);
+    setIsErrorShowing(false);
+
     if (!username || !password) { // Make sure both fields are non-empty
       setIsBadCredentials(true);
       return;
     }
-    setIsBadCredentials(false);
-
-    login(username, password).then((data: User_type) => {
-      setUser(data);
+    login(username, password).then((data: User_type | string) => {
+      // Login either returns the user object or an error message
+      if (typeof data === 'string') {
+        // If the data is a string, it's an error message, so display it to users
+        setErrorMessage(data);
+        setIsErrorShowing(true);
+        return;
+      } else {
+        // If the data is a user object, set the user context
+        setUser(data);
+        // TODO: Add redirect to the home page
+      }
     });
   }
 
@@ -46,7 +64,10 @@ export default function Page() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {/* if the username or password is blank, show an error message */}
         {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
+        {/* if the username or password is incorrect, show an error message */}
+        {isErrorShowing && <div className={'text-red-500 pt-4 font-light text-sm'}>{errorMessage}</div>}
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-20 h-10 self-center'}
           type="submit"

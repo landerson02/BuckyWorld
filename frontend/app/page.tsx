@@ -54,7 +54,6 @@ function Home() {
         <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }} onClick={() => { }} /></Link>
         <h1 style={{ fontSize: '64px', color: '#FF5A64', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }}>{points}</h1>
         <p style={{ marginTop: '-10px', fontSize: '16px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }}>POINTS</p>
-        <button onClick={() => { console.log(user) }}>print user</button>
 
       </div>
       {/* Wrap the Map component with APIProvider and provide the API key */}
