@@ -22,7 +22,7 @@ public class LandmarkController {
     // public Location getLocationById(@RequestParam("id") Long id) {
     //     return locationService.getLocationById(id).orElse(null);
     // }
-    @GetMapping(value = "/location", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/landmark", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Landmark getLandmarkById(@RequestParam("id") Long id) {
         // return locationService.getLocationById(id).orElse(null);
         System.out.println("Received request for landmark with id: " + id);
@@ -31,7 +31,7 @@ public class LandmarkController {
         return landmark;
     }
 
-    @GetMapping("/locations")
+    @GetMapping("/landmarks")
     public List<Landmark> getLandmarks(){
         List<Landmark> landmarks = landmarkService.getAllLandmarks();
         return landmarks;
