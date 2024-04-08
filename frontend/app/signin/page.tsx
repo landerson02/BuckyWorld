@@ -26,7 +26,12 @@ export default function SignInPage() {
       <div className={'font-medium text-2xl pt-12'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
 
-      <button onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} >Sign in with Google</button>
+      <button 
+        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} 
+        className="bg-[#FF5A64] text-white rounded-2xl w-40 h-10 mt-12 flex flex-col justify-center items-center"
+      >
+        Sign in with Google
+      </button>
 
       <form className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label className={'text-xl'}>Username</label>

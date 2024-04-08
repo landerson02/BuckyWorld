@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
@@ -26,7 +25,14 @@ export default function UserPage() {
 
             {/* Profile picture does not currently have a way to upload the picture*/}
             {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
-            <Image src={session?.user?.image!} alt="user" width={100} height={100} className='rounded-full' />
+            <Image 
+                src={session?.user?.image!} 
+                priority
+                alt="user" 
+                width={100} 
+                height={100} 
+                className='rounded-full' 
+            />
             
             {/* username and points */}
             {/* <h1 className="text-xl font-bold mt-4 text-black">{name}</h1> */}
