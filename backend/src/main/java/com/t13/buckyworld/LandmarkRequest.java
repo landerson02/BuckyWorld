@@ -4,8 +4,7 @@ public class LandmarkRequest {
     private String name;
     private double longitude;
     private double latitude;
-    private String url; // URL should be a String, not double
-    private int points;
+    private String url;
     private String description;
 
     /**
