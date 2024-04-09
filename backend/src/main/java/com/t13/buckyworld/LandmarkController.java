@@ -55,7 +55,7 @@ public class LandmarkController {
         new Landmark(landmarkRequest.getName(), 
         landmarkRequest.getLatitude(), 
         landmarkRequest.getLongitude(), 
-        landmarkRequest.getUrl(), landmarkRequest.getDescription(), landmarkRequest.getPoints());
+        landmarkRequest.getUrl(), landmarkRequest.getDescription(), 0);
         return landmarkService.saveLandmark(landmark);
     }
     

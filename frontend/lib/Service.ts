@@ -1,3 +1,5 @@
+import { Landmark_type } from "./Types";
+
 
 // get the BACKEND_URL from the .env file
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
@@ -50,6 +52,8 @@ export async function getLocationById(id: number) {
   }
 }
 
+
+
 export interface UserLocation {
   lat: number; // latitude
   long: number; // longitude
@@ -77,4 +81,39 @@ export async function getUserLocation(): Promise<UserLocation | null> {
       reject(null);
     }
   });
+
+}
+
+/**
+ * calls api to put landmark in the db
+ * @param landmark 
+ */
+export async function addLandmark(landmark: Landmark_type){
+  const url = `${BASE_URL}/addlandmark`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+          name: landmark.name, 
+          latitude: landmark.latitude,
+          longitude: landmark.longitude,
+          url: landmark.url,
+          description:landmark.description
+      
+        })
+    });
+    if(!res.ok) { // if the response is not ok, throw an error
+      throw new Error("Failed to add landmark");
+    }else{
+      alert("Thanks for adding a Landmark!")
+    }
+    // return the json response
+  } catch (error) {
+    console.log(error);
+  }
+
 }

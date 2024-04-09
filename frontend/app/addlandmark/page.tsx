@@ -1,21 +1,16 @@
 'use client'
 import { NextPage } from 'next';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { Landmark_type } from '@/lib/Types';
+import { addLandmark } from '@/lib/Service';
 
 
-interface Landmark {
-  name: string;
-  latitude: number;
-  longitude: number;
-  url: string;
-  description: string;
-}
 
 const Page: NextPage = () => {
   /**
    * landmark type, we will change location to landmark
    */
-  const [landmark, setLandmark] = useState<Landmark>({
+  const [landmark, setLandmark] = useState<Landmark_type>({
     name: '',
     latitude: 0,
     longitude: 0,
@@ -44,18 +39,23 @@ const Page: NextPage = () => {
       return;
     }
 
+    // calls the api to add the landmark to the db
+    addLandmark(landmark);
 
-
-    
     
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
+      {/* Form container */}
       <form className="w-full max-w-lg space-y-6" onSubmit={handleSubmit}>
+        {/* Form title */}
         <h1 className="text-xl font-bold mb-6">Add a Landmark</h1>
 
+        {/* Grid layout for form fields */}
         <div className='grid grid-cols-1 gap-y-6'>
+
+          {/* Landmark Name input */}
           <div>
             <label htmlFor="name" className="block text-xl mb-1">Landmark Name</label>
             <input
@@ -68,6 +68,7 @@ const Page: NextPage = () => {
             />
           </div>
 
+          {/* Latitude input */}
           <div>
             <label htmlFor="latitude" className="block text-xl mb-1">Latitude</label>
             <input
@@ -80,6 +81,7 @@ const Page: NextPage = () => {
             />
           </div>
 
+          {/* Longitude input */}
           <div>
             <label htmlFor="longitude" className="block text-xl mb-1">Longitude</label>
             <input
@@ -92,6 +94,7 @@ const Page: NextPage = () => {
             />
           </div>
 
+          {/* Picture URL input */}
           <div>
             <label htmlFor="url" className="block text-xl mb-1">Picture URL</label>
             <input
@@ -104,6 +107,7 @@ const Page: NextPage = () => {
             />
           </div>
 
+          {/* Description input */}
           <div className="flex flex-col space-y-2">
             <label htmlFor="description" className="block text-xl mb-1">Description</label>
             <textarea
@@ -117,6 +121,7 @@ const Page: NextPage = () => {
           </div>
         </div>
 
+        {/* Submit button */}
         <button
           type="submit"
           className="primary-button w-full mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -125,6 +130,7 @@ const Page: NextPage = () => {
         </button>
       </form>
     </div>
+
   );
 };
 
