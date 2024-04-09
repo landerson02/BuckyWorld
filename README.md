@@ -73,7 +73,7 @@ now enter the needed queries
 
 4. **Page to Add Landmarks** (priority = **low**)
 - there must exist a page for users to add landmarks to the map page
-- there shall be a way for the user to drop a pin on a location on the map
+- there shall be a way for the user to enter latitude and longitude coordinates of their landmark
 - there shall be a place for the user to enter the url of an image, description, and point value for the location
 
 5. **User Login Page**
@@ -142,6 +142,9 @@ now enter the needed queries
 * Users must be sorted by their point value
 * The User Page should display the top 10 usernames along with their respective point value
 
+13. **Adding Landmarks**
+* The user must have an account associated with buckyworld in order to add landmarks to the game
+
 
 #### Account Management Requirements
 
@@ -189,6 +192,10 @@ now enter the needed queries
 **Leaderboard Dynamics**
 * 13: Display a leaderboard showing users ranked by points to encourage competition and engagement.
 
+**Adding Landmarks Usage**
+* 14: Display input boxes for the user to enter landmark attributes
+* 15:
+
 
 #### Stories
 
@@ -212,8 +219,12 @@ now enter the needed queries
 * As a user, I want to zoom in/out and drag the map to navigate to different areas of the map
 
 **Exploring Nearby Landmarks**
-  * As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
+* As a user, I want to view a list of nearby landmarks, sorted by distance, so I can decide which ones to visit.
 
+**Adding Landmarks**
+* As a user, I want to add new landmarks to the game for me and my peers to earn points
+* As a user, I want to be able to input the name, latitude, longitude, image url, points, and description for the landmark I want to add
+* As a user, I want to be notified if my landmark was added to the game
 
 
 ### API Calls
