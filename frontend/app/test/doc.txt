@@ -5,3 +5,5 @@ npm install --save-dev jest jest-environment-jsdom @testing-library/react @testi
 # use this command to run test
 npm test   # run all test
 npm test -- <test-file-path>
+
+fix signup page password -> password, confirm password

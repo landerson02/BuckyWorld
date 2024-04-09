@@ -32,7 +32,7 @@ public class User {
     @Column(name = "POINTS")
     private int points;
 
-    @Column(name = "PASSWORD") //Temporary addition since uID is the only distinct identifier for users and the only other thing to differentiate users so far was username
+    @Column(name = "PASSWORD") 
     private String password;
 
     public void setUsername(String username){
@@ -63,7 +63,6 @@ public class User {
         this.password = password;
     }
 
-    //ALSO TEMPORARY DON'T WORRY
     public String getPassword() {
         return password;
     }
