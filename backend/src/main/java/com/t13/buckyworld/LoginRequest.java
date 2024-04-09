@@ -1,3 +1,5 @@
+package com.t13.buckyworld;
+
 //Class made to format the login requests passed by the frontend
 public class LoginRequest {
     private String username;
