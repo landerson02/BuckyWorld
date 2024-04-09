@@ -28,7 +28,7 @@ you should be inside the repository
 
 To add to the mySQL tables in the buckyworld_db database:
 
-`docker exec -it your_mysql_container_name mysql -u root -p`
+`docker exec -it database mysql -u root -p`
 
 enter the password as determined by team
 
