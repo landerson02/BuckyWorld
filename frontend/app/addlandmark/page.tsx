@@ -42,6 +42,17 @@ const Page: NextPage = () => {
     // calls the api to add the landmark to the db
     addLandmark(landmark);
 
+    // reset fields
+    setLandmark(
+      {
+        name: '',
+        latitude: 0,
+        longitude: 0,
+        url: '',
+        description: '',
+      }
+    )
+
     
   };
 
@@ -76,7 +87,7 @@ const Page: NextPage = () => {
               className="bg-[#7DB3E5] w-full rounded-md border p-2 focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]"
               name="latitude"
               type="text"
-              value={landmark.latitude}
+              //value={landmark.latitude ? '' : landmark.latitude}
               onChange={handleChange}
             />
           </div>
@@ -89,7 +100,7 @@ const Page: NextPage = () => {
               className="bg-[#7DB3E5] w-full rounded-md border p-2 focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]"
               name="longitude"
               type="text"
-              value={landmark.longitude}
+              //value={'' || landmark.longitude}
               onChange={handleChange}
             />
           </div>
