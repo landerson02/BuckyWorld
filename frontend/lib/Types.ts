@@ -19,3 +19,11 @@ export type Attended_type = {
   username: string
   locationId: number
 }
+
+export type Landmark_type = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  url: string;
+  description: string;
+}
