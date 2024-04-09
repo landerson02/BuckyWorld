@@ -1,6 +1,7 @@
 'use client'
 import React, {useState} from "react";
 import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function SignInPage() {
   const [username, setUsername] = useState('');
@@ -23,17 +24,25 @@ export default function SignInPage() {
 
   return (
     <div className={'h-screen flex flex-col items-center'}>
-      <div className={'font-medium text-2xl pt-12'}>Welcome to</div>
+      <Image 
+        src={'/logo.png'}
+        alt='logo' 
+        width={200} 
+        height={200}  
+        className="w-full px-10 mt-[115px]" 
+      />
+      <div className={'font-medium text-2xl'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
 
       <button 
         onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} 
-        className="bg-[#FF5A64] text-white rounded-2xl w-40 h-10 mt-12 flex flex-col justify-center items-center"
+        className="bg-green-500 text-white rounded-2xl mt-20 
+              flex flex-col justify-center items-center p-4 text-xl font-semibold"
       >
         Sign in with Google
       </button>
 
-      <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
+      {/* <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label className={'text-xl'}>Username</label>
         <input
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
@@ -60,7 +69,7 @@ export default function SignInPage() {
       <a
         href={'/signup'}
         className={'border-2 border-[#FF5A64] rounded-2xl text-[#FF5A64] w-20 h-10 text-center flex flex-col justify-center'}
-      >Register</a>
+      >Register</a> */}
     </div>
   )
 }
