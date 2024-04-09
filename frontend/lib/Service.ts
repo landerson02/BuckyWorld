@@ -1,3 +1,5 @@
+import { Landmark_type } from "./Types";
+
 
 // get the BACKEND_URL from the .env file
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
@@ -30,7 +32,6 @@ export async function getLandmarks() {
 /**
  * Fetches a location by its id
  * returns a promise that resolves to a location
- * @param id the id of the location to fetch
  */
 export async function getLocationById(id: number) {
   const url = `${BASE_URL}/landmark?id=${id}`;
@@ -42,7 +43,7 @@ export async function getLocationById(id: number) {
       },
     });
     if(!res.ok) { // if the response is not ok, throw an error
-      console.error("Failed to get location");
+      throw new Error("Failed to get location");
     }
     // return the json response
     return await res.json();
@@ -50,6 +51,8 @@ export async function getLocationById(id: number) {
     console.log(error);
   }
 }
+
+
 
 export interface UserLocation {
   lat: number; // latitude
@@ -78,6 +81,41 @@ export async function getUserLocation(): Promise<UserLocation | null> {
       reject(null);
     }
   });
+
+}
+
+/**
+ * calls api to put landmark in the db
+ * @param landmark
+ */
+export async function addLandmark(landmark: Landmark_type){
+  const url = `${BASE_URL}/addlandmark`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+          name: landmark.name,
+          latitude: landmark.latitude,
+          longitude: landmark.longitude,
+          url: landmark.url,
+          description:landmark.description
+
+        })
+    });
+    if(!res.ok) { // if the response is not ok, throw an error
+      throw new Error("Failed to add landmark");
+    }else{
+      alert("Thanks for adding a Landmark!")
+    }
+    // return the json response
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 /**

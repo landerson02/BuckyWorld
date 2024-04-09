@@ -3,10 +3,13 @@ package com.t13.buckyworld;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.http.MediaType;
 
 
@@ -35,6 +38,25 @@ public class LandmarkController {
     public List<Landmark> getLandmarks(){
         List<Landmark> landmarks = landmarkService.getAllLandmarks();
         return landmarks;
+    }
+
+    /**
+     * 
+     * adds a landmark to the db
+     * 
+     * @param landmarkRequest
+     * @return
+     */
+    @PostMapping("/addlandmark")
+    public ResponseEntity<Landmark> addLandmark(@RequestBody LandmarkRequest landmarkRequest) {
+
+        // create a landmark from attributes passed
+        Landmark landmark = 
+        new Landmark(landmarkRequest.getName(), 
+        landmarkRequest.getLatitude(), 
+        landmarkRequest.getLongitude(), 
+        landmarkRequest.getUrl(), landmarkRequest.getDescription(), 0);
+        return landmarkService.saveLandmark(landmark);
     }
     
 }

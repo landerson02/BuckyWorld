@@ -19,3 +19,4 @@
 ### Location
 - GET /api/locations : Get all bucky locations
 - GET /api/locations/{locationid} : Get a specific bucky location's info
+- POST /api/addlandmark : Add a landmark
