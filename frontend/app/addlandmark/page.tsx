@@ -2,6 +2,7 @@
 import { NextPage } from 'next';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
+
 interface Landmark {
   name: string;
   latitude: number;
@@ -11,6 +12,9 @@ interface Landmark {
 }
 
 const Page: NextPage = () => {
+  /**
+   * landmark type, we will change location to landmark
+   */
   const [landmark, setLandmark] = useState<Landmark>({
     name: '',
     latitude: 0,
@@ -19,10 +23,19 @@ const Page: NextPage = () => {
     description: '',
   });
 
+  /**
+   * 
+   * updates landmark when input updates
+   */
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setLandmark({ ...landmark, [e.target.name]: e.target.value });
   };
 
+  /**
+   * 
+   * checks if all fields are filled
+   * calls api to add landmark
+   */
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, latitude, longitude, url, description } = landmark;
@@ -30,6 +43,8 @@ const Page: NextPage = () => {
       alert('Please fill out all the fields.');
       return;
     }
+
+
 
     
     
