@@ -147,7 +147,7 @@ now enter the needed queries
 
 #### Account Management Requirements
 
-12. **Account Management**
+14. **Account Management**
 
 * Upon landing on the sign in and sign up page, there must be a place to create an account for the application using an existing google account
 * A valid, exisiting google account must be created before creating an account on the application
@@ -159,6 +159,11 @@ now enter the needed queries
   * If the username already exists in the users table, the user must be notified through an alert to choose a different username
   * Otherwise, the users username and password should be stored in the users table with a default point value of 0, and the user should be routed to the map page
 
+15. **VM Deployment**
+* The application must successfully run on the cs506-team-13 CSL machine
+* The frontend must be accessible through port 3000
+* The backend must be accessible through port 8080
+* There must be a group access token for everyone on team 13 to make necessary changes to the repository running on the VM
 
 
 ### Use Cases & User Stories
