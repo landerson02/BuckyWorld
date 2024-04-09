@@ -4,7 +4,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 
-function EventMarker(props: any) {
+/**
+ * Renders a marker for an event on a map.
+ *
+ * @param {any} props - The component props.
+ * @returns {JSX.Element} The rendered EventMarker component.
+ */
+function EventMarker(props: any): JSX.Element {
     // state for the info window
     const [open, setIsOpen] = useState(false);
 
