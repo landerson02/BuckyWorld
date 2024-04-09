@@ -11,6 +11,11 @@ type EventListItemProps = {
     }
 }
 
+/**
+ * Renders an event list item component.
+ * @param event - The event object.
+ * @returns The rendered event list item component.
+ */
 const EventListItem = ({ event }: EventListItemProps) => {
     return event && (
         <div className={'min-w-[30%] h-[90%] flex flex-col items-center'}>
