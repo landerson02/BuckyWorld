@@ -13,8 +13,7 @@ public class Landmark {
     public Landmark(){
         
     }
-    public Landmark(long id,String locationName, double latitude, double longitude, String pictureUrl, String description, int points){
-        this.id = id;
+    public Landmark(String locationName, double latitude, double longitude, String pictureUrl, String description, int points){
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -22,6 +21,7 @@ public class Landmark {
         this.description = description;
         this.points = points;
     }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
