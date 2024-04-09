@@ -32,7 +32,7 @@ export default function SignInPage() {
         className="w-full px-10 mt-[115px]" 
       />
       <div className={'font-medium text-2xl'}>Welcome to</div>
-      <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
+      <div className={'font-bold text-4xl italic text-[#FF5A64] tracking-[7px]'}>BuckyWorld</div>
 
       <button 
         onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} 

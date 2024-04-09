@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 
 function EventMarker(props: any) {
@@ -13,11 +14,14 @@ function EventMarker(props: any) {
           <AdvancedMarker position={{lat: parseFloat(props.lat), lng: parseFloat(props.lng)}} 
             onClick={() => window.location.href = 'signin'
           }> 
-              <Pin 
+            <Image src={'/w.png'} alt='event' width={30} height={30}
+              className='w-10 h-10'
+            />
+              {/* <Pin 
                 background={'#FF5A64'}
                 borderColor={'white'}
                 // glyphColor={'#FFFFFF'} // this is the inner circle color
-                />
+                /> */}
             </AdvancedMarker>
             {
               open && (
