@@ -12,6 +12,10 @@ type EventType = {
     Points: number;
 }
 
+/**
+ * Renders a list of events.
+ * @returns The EventsList component.
+ */
 const EventsList = () => {
     // Create events state
     const [events, setEvents] = useState<EventType[]>([]);

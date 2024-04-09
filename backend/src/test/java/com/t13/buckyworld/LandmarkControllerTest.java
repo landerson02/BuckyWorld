@@ -30,8 +30,8 @@ public class LandmarkControllerTest {
     @Test
     public void testGetLandmarkById_ExistingLandmark() {
         // Given
-        long landmarkId = 1L;
-        Landmark expectedLandmark = new Landmark(landmarkId, "Test Landmark", 10.0, 20.0, "http://example.com/image.jpg", "A description", 0);
+       long landmarkId = 1;
+        Landmark expectedLandmark = new Landmark("Test Landmark", 10.0, 20.0, "http://example.com/image.jpg", "A description", 0);
         when(landmarkService.getLandmarkById(landmarkId)).thenReturn(Optional.of(expectedLandmark));
 
         // When
@@ -62,8 +62,8 @@ public class LandmarkControllerTest {
     public void testGetLandmarks_MultipleLandmarks() {
         // Given
         List<Landmark> expectedLandmarks = Arrays.asList(
-                new Landmark(1L, "Landmark 1", 10.0, 20.0, "http://example.com/image1.jpg", "Description 1", 0),
-                new Landmark(2L, "Landmark 2", 30.0, 40.0, "http://example.com/image2.jpg", "Description 2", 0)
+                new Landmark("Landmark 1", 10.0, 20.0, "http://example.com/image1.jpg", "Description 1", 0),
+                new Landmark("Landmark 2", 30.0, 40.0, "http://example.com/image2.jpg", "Description 2", 0)
         );
         when(landmarkService.getAllLandmarks()).thenReturn(expectedLandmarks);
     

@@ -7,6 +7,11 @@ import Link from 'next/link';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 
 
+/**
+ * Renders the UserPage component.
+ * 
+ * @returns The UserPage component.
+ */
 export default function UserPage() {
     // Dummy data 
     let data = require('../../data/dummy_data.json');
@@ -16,11 +21,18 @@ export default function UserPage() {
     const [points, setPoints] = useState(data.Users[0].TotalPoints); 
     const [position, setPosition] = useState(56); // Dummy leaderboard position
     const { data : session } = useSession();
-    // const router = useRouter();
 
     useEffect(() => {
         console.log(session);
     }, [session])
+
+    /**
+     * Handles the sign out action.
+     */
+    const handlesignOut = async () => {
+        await signOut();
+        window.location.href = '/';
+    };
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
@@ -61,7 +73,8 @@ export default function UserPage() {
             </button>
             <button 
                 onClick={() => {
-                    signOut();
+                    // signOut();
+                    handlesignOut();
                     // router.push('/');
                 }} className="primary-button">
                 Logout
