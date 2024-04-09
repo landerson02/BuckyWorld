@@ -22,6 +22,11 @@ export default function UserPage() {
         console.log(session);
     }, [session])
 
+    const handlesignOut = async () => {
+        await signOut();
+        window.location.href = '/';
+    };
+
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
             <Link href="/"
@@ -61,7 +66,8 @@ export default function UserPage() {
             </button>
             <button 
                 onClick={() => {
-                    signOut();
+                    // signOut();
+                    handlesignOut();
                     // router.push('/');
                 }} className="primary-button">
                 Logout
