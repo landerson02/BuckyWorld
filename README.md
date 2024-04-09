@@ -112,7 +112,6 @@ now enter the needed queries
 * There must be a table of users comprised of the following fields:
   * `id` **long** (primary key) 
   * `username` **string** (unique)
-  * `password` **string**
   * `total points` **integer**
 
 9. **Attended Table**
@@ -150,13 +149,13 @@ now enter the needed queries
 
 12. **Account Management**
 
-* Upon login through the login page, the existance of the user name must be verified in the user table, in other words, the username that was entered should be in the table
-  * If the username was found, the password that the user entered in the interface must match the password for that username in the database
-  * If the password the user entered and the password in the database do not match, the user will instead recieve an "incorrect password" alert upon pressing the login button
-  * If the password the user entered and the password in the database match, the user will be routed to the map page
+* Upon landing on the sign in and sign up page, there must be a place to create an account for the application using an existing google account
+* A valid, exisiting google account must be created before creating an account on the application
+* The users email will be used as the username
+* Upon either signing in or signing up, the map page will then be loaded
+* Upon sign in through the sign in page, the existance of the user name must be verified in the user table, in other words, the username that was entered should be in the table
+
 * Upon pressing the sign in button on the sign in page
-  * If any of the password, confirmation password, or username fields are empty, the user must be notified through an alert to fill out the remaining field(s)
-  * If the password and confirmation passwords do not match, the user must be notified through an alert that the password and confirmation password do not match
   * If the username already exists in the users table, the user must be notified through an alert to choose a different username
   * Otherwise, the users username and password should be stored in the users table with a default point value of 0, and the user should be routed to the map page
 
@@ -187,21 +186,23 @@ now enter the needed queries
   
 **Game Mechanics and Location Comparison**
 * 11: Implement a location-comparing script to facilitate checking in and displaying nearby landmarks accurately
-* 12: Update user points based on landmark visits and reset points according to game rules.
+* 12: Update user points based on landmark visits
   
 **Leaderboard Dynamics**
 * 13: Display a leaderboard showing users ranked by points to encourage competition and engagement.
 
 **Adding Landmarks Usage**
 * 14: Display input boxes for the user to enter landmark attributes
-* 15:
+* 15: Update the map with the new landmark
 
 
 #### Stories
 
 **Registering and Managing Accounts**
-* As a new user, I want to create an account with a unique username and password, enabling me to log in, log out
-* As a user, I want to be able to change my username and password
+* As a new user, I want to be authenticated and authorized through google auth to have and use an account for this application
+* As a user, I want to be able to start earning points after I sign into the app
+* As a user, I want to indicate I am done using the app after I sign out of the application
+* As a user, I want the points I earned to persist after I sign out of the application so that I can pick up where I left off at a later time
 
 **Participating in the Leaderboard**
 * As a user, I want to see my position on the leaderboard
