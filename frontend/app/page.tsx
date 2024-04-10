@@ -70,9 +70,9 @@ function Home() {
               
             </div>
             {/* Wrap the Map component with APIProvider and provide the API key */}
-              <APIProvider apiKey={"AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI"}>
+              <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
                 <div className='flex-grow'>
-                    <Map 
+                    <Map
                       defaultCenter={position} 
                       defaultZoom={defaultZoom} 
                       mapId={'f292b91ec3d6c7d6'}
