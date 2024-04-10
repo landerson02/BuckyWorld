@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    //Controller method to call UserService.java saveUser() method. Refer to UserService.java for documentation
+    //Controller method to call UserService saveUser() method. Refer to UserService.java for documentation
     @PostMapping("/save-user")
     public ResponseEntity<User> saveUser(@RequestBody LoginRequest loginRequest) {
         return userService.saveUser(loginRequest.getUsername(), loginRequest.getPassword());
@@ -32,5 +32,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         return userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+    }
+
+    //Controller method to call UserService updatePoints() method. refer to UserService.java for documentation
+    @PostMapping("/update-points")
+    public ResponseEntity<User> updatePoints(@RequestParam int points, @RequestBody LoginRequest user) {
+        return userService.updatePoints(points, user.getUsername());
     }
 }
