@@ -7,6 +7,12 @@ type EventMarkerProps = {
   landmark: Landmark_type;
 }
 
+/**
+ * Renders a marker for an event on a map.
+ *
+ * @param {any} props - The component props.
+ * @returns {JSX.Element} The rendered EventMarker component.
+ */
 function EventMarker({ landmark }: EventMarkerProps) {
   // state for the info window
   const [open, setIsOpen] = useState(false);

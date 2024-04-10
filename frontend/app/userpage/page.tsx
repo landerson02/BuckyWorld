@@ -7,6 +7,11 @@ import Link from 'next/link';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 
 
+/**
+ * Renders the UserPage component.
+ *
+ * @returns The UserPage component.
+ */
 export default function UserPage() {
     // Dummy data 
     let data = require('../../data/dummy_data.json');
@@ -16,12 +21,14 @@ export default function UserPage() {
     const [points, setPoints] = useState(data.Users[0].TotalPoints);
     const [position, setPosition] = useState(56); // Dummy leaderboard position
     const { data: session } = useSession();
-    // const router = useRouter();
 
     useEffect(() => {
         console.log(session);
     }, [session])
 
+    /**
+     * Handles the sign out action.
+     */
     const handlesignOut = async () => {
         await signOut();
         window.location.href = '/';
@@ -32,23 +39,23 @@ export default function UserPage() {
             <Link href="/"
                 className='absolute top-4 left-4 bg-green-500 h-10 w-10 rounded-full flex items-center justify-center'
             >
-                <ChevronLeftIcon className='text-white rounded-full text-5xl pr-1' />
+                <ChevronLeftIcon className= 'text-white rounded-full text-5xl pr-1'/>
             </Link>
             {/* Profile picture does not currently have a way to upload the picture*/}
 
             {/* <div data-testid="profile-picture" className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
 
             {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
-            <Image
-                src={session?.user?.image!}
+            <Image 
+                src={session?.user?.image!} 
                 priority
-                alt="user"
-                width={100}
-                height={100}
-                className='rounded-full'
+                alt="user" 
+                width={100} 
+                height={100} 
+                className='rounded-full' 
             />
 
-
+            
             {/* username and points */}
             {/* <h1 className="text-xl font-bold mt-4 text-black">{name}</h1> */}
             <h1 className="text-xl font-bold mt-4 text-black">{session?.user?.name}</h1>
@@ -64,7 +71,7 @@ export default function UserPage() {
             <button className="primary-button">
                 Leaderboard
             </button>
-            <button
+            <button 
                 onClick={() => {
                     // signOut();
                     handlesignOut();
