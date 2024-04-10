@@ -12,18 +12,17 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.http.MediaType;
 
-
 @RestController
 public class LandmarkController {
     private LandmarkService landmarkService;
 
-    public LandmarkController(LandmarkService landmarkService){
+    public LandmarkController(LandmarkService landmarkService) {
         this.landmarkService = landmarkService;
     }
 
     // @GetMapping("/location")
     // public Location getLocationById(@RequestParam("id") Long id) {
-    //     return locationService.getLocationById(id).orElse(null);
+    // return locationService.getLocationById(id).orElse(null);
     // }
     @GetMapping(value = "/landmark", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Landmark getLandmarkById(@RequestParam("id") Long id) {
@@ -35,7 +34,7 @@ public class LandmarkController {
     }
 
     @GetMapping("/landmarks")
-    public List<Landmark> getLandmarks(){
+    public List<Landmark> getLandmarks() {
         List<Landmark> landmarks = landmarkService.getAllLandmarks();
         return landmarks;
     }
@@ -51,12 +50,12 @@ public class LandmarkController {
     public ResponseEntity<Landmark> addLandmark(@RequestBody LandmarkRequest landmarkRequest) {
 
         // create a landmark from attributes passed
-        Landmark landmark = 
-        new Landmark(landmarkRequest.getName(), 
-        landmarkRequest.getLatitude(), 
-        landmarkRequest.getLongitude(), 
-        landmarkRequest.getUrl(), landmarkRequest.getDescription(), 0);
+        Landmark landmark = new Landmark(landmarkRequest.getId(),
+                landmarkRequest.getName(),
+                landmarkRequest.getLatitude(),
+                landmarkRequest.getLongitude(),
+                landmarkRequest.getUrl(), landmarkRequest.getDescription(), 0);
         return landmarkService.saveLandmark(landmark);
     }
-    
+
 }

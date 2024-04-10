@@ -1,6 +1,7 @@
 package com.t13.buckyworld;
 
 public class LandmarkRequest {
+    private long id;
     private String name;
     private double longitude;
     private double latitude;
@@ -10,8 +11,9 @@ public class LandmarkRequest {
     /**
      * creates a landmark request
      * 
-     */ 
-    public LandmarkRequest(String name, double longitude, double latitude, String url, String description) {
+     */
+    public LandmarkRequest(long id, String name, double longitude, double latitude, String url, String description) {
+        this.id = id;
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -19,15 +21,23 @@ public class LandmarkRequest {
         this.description = description;
     }
 
-    /** 
+    /**
+     * @return id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
      * @return String
      */
     public String getName() {
         return name;
     }
-    
-    /** 
+
+    /**
      * set name
+     * 
      * @param name
      */
     public void setName(String name) {
@@ -35,7 +45,7 @@ public class LandmarkRequest {
     }
 
     /**
-     *  @return longitude
+     * @return longitude
      */
     public double getLongitude() {
         return longitude;
@@ -46,46 +56,46 @@ public class LandmarkRequest {
         this.longitude = longitude;
     }
 
-     /**
-     *  @return latitude
+    /**
+     * @return latitude
      */
     // Getter for latitude
     public double getLatitude() {
         return latitude;
     }
 
-     /**
-     *  set latitude
+    /**
+     * set latitude
      */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-     /**
-     *  @return url
+    /**
+     * @return url
      */
     public String getUrl() {
         return url;
     }
 
-     /**
-     *  set longitude
+    /**
+     * set longitude
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
-     /**
-     *  set description
+    /**
+     * set description
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
     /**
      * @return description
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 

@@ -11,11 +11,13 @@ const Page: NextPage = () => {
    * landmark type, we will change location to landmark
    */
   const [landmark, setLandmark] = useState<Landmark_type>({
-    name: '',
+    landmarkName: '',
     latitude: 0,
     longitude: 0,
     url: '',
     description: '',
+    landmarkId: -1,
+    points: 0
   });
 
   /**
@@ -33,8 +35,8 @@ const Page: NextPage = () => {
    */
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, latitude, longitude, url, description } = landmark;
-    if (!name || !latitude || !longitude || !url || !description) {
+    const { landmarkName, latitude, longitude, url, description } = landmark;
+    if (!landmarkName || !latitude || !longitude || !url || !description) {
       alert('Please fill out all the fields.');
       return;
     }
@@ -45,19 +47,21 @@ const Page: NextPage = () => {
     // reset fields
     setLandmark(
       {
-        name: '',
+        landmarkName: '',
         latitude: 0,
         longitude: 0,
         url: '',
         description: '',
+        points: 0,
+        landmarkId: -1
       }
     )
 
-    
+
   };
 
   return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
       {/* Form container */}
       <form className="w-full max-w-lg space-y-6" onSubmit={handleSubmit}>
         {/* Form title */}
@@ -74,7 +78,7 @@ const Page: NextPage = () => {
               className="bg-[#7DB3E5] w-full rounded-md border p-2 focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]"
               name="name"
               type="text"
-              value={landmark.name}
+              value={landmark.landmarkName}
               onChange={handleChange}
             />
           </div>
