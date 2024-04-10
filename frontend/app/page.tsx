@@ -70,33 +70,31 @@ function Home() {
 
             </div>
             {/* Wrap the Map component with APIProvider and provide the API key */}
-            <APIProvider apiKey={"AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI"}>
-              <div className='flex-grow'>
-                <Map
-                  defaultCenter={position}
-                  defaultZoom={defaultZoom}
-                  mapId={'f292b91ec3d6c7d6'}
-                  zoomControl={false}
-                  mapTypeControl={false}
-                  streetViewControl={false}
-                  fullscreenControl={false}
-                  maxZoom={defaultZoom + 2}
-                  minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
-                  {
-                    landmarks && landmarks.map((landmark: Landmark_type, index: number) => {
-                      return (
-                        <Link href={'/landmark?id=' + landmark.landmarkId} key={index}>
-                          <EventMarker key={index} landmark={landmark} />
-                        </Link>
-                      );
-                    })
-                  }
-                  {
-                    userLocation && <EventMarker landmark={{ landmarkId: -1, landmarkName: 'You', description: 'Your current location', latitude: userLocation.lat, longitude: userLocation.long } as Landmark_type} />
-                  }
-                </Map>
-              </div>
-            </APIProvider>
+              <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
+                <div className='flex-grow'>
+                    <Map
+                      defaultCenter={position} 
+                      defaultZoom={defaultZoom} 
+                      mapId={'f292b91ec3d6c7d6'}
+                      zoomControl={false}
+                      mapTypeControl={false}
+                      streetViewControl={false}
+                      fullscreenControl={false}
+                      maxZoom={defaultZoom + 2}
+                      minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
+                    {
+                      locations && locations.map((location: any, index: number) => {
+                        return (
+                          <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
+                        );
+                      })
+                    }
+                    {
+                      userLocation && <EventMarker lat={userLocation?.lat} lng={userLocation?.long} title={'Event 1'} description={'Description 1'} />
+                    }
+                  </Map>
+                </div>
+              </APIProvider>
             <div className='bottom-0'>
               <EventsList />
             </div>

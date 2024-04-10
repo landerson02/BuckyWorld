@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function SignInPage() {
   const [username, setUsername] = useState('');
@@ -22,18 +23,25 @@ export default function SignInPage() {
 
 
   return (
-    <div className={'h-screen flex flex-col items-center'}>
-      <div className={'font-medium text-2xl pt-12'}>Welcome to</div>
-      <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
+    <div className={'flex flex-col items-center overflow-y-hidden h-screen justify-center'}>
+      <Image 
+        src={'/logo.png'}
+        alt='logo' 
+        width={200} 
+        height={200}  
+        className="max-w-[300px] w-[300px] px-10" 
+      />
+      <div className={'font-medium text-2xl'}>Welcome to</div>
+      <div className={'font-bold text-4xl italic text-[#FF5A64] tracking-[7px]'}>BuckyWorld</div>
 
-      <button
-        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
-        className="bg-[#FF5A64] text-white rounded-2xl w-40 h-10 mt-12 flex flex-col justify-center items-center"
+      <button 
+        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} 
+        className="bg-[#66B566] text-white rounded-2xl mt-10
+              flex flex-col justify-center items-center p-2 text-lg font-semibold"
       >
         Sign in with Google
       </button>
-
-      <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
+      <form role="form" className={'flex flex-col mt-10 text-2xl font-light'} onSubmit={submitSignIn}>
         <label className={'text-xl'}>Username</label>
         <input
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}

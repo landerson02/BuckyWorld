@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Page, { submitSignIn } from '../signin/page.tsx';
+import Page, { submitSignIn } from '../signin/page.jsx';
 
 describe('Page', () => {
   test('renders the signin form', () => {
