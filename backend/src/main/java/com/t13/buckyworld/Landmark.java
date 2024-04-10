@@ -8,7 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 
 /**
- * Landmark entity represents a landmark with its geographical and descriptive data.
+ * Landmark entity represents a landmark with its geographical and descriptive
+ * data.
  */
 @Entity
 @Table(name = "Landmark")
@@ -22,6 +23,7 @@ public class Landmark {
     /**
      * Constructs a new Landmark with the specified details.
      *
+     * @param id           The ID of the landmark.
      * @param locationName Name of the landmark location.
      * @param latitude     The latitude of the landmark.
      * @param longitude    The longitude of the landmark.
@@ -29,7 +31,9 @@ public class Landmark {
      * @param description  A description of the landmark.
      * @param points       Points associated with the landmark.
      */
-    public Landmark(String locationName, double latitude, double longitude, String pictureUrl, String description, int points) {
+    public Landmark(long id, String locationName, double latitude, double longitude, String pictureUrl,
+            String description, int points) {
+        this.id = id;
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -60,6 +64,15 @@ public class Landmark {
 
     @Column(name = "POINTS")
     private int points;
+
+    /**
+     * Gets the ID of the landmark.
+     *
+     * @return The landmark ID.
+     */
+    public long getLandmarkId() {
+        return id;
+    }
 
     /**
      * Gets the name of the landmark.

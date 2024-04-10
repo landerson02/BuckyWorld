@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 
@@ -12,7 +12,7 @@ export default function SignInPage() {
 
   const submitSignIn = (event: React.FormEvent) => {
     event.preventDefault();
-    if(!username || !password) {
+    if (!username || !password) {
       setIsBadCredentials(true);
       return;
     }

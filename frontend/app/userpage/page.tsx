@@ -9,7 +9,7 @@ import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 
 /**
  * Renders the UserPage component.
- * 
+ *
  * @returns The UserPage component.
  */
 export default function UserPage() {
@@ -18,9 +18,9 @@ export default function UserPage() {
 
     // Hardcoded name points position for now, will change
     const [name, setName] = useState(data.Users[0].Username);
-    const [points, setPoints] = useState(data.Users[0].TotalPoints); 
+    const [points, setPoints] = useState(data.Users[0].TotalPoints);
     const [position, setPosition] = useState(56); // Dummy leaderboard position
-    const { data : session } = useSession();
+    const { data: session } = useSession();
 
     useEffect(() => {
         console.log(session);
