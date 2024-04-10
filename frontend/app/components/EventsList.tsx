@@ -12,10 +12,14 @@ type EventType = {
     Points: number;
 }
 
+/**
+ * Renders a list of events.
+ * @returns The EventsList component.
+ */
 const EventsList = () => {
     // Create events state
     const [events, setEvents] = useState<EventType[]>([]);
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     // TODO: Replace 'url' with the actual API endpoint and remove fake data
     // Fetch locations data
@@ -34,17 +38,41 @@ const EventsList = () => {
     }, [data.Events]);
 
     return (
-        <div className={'w-full flex flex-col items-center'}>
-            <div className={'flex flex-row justify-center z-1 bg-white rounded-t-[50%] w-12 items-center'}>
-                <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? <FaChevronDown /> : <FaChevronUp />}</button>
-            </div>
-            {isOpen ? <div className={'flex flex-row items-center w-full overflow-x-scroll ' +
-                'border-t border-black ps-3 gap-3 h-48 z-2 bg-white'}>
-                {events.map(event => (
-                    <EventListItem key={event.EventID} event={event} />
-                ))}
-            </div> : null}
+        <div className="">
+        {
+            isOpen ? 
+                <div className="flex flex-col">
+                    <button onClick={() => setIsOpen(!isOpen)} className="flex justify-center text-4xl">
+                        <FaChevronDown />
+                    </button>
+                    <div className={'flex flex-row items-center w-full overflow-x-scroll ' +
+                                'border-t border-black ps-3 gap-3 h-48 z-2 bg-white'}>
+                        {
+                            events.map((event, i) => (
+                                <EventListItem key={i} event={event} />
+                            ))
+                        }
+                    </div>
+                </div> 
+                : 
+                <div className="flex flex-col">
+                    <button onClick={() => setIsOpen(!isOpen)} className="flex justify-center text-4xl">
+                        <FaChevronUp />
+                    </button>
+                </div>
+            }
         </div>
+        // <div className={`w-full flex flex-col items-center`}>
+        //     <div className={`flex flex-row justify-center z-1 bg-white rounded-t-[50%] w-12 items-center`}>
+        //         <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? <FaChevronDown /> : <FaChevronUp />}</button>
+        //     </div>
+        //     {isOpen ? <div className={'flex flex-row items-center w-full overflow-x-scroll ' +
+        //         'border-t border-black ps-3 gap-3 h-48 z-2 bg-white'}>
+        //         {events.map(event => (
+        //             <EventListItem key={event.EventID} event={event} />
+        //         ))}
+        //     </div> : null}
+        // </div>
     )
 }
 

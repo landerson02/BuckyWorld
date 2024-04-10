@@ -1,14 +1,16 @@
 'use client'
-import { login } from "@/lib/Service";
 import React, { useContext, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { login } from "@/lib/Service";
 import { User_type } from "@/lib/Types";
 import { UserContext } from "@/lib/UserContext";
 
 export default function Page() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isBadCredentials, setIsBadCredentials] = useState(false);
 
-  const [isBadCredentials, setIsBadCredentials] = useState(false); // If the username or password is blank
+  const { data: session } = useSession();
 
   // States for login errors
   const [errorMessage, setErrorMessage] = useState('');
@@ -44,10 +46,18 @@ export default function Page() {
     });
   }
 
+
   return (
     <div className={'h-screen flex flex-col items-center'}>
       <div className={'font-medium text-2xl pt-12'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64]'}>BuckyWorld</div>
+
+      <button
+        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
+        className="bg-[#FF5A64] text-white rounded-2xl w-40 h-10 mt-12 flex flex-col justify-center items-center"
+      >
+        Sign in with Google
+      </button>
 
       <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label className={'text-xl'}>Username</label>
@@ -63,6 +73,7 @@ export default function Page() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder=""
         />
         {/* if the username or password is blank, show an error message */}
         {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}

@@ -1,3 +1,5 @@
+import { Landmark_type } from "./Types";
+
 // get the BACKEND_URL from the .env file
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
 
@@ -5,10 +7,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
  * Fetches all the locations from the backend
  * returns a promise that resolves to an array of locations
  */
-export async function getLocations() {
+export async function getLandmarks() {
   // the url to fetch the locations from
   // depends on whether its running locally or on the vm
-  const url = `${BASE_URL}/locations`;
+  const url = `${BASE_URL}/landmarks`;
   try {
     const res = await fetch(url, {
       method: "GET",
@@ -18,7 +20,7 @@ export async function getLocations() {
     });
     if (!res.ok) {
       // if the response is not ok, throw an error
-      console.error("Failed to get locations");
+      console.error("Failed to get landmarks");
     }
     // return the json response
     return await res.json();
@@ -28,12 +30,12 @@ export async function getLocations() {
 }
 
 /**
- * Fetches a location by its id
- * @param id the id of the location to fetch
- * returns the location if it exists
+ * Fetches a landmark by its id
+ * @param id the id of the landmark to fetch
+ * returns a promise that resolves to a landmark
  */
-export async function getLocationById(id: number) {
-  const url = `${BASE_URL}/location?id=${id}`;
+export async function getLandmarkById(id: number) {
+  const url = `${BASE_URL}/landmark?id=${id}`;
   try {
     const res = await fetch(url, {
       method: "GET",
@@ -43,7 +45,7 @@ export async function getLocationById(id: number) {
     });
     if (!res.ok) {
       // if the response is not ok, throw an error
-      console.error("Failed to get location");
+      console.error("Failed to get landmark");
     }
     // return the json response
     return await res.json();
@@ -79,6 +81,38 @@ export async function getUserLocation(): Promise<UserLocation | null> {
       reject(null);
     }
   });
+}
+
+/**
+ * calls api to put landmark in the db
+ * @param landmark
+ */
+export async function addLandmark(landmark: Landmark_type) {
+  const url = `${BASE_URL}/addlandmark`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: landmark.landmarkName,
+        latitude: landmark.latitude,
+        longitude: landmark.longitude,
+        url: landmark.url,
+        description: landmark.description,
+      }),
+    });
+    if (!res.ok) {
+      // if the response is not ok, throw an error
+      throw new Error("Failed to add landmark");
+    } else {
+      alert("Thanks for adding a Landmark!");
+    }
+    // return the json response
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 /**
