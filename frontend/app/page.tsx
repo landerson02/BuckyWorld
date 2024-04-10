@@ -83,14 +83,14 @@ function Home() {
                       maxZoom={defaultZoom + 2}
                       minZoom={defaultZoom - 2} > {/* mapId is the style of the map created on googles platform*/}
                     {
-                      locations && locations.map((location: any, index: number) => {
+                      landmarks && landmarks.map((landmark: any, index: number) => {
                         return (
-                          <EventMarker key={index} lat={location.latitude} lng={location.longitude} title={location.locationName} description={location.description} />
+                          <EventMarker key={index} landmark={landmark} />
                         );
                       })
                     }
                     {
-                      userLocation && <EventMarker lat={userLocation?.lat} lng={userLocation?.long} title={'Event 1'} description={'Description 1'} />
+                      userLocation && <EventMarker key={-1} landmark={{landmarkId: -1, description: "Your location", latitude: userLocation.lat, longitude: userLocation.long } as Landmark_type} />
                     }
                   </Map>
                 </div>
