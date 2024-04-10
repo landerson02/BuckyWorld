@@ -22,7 +22,7 @@ function EventMarker({ landmark }: EventMarkerProps) {
       <AdvancedMarker position={{ lat: landmark.latitude, lng: landmark.longitude }}
         onClick={() => {
           console.log(landmark);
-          window.location.href = '/landmark?id=' + landmark.id;
+          window.location.href = '/landmark?id=' + landmark.landmarkId;
         }
         }>
         <Pin

@@ -16,7 +16,7 @@ const Page: NextPage = () => {
     longitude: 0,
     url: '',
     description: '',
-    id: -1,
+    landmarkId: -1,
     points: 0
   });
 
@@ -53,7 +53,7 @@ const Page: NextPage = () => {
         url: '',
         description: '',
         points: 0,
-        id: -1
+        landmarkId: -1
       }
     )
 

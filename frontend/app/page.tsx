@@ -85,14 +85,14 @@ function Home() {
                   {
                     landmarks && landmarks.map((landmark: Landmark_type, index: number) => {
                       return (
-                        <Link href={'/landmark?id=' + landmark.id} key={index}>
+                        <Link href={'/landmark?id=' + landmark.landmarkId} key={index}>
                           <EventMarker key={index} landmark={landmark} />
                         </Link>
                       );
                     })
                   }
                   {
-                    userLocation && <EventMarker landmark={{ id: -1, landmarkName: 'You', description: 'Your current location', latitude: userLocation.lat, longitude: userLocation.long } as Landmark_type} />
+                    userLocation && <EventMarker landmark={{ landmarkId: -1, landmarkName: 'You', description: 'Your current location', latitude: userLocation.lat, longitude: userLocation.long } as Landmark_type} />
                   }
                 </Map>
               </div>

@@ -1,5 +1,5 @@
 export type Landmark_type = {
-  id: number;
+  landmarkId: number;
   landmarkName: string;
   description: string;
   url: string;
