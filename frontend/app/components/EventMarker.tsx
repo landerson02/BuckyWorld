@@ -21,10 +21,11 @@ function EventMarker({ landmark }: EventMarkerProps) {
 
   return (
     <>
+      <Link href={'landmark?id=' + landmark.landmarkId}>
       <AdvancedMarker position={{ lat: landmark.latitude, lng: landmark.longitude }}
         onClick={() => {
           console.log(landmark);
-          window.location.href = '/landmark?id=' + landmark.landmarkId;
+          // window.location.href = '/landmark?id=' + landmark.landmarkId;
         }
         }>
           {
@@ -42,6 +43,7 @@ function EventMarker({ landmark }: EventMarkerProps) {
           }
 
       </AdvancedMarker>
+      </Link>
       {
         open && (
           <InfoWindow position={{ lat: landmark.latitude, lng: landmark.longitude }} onCloseClick={() => setIsOpen(false)}>

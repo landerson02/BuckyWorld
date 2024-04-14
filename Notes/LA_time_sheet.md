@@ -1,6 +1,10 @@
 # Lucas Anderson Time Sheet
 
 ## 4/14
+#### Issue #131
+- time spent: 60 mins
+- Fix navigation to never refresh page
+
 #### Issue #121
 - time spent: 240 mins
 - Created new functionality to allow for both regular and google sign in
