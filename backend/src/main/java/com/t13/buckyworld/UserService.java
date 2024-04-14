@@ -1,6 +1,5 @@
 package com.t13.buckyworld;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +36,8 @@ public class UserService {
 
     /**
      * Saves a user to the database
-     * @param username the User's username
+     * @param username The user's username
+     * @param password The user's password
      * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
@@ -45,9 +45,6 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null); //Code 409
         }
         if (username == null || username.isEmpty()) { //Username was empty
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
-        }
-        if (password == null || password.isEmpty()) { //Username was empty
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //Code 400
         }
 
@@ -75,6 +72,25 @@ public class UserService {
                 // Incorrect password
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); //Code 401
             }
+        }
+    }
+
+    /**
+     * Adds points to the specified user
+     * @param points The number of points to be added to the user's current total
+     * @param username The username of the user to update
+     * @return Http code 404 if not found, else returns code 200 with user in body (With updated total)
+     */
+    public ResponseEntity<User> updatePoints(int points, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            // Username not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); //Code 404
+        } else {
+            //Assumes that location checking was done in frontend before calling this
+            user.setPoints(user.getPoints() + points);
+            userRepository.save(user);
+            return ResponseEntity.ok(user);
         }
     }
 }

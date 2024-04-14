@@ -1,21 +1,21 @@
-
-export type Location_type = {
-  id: number
-  locationname: string
-  description: string
-  pictureUrl: string
-  latitude: number
-  longitude: number
-}
+export type Landmark_type = {
+  landmarkId: number;
+  landmarkName: string;
+  description: string;
+  url: string;
+  latitude: number;
+  longitude: number;
+  points: number;
+};
 
 export type User_type = {
-  username: string
-  password: string
-  totalPoints: number
-}
+  username: string;
+  password: string;
+  totalPoints: number;
+};
 
 export type Attended_type = {
-  attendedId: number
-  username: string
-  locationId: number
-}
+  attendedId: number;
+  username: string;
+  locationId: number;
+};

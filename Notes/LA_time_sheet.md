@@ -1,9 +1,19 @@
 # Lucas Anderson Time Sheet
 
+## 3/21
+#### Issue #79
+- time spent: 60 mins
+- Add new functions to service for getting / adding accounts
+
+## 3/20
+#### Issue #64
+- time spent: 30 mins
+- fix docker file to access backend endpoints in frontend
+
 ## 3/19
 #### Issue #64
 - time spent: 60 mins
-- Added environment variables to docker file to access backend endpoints in frontend
+- attempt to add environment variables to docker file to access backend endpoints in frontend
 ## 3/16
 #### Issue #64
 - time spent: 60 mins
