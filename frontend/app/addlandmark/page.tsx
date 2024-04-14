@@ -25,7 +25,8 @@ const Page: NextPage = () => {
    * updates landmark when input updates
    */
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setLandmark({ ...landmark, [e.target.name]: e.target.value });
+    const val = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value;
+    setLandmark({ ...landmark, [e.target.name]: val });
   };
 
   /**
@@ -35,14 +36,16 @@ const Page: NextPage = () => {
    */
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { landmarkName, latitude, longitude, url, description } = landmark;
-    if (!landmarkName || !latitude || !longitude || !url || !description) {
+    const { landmarkName, latitude, longitude, url, points, description } = landmark;
+    if (!landmarkName || !latitude || !longitude || !url || !points || !description) {
       alert('Please fill out all the fields.');
       return;
     }
 
     // calls the api to add the landmark to the db
     addLandmark(landmark);
+
+    console.log(landmark);
 
     // reset fields
     setLandmark(
@@ -74,9 +77,9 @@ const Page: NextPage = () => {
           <div>
             <label htmlFor="name" className="block text-xl mb-1">Landmark Name</label>
             <input
-              id="name"
+              id="landmarkName"
               className="bg-[#7DB3E5] w-full rounded-md border p-2 focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]"
-              name="name"
+              name="landmarkName"
               type="text"
               value={landmark.landmarkName}
               onChange={handleChange}
@@ -105,6 +108,19 @@ const Page: NextPage = () => {
               name="longitude"
               type="text"
               //value={'' || landmark.longitude}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Points input */}
+          <div>
+            <label htmlFor="points" className="block text-xl mb-1">Points</label>
+            <input
+              id="points"
+              className="bg-[#7DB3E5] w-full rounded-md border p-2 focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]"
+              name="points"
+              type="number"
+              value={landmark.points}
               onChange={handleChange}
             />
           </div>
