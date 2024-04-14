@@ -6,18 +6,21 @@ public class LandmarkRequest {
     private double longitude;
     private double latitude;
     private String url;
+    private int points;
     private String description;
 
     /**
      * creates a landmark request
      * 
      */
-    public LandmarkRequest(long id, String name, double longitude, double latitude, String url, String description) {
+    public LandmarkRequest(long id, String name, double longitude, double latitude, String url, int points,
+            String description) {
         this.id = id;
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
         this.url = url;
+        this.points = points;
         this.description = description;
     }
 
@@ -97,6 +100,20 @@ public class LandmarkRequest {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * @return points
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
+     * set points
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
 
 }

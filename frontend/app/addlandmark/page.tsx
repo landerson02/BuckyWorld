@@ -25,7 +25,8 @@ const Page: NextPage = () => {
    * updates landmark when input updates
    */
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setLandmark({ ...landmark, [e.target.name]: e.target.value });
+    const val = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value;
+    setLandmark({ ...landmark, [e.target.name]: val });
   };
 
   /**
@@ -43,6 +44,8 @@ const Page: NextPage = () => {
 
     // calls the api to add the landmark to the db
     addLandmark(landmark);
+
+    console.log(landmark);
 
     // reset fields
     setLandmark(
@@ -117,6 +120,7 @@ const Page: NextPage = () => {
               className="bg-[#7DB3E5] w-full rounded-md border p-2 focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]"
               name="points"
               type="number"
+              value={landmark.points}
               onChange={handleChange}
             />
           </div>

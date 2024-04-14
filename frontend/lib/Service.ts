@@ -99,6 +99,7 @@ export async function addLandmark(landmark: Landmark_type) {
         latitude: landmark.latitude,
         longitude: landmark.longitude,
         url: landmark.url,
+        points: landmark.points,
         description: landmark.description,
       }),
     });
@@ -176,4 +177,3 @@ export async function createUserAccount(
     console.log(error);
   }
 }
-

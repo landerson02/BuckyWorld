@@ -24,18 +24,18 @@ export default function SignInPage() {
 
   return (
     <div className={'flex flex-col items-center overflow-y-hidden h-screen justify-center'}>
-      <Image 
+      <Image
         src={'/logo.png'}
-        alt='logo' 
-        width={200} 
-        height={200}  
-        className="max-w-[300px] w-[300px] px-10" 
+        alt='logo'
+        width={200}
+        height={200}
+        className="max-w-[300px] w-[300px] px-10"
       />
       <div className={'font-medium text-2xl'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64] tracking-[7px]'}>BuckyWorld</div>
 
-      <button 
-        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })} 
+      <button
+        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
         className="bg-[#66B566] text-white rounded-2xl mt-10
               flex flex-col justify-center items-center p-2 text-lg font-semibold"
       >
