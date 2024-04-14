@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { Landmark_type } from '@/lib/Types';
 
 type EventMarkerProps = {
@@ -25,11 +27,20 @@ function EventMarker({ landmark }: EventMarkerProps) {
           window.location.href = '/landmark?id=' + landmark.landmarkId;
         }
         }>
-        <Pin
-          background={'#FF5A64'}
-          borderColor={'white'}
-        // glyphColor={'#FFFFFF'} // this is the inner circle color
-        />
+          {
+            landmark.landmarkId === -1 ? (
+              <Pin
+              background={'#FF5A64'}
+              borderColor={'white'}
+            // glyphColor={'#FFFFFF'} // this is the inner circle color
+            />
+            ) :(
+                <Image src={'/w.png'} alt='event' width={30} height={30}
+                  className='w-10 h-10'
+                />
+            )
+          }
+
       </AdvancedMarker>
       {
         open && (

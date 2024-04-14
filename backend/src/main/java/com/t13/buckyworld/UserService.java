@@ -74,4 +74,23 @@ public class UserService {
             }
         }
     }
+
+    /**
+     * Adds points to the specified user
+     * @param points The number of points to be added to the user's current total
+     * @param username The username of the user to update
+     * @return Http code 404 if not found, else returns code 200 with user in body (With updated total)
+     */
+    public ResponseEntity<User> updatePoints(int points, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            // Username not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); //Code 404
+        } else {
+            //Assumes that location checking was done in frontend before calling this
+            user.setPoints(user.getPoints() + points);
+            userRepository.save(user);
+            return ResponseEntity.ok(user);
+        }
+    }
 }
