@@ -133,7 +133,7 @@ export async function login(username: string, password: string) {
       },
       body: JSON.stringify({ username, password }), // Send the username and password in the body
     });
-    // If the repsponse is not okay, return the error message
+    // If the response is not okay, return the error message
     if (res.status === 404) return "Username not found";
     if (res.status === 401) return "Incorrect password";
     // Otherwise return the user account

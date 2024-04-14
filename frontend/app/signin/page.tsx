@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import {getSession, signIn, useSession} from "next-auth/react";
 import { login } from "@/lib/Service";
 import { User_type } from "@/lib/Types";
 import { UserContext } from "@/lib/UserContext";
@@ -11,6 +11,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState('');
   const [isBadCredentials, setIsBadCredentials] = useState(false);
 
+
   const { data: session } = useSession();
 
   // States for login errors
@@ -18,10 +19,10 @@ export default function SignInPage() {
   const [isErrorShowing, setIsErrorShowing] = useState(false);
 
   // Get the user context
-  const { setUser } = useContext(UserContext);
+  const { updateUser } = useContext(UserContext);
 
-  // Handles the sign in form submission
-  const submitSignIn = (event: React.FormEvent) => {
+  // Handles the sign in form submission for Buckyworld accounts
+  async function submitSignIn(event: React.FormEvent) {
     event.preventDefault();
 
     // Reset error states
@@ -41,10 +42,23 @@ export default function SignInPage() {
         return;
       } else {
         // If the data is a user object, set the user context
-        setUser(data);
+        console.log('normal login data', data);
+        updateUser(data);
         // TODO: Add redirect to the home page
       }
     });
+  }
+
+  // Handle sign in with Google
+  function signInGoogle() {
+    signIn('google').then(() => {
+        getSession().then((data) => {
+          console.log('google data', data);
+        });
+      }
+    );
+    // const session = await getSession();
+    // console.log('google data', session);
   }
 
 
@@ -61,7 +75,7 @@ export default function SignInPage() {
       <div className={'font-bold text-4xl italic text-[#FF5A64] tracking-[7px]'}>BuckyWorld</div>
 
       <button
-        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
+        onClick={signInGoogle}
         className="bg-[#66B566] text-white rounded-2xl mt-10
               flex flex-col justify-center items-center p-2 text-lg font-semibold"
       >

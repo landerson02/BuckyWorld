@@ -1,5 +1,29 @@
 # Lucas Anderson Time Sheet
 
+## 4/14
+#### Issue #121
+- time spent: 240 mins
+- Created new functionality to allow for both regular and google sign in
+- store google user data in the database
+
+## 4/12
+#### Issue #126
+- time spent: 90 mins
+- Fix add landmark form fields and add points input
+
+## 4/10
+#### Issue #118
+- time spent: 60 mins
+- Combine the different location and landmark types into one
+
+## 4/9
+#### Issue #120
+- time spent: 60 mins
+- Change the backend to return landmark ids
+#### Issue #117
+- time spent: 180 mins
+- Add landmark page and routing to it
+
 ## 4/7
 #### Issue #103
 - time spent: 60 mins

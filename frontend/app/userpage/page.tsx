@@ -1,10 +1,11 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
-// import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'
+import {UserContext} from "@/lib/UserContext";
 
 
 /**
@@ -14,17 +15,19 @@ import { ChevronLeftIcon } from '@heroicons/react/24/solid'
  */
 export default function UserPage() {
     // Dummy data 
-    let data = require('../../data/dummy_data.json');
+    let dummyData = require('../../data/dummy_data.json');
 
     // Hardcoded name points position for now, will change
-    const [name, setName] = useState(data.Users[0].Username);
-    const [points, setPoints] = useState(data.Users[0].TotalPoints);
+    const [name, setName] = useState(dummyData.Users[0].Username);
+    const [points, setPoints] = useState(dummyData.Users[0].TotalPoints);
     const [position, setPosition] = useState(56); // Dummy leaderboard position
     const { data: session } = useSession();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
-        console.log(session);
-    }, [session])
+        console.log('sesh: ', session);
+        console.log('user: ', user);
+    }, [session, user])
 
     /**
      * Handles the sign out action.
