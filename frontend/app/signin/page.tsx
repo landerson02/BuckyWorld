@@ -67,16 +67,19 @@ export default function SignInPage() {
       >
         Sign in with Google
       </button>
-      <form role="form" className={'flex flex-col mt-10 text-2xl font-light'} onSubmit={submitSignIn}>
-        <label className={'text-xl'}>Username</label>
+
+      <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
+        <label htmlFor="username" className={'text-xl'}>Username</label>
         <input
+          id="username"
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label className={'pt-4 text-xl'}>Password</label>
+        <label htmlFor="password" className={'pt-4 text-xl'}>Password</label>
         <input
+          id="password"
           className={'bg-[#7DB3E5] rounded-md border focus:outline-none focus:ring-1 focus:ring-[#FF5A64] focus:border-[#FF5A64]'}
           type="password"
           value={password}

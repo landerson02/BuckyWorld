@@ -58,9 +58,9 @@ export default function UserPage() {
             
             {/* username and points */}
             {/* <h1 className="text-xl font-bold mt-4 text-black">{name}</h1> */}
-            <h1 className="text-xl font-bold mt-4 text-black">{session?.user?.name}</h1>
-            <h3 className="text-lg text-black">{session?.user?.email?.split("@")[0]}</h3>
-            <p className="text-gray-600">{points} points</p>
+            <h1 data-testid="username" className="text-xl font-bold mt-4 text-black">{session?.user?.name}</h1>
+            <h3 data-testid="email" className="text-lg text-black">{session?.user?.email?.split("@")[0]}</h3>
+            <p data-testid="points" className="text-gray-600">{points} points</p>
             <p className="text-red-500 mt-2">---- #{position} on leaderboard ----</p>
 
             {/* Buttons do not currently do anything when pressed */}
