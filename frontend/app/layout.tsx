@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { UserProvider } from "@/lib/UserContext";
 import ClientProvider from "./components/ClientProvider";
 
 
@@ -19,7 +20,11 @@ export default function RootLayout({
   return (
     <ClientProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+        <UserProvider> {/* Wrap the entire application to make the user data global */}
+          {children}
+        </UserProvider>
+        </body>
       </html>
     </ClientProvider>
   );
