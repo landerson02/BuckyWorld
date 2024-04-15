@@ -3,8 +3,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { APIProvider, AdvancedMarker, Map, Pin } from '@vis.gl/react-google-maps';
 import EventMarker from './components/EventMarker';
-import {getLandmarks, UserLocation, getUserLocation, login, createUserAccount} from '@/lib/Service';
-import {Landmark_type, User_type} from '@/lib/Types';
+import { getLandmarks, UserLocation, getUserLocation, login, createUserAccount } from '@/lib/Service';
+import { Landmark_type, User_type } from '@/lib/Types';
 import Link from 'next/link';
 import EventsList from './components/EventsList';
 import { useSession } from 'next-auth/react'
@@ -14,7 +14,7 @@ import { UserContext } from '@/lib/UserContext';
 
 
 // Define the React component (following naming convention)
-function Home({router}: any) {
+function Home() {
   // curr position
   const position = { lat: 43.0722, lng: -89.4008 };
   // locations
@@ -23,17 +23,12 @@ function Home({router}: any) {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   // zoom
   const [defaultZoom, setDefaultZoom] = useState(14);
-  // Dummy data
-  let events = require('../data/dummy_data.json').Events;
-  // user points
-  const [points, setPoints] = useState(0);
 
 
   // Fetch locations data
   useEffect(() => {
     getLandmarks().then((data: Landmark_type[]) => {
       setLandmarks(data);
-      console.log(data);
     });
   }, []);
 
@@ -41,28 +36,27 @@ function Home({router}: any) {
   useEffect(() => {
     getUserLocation().then((value: UserLocation | null) => {
       setUserLocation(value);
-      console.log(value);
     }).catch((error) => {
       console.log(error);
     });
   }, [])
 
-  const { user, updateUser } = useContext(UserContext);
+  const { user, updateUser } = useContext(UserContext); // Get the user context
+  const { data: session } = useSession(); // Get the session context
 
-  const { data: session } = useSession();
-
+  // Check if the user is logged in with google
   useEffect(() => {
-    console.log('UE');
-    console.log(session);
+    // If session != null, then the user is logged in with google
+    // then, try login to check if the user exists in the db
     if (session && session.user && session.user.email) {
       login(session.user.email, "").then((data: User_type | string) => {
-        if(typeof data === 'string') { // User Account does not exist
-          // Create one
-          if(session && session.user && session.user.email) {
+        if (typeof data === 'string') { // User Account does not exist
+          // Create a new account with email as username
+          if (session && session.user && session.user.email) {
             createUserAccount(session.user.email, "").then((data) => {
 
-              if(data === 200) { // make sure the account was created
-                if(!session || !session.user || !session.user.email) return;
+              if (data === 200) { // make sure the account was created
+                if (!session || !session.user || !session.user.email) return;
                 // Then login to new account
                 login(session.user.email, "").then((data: User_type) => {
                   updateUser(data);
@@ -70,29 +64,22 @@ function Home({router}: any) {
               }
             });
           }
-        } else { // User account exists
+        } else { // User account exists; update the user context
           updateUser(data);
         }
       });
     }
-  }, [session]);
-
-  useEffect(() => {
-    console.log('UE2');
-    console.log(user);
-  }, [user]);
-
+  }, [session, updateUser]);
 
   return (
-
     <>
       {
+        // If the user context is not null, then render the map
         user ? (
           <div className='flex flex-col h-[100vh] relative'>
             {/* POINTS DIV */}
             <div className={'absolute z-10 top-10 m-2 font-bold flex flex-col items-center'}>
 
-              {/* <Link href={'./userpage'} ><FaUserCircle style={{ fontSize: '54px', color: '#66B566', background: 'white', borderRadius: '25px', textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)'}} onClick={ () => {}}/></Link> */}
               <Link href={'userpage'} >
                 <Image
                   src={session ? session.user?.image! : '/logo.png'}
@@ -102,7 +89,7 @@ function Home({router}: any) {
                   className='rounded-full cursor-pointer shadow-lg'
                 />
               </Link>
-              <h1 className='text-6xl text-[#FF5A64] mt-3'>{points}</h1>
+              <h1 className='text-6xl text-[#FF5A64] mt-3'>{user.totalPoints}</h1>
               <p className='text-lg'>POINTS</p>
 
             </div>
@@ -137,7 +124,10 @@ function Home({router}: any) {
             </div>
           </div>
         ) : (
-          <SignInPage />
+          <>
+            {/* If the user context is null, then render the sign in page */}
+            <SignInPage />
+          </>
         )
       }
     </>

@@ -1,6 +1,6 @@
 'use client'
-import React, { createContext, useContext, useState } from "react";
-import {User_type} from "@/lib/Types";
+import React, { createContext, useState } from "react";
+import { User_type } from "@/lib/Types";
 
 type UserContextType = {
   user: User_type | null,
@@ -8,10 +8,10 @@ type UserContextType = {
 }
 
 // Create the context for the user
-export const UserContext = createContext<UserContextType>( {
-    user: {} as User_type,
-    updateUser: (user: User_type) => {}
-  }
+export const UserContext = createContext<UserContextType>({
+  user: null,
+  updateUser: (user: User_type) => { }
+}
 );
 
 // Create the provider for the user context
@@ -24,7 +24,7 @@ export const UserProvider = ({ children }: any) => {
   }
 
   return (
-    <UserContext.Provider value={{user, updateUser}}>
+    <UserContext.Provider value={{ user, updateUser }}>
       {children}
     </UserContext.Provider>
   )

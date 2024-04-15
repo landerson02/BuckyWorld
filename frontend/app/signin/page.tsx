@@ -1,25 +1,27 @@
 'use client'
 import React, { useContext, useState } from "react";
-import {getSession, signIn, useSession} from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { login } from "@/lib/Service";
 import { User_type } from "@/lib/Types";
 import { UserContext } from "@/lib/UserContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  // Form states
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isBadCredentials, setIsBadCredentials] = useState(false);
-
-
-  const { data: session } = useSession();
 
   // States for login errors
   const [errorMessage, setErrorMessage] = useState('');
   const [isErrorShowing, setIsErrorShowing] = useState(false);
 
-  // Get the user context
+  // Get the function to update the user context
   const { updateUser } = useContext(UserContext);
+
+  // Create the router for page navigation
+  const router = useRouter();
 
   // Handles the sign in form submission for Buckyworld accounts
   async function submitSignIn(event: React.FormEvent) {
@@ -42,25 +44,18 @@ export default function SignInPage() {
         return;
       } else {
         // If the data is a user object, set the user context
-        console.log('normal login data', data);
         updateUser(data);
-        // TODO: Add redirect to the home page
       }
+      router.push('/'); // Redirect to the home page
     });
   }
 
   // Handle sign in with Google
   function signInGoogle() {
     signIn('google').then(() => {
-        getSession().then((data) => {
-          console.log('google data', data);
-        });
-      }
-    );
-    // const session = await getSession();
-    // console.log('google data', session);
+      getSession()
+    });
   }
-
 
   return (
     <div className={'flex flex-col items-center overflow-y-hidden h-screen justify-center'}>
@@ -74,6 +69,7 @@ export default function SignInPage() {
       <div className={'font-medium text-2xl'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64] tracking-[7px]'}>BuckyWorld</div>
 
+      {/* Sign in with Google button */}
       <button
         onClick={signInGoogle}
         className="bg-[#66B566] text-white rounded-2xl mt-10
@@ -82,6 +78,7 @@ export default function SignInPage() {
         Sign in with Google
       </button>
 
+      {/* Sign in with Buckyworld form */}
       <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label htmlFor="username" className={'text-xl'}>Username</label>
         <input

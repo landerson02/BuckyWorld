@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Landmark_type } from '@/lib/Types';
 
@@ -12,7 +11,7 @@ type EventMarkerProps = {
 /**
  * Renders a marker for an event on a map.
  *
- * @param {any} props - The component props.
+ * @param { landmark: Landmark_type } The landmark to represent
  * @returns {JSX.Element} The rendered EventMarker component.
  */
 function EventMarker({ landmark }: EventMarkerProps) {
@@ -21,28 +20,22 @@ function EventMarker({ landmark }: EventMarkerProps) {
 
   return (
     <>
-      <Link href={'landmark?id=' + landmark.landmarkId}>
-      <AdvancedMarker position={{ lat: landmark.latitude, lng: landmark.longitude }}
-        onClick={() => {
-          console.log(landmark);
-          // window.location.href = '/landmark?id=' + landmark.landmarkId;
-        }
-        }>
+      {/* Link to the landmark page onclick, user pin has id -1, so don't route to it */}
+      <Link href={landmark.landmarkId == -1 ? '' : `landmark?id=${landmark.landmarkId}`}>
+        <AdvancedMarker position={{ lat: landmark.latitude, lng: landmark.longitude }}>
           {
             landmark.landmarkId === -1 ? (
               <Pin
-              background={'#FF5A64'}
-              borderColor={'white'}
-            // glyphColor={'#FFFFFF'} // this is the inner circle color
-            />
-            ) :(
-                <Image src={'/w.png'} alt='event' width={30} height={30}
-                  className='w-10 h-10'
-                />
+                background={'#FF5A64'}
+                borderColor={'white'}
+              />
+            ) : (
+              <Image src={'/w.png'} alt='event' width={30} height={30}
+                className='w-10 h-10'
+              />
             )
           }
-
-      </AdvancedMarker>
+        </AdvancedMarker>
       </Link>
       {
         open && (

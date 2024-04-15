@@ -6,7 +6,7 @@
 - Fix navigation to never refresh page
 
 #### Issue #121
-- time spent: 240 mins
+- time spent: 300 mins
 - Created new functionality to allow for both regular and google sign in
 - store google user data in the database
 

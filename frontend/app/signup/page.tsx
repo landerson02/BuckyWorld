@@ -3,19 +3,25 @@ import React, { useContext, useState } from "react";
 import { login, createUserAccount } from "@/lib/Service";
 import { User_type } from "@/lib/Types";
 import { UserContext } from "@/lib/UserContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   // States for the current form values
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  // boolean for if the passwords match
+
+  // boolean for login errors
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [isBadCredentials, setIsBadCredentials] = useState(false);
   const [signUpFailed, setSignUpFailed] = useState(false);
 
-  // Load in user context
-  const { user, setUser } = useContext(UserContext);
+  // Load in function to update user context
+  const { updateUser } = useContext(UserContext);
+
+  // Create the router for page navigation
+  const router = useRouter();
 
   // Function to submit the sign-up form
   async function submitSignUp(e: React.FormEvent) {
@@ -28,20 +34,22 @@ export default function Page() {
       setPasswordsMatch(false);
       return;
     }
+
+    // Reset error states
     setPasswordsMatch(true);
     setIsBadCredentials(false);
     setSignUpFailed(false);
 
     // Create the user account in the db, then log in
     const res = await createUserAccount(username, password) as number;
-    if (res !== 200) {
+    if (res !== 200) { // If the account creation failed
       setSignUpFailed(true);
       return;
     }
     await login(username, password).then((data: User_type) => {
-      setUser(data); // Set the user context
+      updateUser(data); // Set the user context
     });
-    // TODO: Add redirect to the home page
+    router.push('/'); // Redirect to the home page after
   }
 
   return (
@@ -88,14 +96,13 @@ export default function Page() {
           Register
         </button>
       </form>
-      <button onClick={() => { console.log(user) }}>print user</button>
 
       {/*Link to the login page if the user already has an account*/}
       <div className={'pt-12 text-[#FF5A64] font-light'}>Already a user?</div>
-      <a
+      <Link
         href={'/signin'}
         className={'border-2 border-[#FF5A64] rounded-2xl text-[#FF5A64] w-20 h-10 text-center flex flex-col justify-center'}
-      >Log In</a>
+      >Log In</Link>
     </div>
   )
 }
