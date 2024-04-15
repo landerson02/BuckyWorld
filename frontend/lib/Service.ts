@@ -20,7 +20,7 @@ export async function getLandmarks() {
     });
     if (!res.ok) {
       // if the response is not ok, throw an error
-      throw new Error("Failed to get landmarks");
+      console.error("Failed to get landmarks");
     }
     // return the json response
     return await res.json();
@@ -30,8 +30,9 @@ export async function getLandmarks() {
 }
 
 /**
- * Fetches a location by its id
- * returns a promise that resolves to a location
+ * Fetches a landmark by its id
+ * @param id the id of the landmark to fetch
+ * returns a promise that resolves to a landmark
  */
 export async function getLandmarkById(id: number) {
   const url = `${BASE_URL}/landmark?id=${id}`;
@@ -44,7 +45,7 @@ export async function getLandmarkById(id: number) {
     });
     if (!res.ok) {
       // if the response is not ok, throw an error
-      throw new Error("Failed to get location");
+      console.error("Failed to get landmark");
     }
     // return the json response
     return await res.json();
@@ -117,9 +118,9 @@ export async function addLandmark(landmark: Landmark_type) {
 
 /**
  * Fetches the user account by username and password
- * Returns a promise that resolves to the user account if it exists, otherwise null
- * @param username
- * @param password
+ * Returns either the user account in a promise, or an error message
+ * @param username username of the account
+ * @param password password of the account
  */
 export async function login(username: string, password: string) {
   // url in UserController.java for login
@@ -132,48 +133,37 @@ export async function login(username: string, password: string) {
       },
       body: JSON.stringify({ username, password }), // Send the username and password in the body
     });
-    if (!res.ok) {
-      // if the response is not ok, throw an error
-      console.error("Failed to login");
-    }
-    // return the json response
-    return await res.json();
+    // If the response is not okay, return the error message
+    if (res.status === 404) return "Username not found";
+    if (res.status === 401) return "Incorrect password";
+    // Otherwise return the user account
+    return res.json();
   } catch (error) {
     console.log(error);
   }
 }
 
 /**
- * Creates a new user account and stores it in the db
- * Returns a promise that resolves to either 0, 1, or 2
- * 0: user account created successfully
- * 1: username is invalid
- * 2: username already exists
- * @param uID
- * @param username
- * @param password
+ * Saves the user account in the database
+ * @returns the status of the response
+ * @param username username of the account
+ * @param password password of the account
  */
-export async function createUserAccount(
-  uID: number,
-  username: string,
-  password: string,
-) {
+export async function createUserAccount(username: string, password: string) {
   // url defined in UserController.java for creating a new user
-  const url = `${BASE_URL}/save-user?uID=${uID}&username=${username}`;
+  const url = `${BASE_URL}/save-user`;
   try {
     const res = await fetch(url, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ username, password }),
     });
-    if (!res.ok) {
-      // if the response is not ok, throw an error
-      console.error("Failed to create user");
-    }
-    // return the json response
-    return await res.json();
+    // Return the status of the response
+    return res.status;
   } catch (error) {
     console.log(error);
   }
 }
+

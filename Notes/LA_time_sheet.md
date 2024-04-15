@@ -1,5 +1,47 @@
 # Lucas Anderson Time Sheet
 
+## 4/14
+#### Issue #131
+- time spent: 60 mins
+- Fix navigation to never refresh page
+
+#### Issue #121
+- time spent: 300 mins
+- Created new functionality to allow for both regular and google sign in
+- store google user data in the database
+
+## 4/12
+#### Issue #126
+- time spent: 90 mins
+- Fix add landmark form fields and add points input
+
+## 4/10
+#### Issue #118
+- time spent: 60 mins
+- Combine the different location and landmark types into one
+
+## 4/9
+#### Issue #120
+- time spent: 60 mins
+- Change the backend to return landmark ids
+#### Issue #117
+- time spent: 180 mins
+- Add landmark page and routing to it
+
+## 4/7
+#### Issue #103
+- time spent: 60 mins
+- Fix errors that were pushed to main, preventing the app from running
+#### Issue #79
+- time spent: 60 mins
+- Finally fix all account issues
+- Add client side error messages to signup/signin
+
+## 4/6
+#### Issue #79
+- time spent: 150 mins
+- Debug and fix issues with adding accounts
+
 ## 3/21
 #### Issue #79
 - time spent: 60 mins

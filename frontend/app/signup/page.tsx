@@ -1,27 +1,62 @@
 'use client'
-import React, {useState} from "react";
+import React, { useContext, useState } from "react";
+import { login, createUserAccount } from "@/lib/Service";
+import { User_type } from "@/lib/Types";
+import { UserContext } from "@/lib/UserContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  // States for the current form values
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState(true);
 
-  const submitSignUp = (e: React.FormEvent) => {
+  // boolean for login errors
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [isBadCredentials, setIsBadCredentials] = useState(false);
+  const [signUpFailed, setSignUpFailed] = useState(false);
+
+  // Load in function to update user context
+  const { updateUser } = useContext(UserContext);
+
+  // Create the router for page navigation
+  const router = useRouter();
+
+  // Function to submit the sign-up form
+  async function submitSignUp(e: React.FormEvent) {
     e.preventDefault();
-    if(password !== confirmPassword) {
-      setPasswordMatch(false);
+    if (!username || !password) { // Make sure both fields are non-empty
+      setIsBadCredentials(true);
       return;
     }
-    setPasswordMatch(true);
-    console.log('submitted');
-    // TODO: Add sign up functionality
+    if (password !== confirmPassword) { // Make sure passwords match
+      setPasswordsMatch(false);
+      return;
+    }
+
+    // Reset error states
+    setPasswordsMatch(true);
+    setIsBadCredentials(false);
+    setSignUpFailed(false);
+
+    // Create the user account in the db, then log in
+    const res = await createUserAccount(username, password) as number;
+    if (res !== 200) { // If the account creation failed
+      setSignUpFailed(true);
+      return;
+    }
+    await login(username, password).then((data: User_type) => {
+      updateUser(data); // Set the user context
+    });
+    router.push('/'); // Redirect to the home page after
   }
 
   return (
     <div className={'h-screen flex flex-col items-center'}>
       <div className={'text-2xl font-light pt-12'}>Create your account</div>
 
+      {/*Form with username, password, and confirm password inputs*/}
       <form className={'flex flex-col pt-12 text-2xl font-light'} onSubmit={submitSignUp}>
         <label htmlFor="username" className={'text-xl'}>Username</label>
         <input
@@ -47,7 +82,13 @@ export default function Page() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        {!passwordMatch && <div className={'text-red-500 pt-4'}>Passwords do not match</div>}
+        {/*If passwords don't match after submitting, this will show*/}
+        {!passwordsMatch && <div className={'text-red-500 pt-4 font-light text-sm'}>Passwords do not match</div>}
+        {/*If the username or password is invalid, this will show*/}
+        {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
+        {/*If the sign-up failed, this will show*/}
+        {signUpFailed && <div className={'text-red-500 pt-4 font-light text-sm'}>Username is either invalid or taken</div>}
+
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-24 h-10 self-center'}
           type="submit"
@@ -56,11 +97,12 @@ export default function Page() {
         </button>
       </form>
 
+      {/*Link to the login page if the user already has an account*/}
       <div className={'pt-12 text-[#FF5A64] font-light'}>Already a user?</div>
-      <a
+      <Link
         href={'/signin'}
         className={'border-2 border-[#FF5A64] rounded-2xl text-[#FF5A64] w-20 h-10 text-center flex flex-col justify-center'}
-      >Log In</a>
+      >Log In</Link>
     </div>
   )
 }

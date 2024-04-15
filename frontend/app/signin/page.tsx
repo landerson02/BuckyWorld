@@ -1,26 +1,61 @@
 'use client'
-import React, { useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import React, { useContext, useState } from "react";
+import { getSession, signIn } from "next-auth/react";
+import { login } from "@/lib/Service";
+import { User_type } from "@/lib/Types";
+import { UserContext } from "@/lib/UserContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  // Form states
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isBadCredentials, setIsBadCredentials] = useState(false);
 
-  const { data: session } = useSession();
+  // States for login errors
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isErrorShowing, setIsErrorShowing] = useState(false);
 
-  const submitSignIn = (event: React.FormEvent) => {
+  // Get the function to update the user context
+  const { updateUser } = useContext(UserContext);
+
+  // Create the router for page navigation
+  const router = useRouter();
+
+  // Handles the sign in form submission for Buckyworld accounts
+  async function submitSignIn(event: React.FormEvent) {
     event.preventDefault();
-    if (!username || !password) {
+
+    // Reset error states
+    setIsBadCredentials(false);
+    setIsErrorShowing(false);
+
+    if (!username || !password) { // Make sure both fields are non-empty
       setIsBadCredentials(true);
       return;
     }
-    setIsBadCredentials(false);
-    console.log('submitted');
-    // TODO: Add sign in functionality
+    login(username, password).then((data: User_type | string) => {
+      // Login either returns the user object or an error message
+      if (typeof data === 'string') {
+        // If the data is a string, it's an error message, so display it to users
+        setErrorMessage(data);
+        setIsErrorShowing(true);
+        return;
+      } else {
+        // If the data is a user object, set the user context
+        updateUser(data);
+      }
+      router.push('/'); // Redirect to the home page
+    });
   }
 
+  // Handle sign in with Google
+  function signInGoogle() {
+    signIn('google').then(() => {
+      getSession()
+    });
+  }
 
   return (
     <div className={'flex flex-col items-center overflow-y-hidden h-screen justify-center'}>
@@ -34,14 +69,16 @@ export default function SignInPage() {
       <div className={'font-medium text-2xl'}>Welcome to</div>
       <div className={'font-bold text-4xl italic text-[#FF5A64] tracking-[7px]'}>BuckyWorld</div>
 
+      {/* Sign in with Google button */}
       <button
-        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
+        onClick={signInGoogle}
         className="bg-[#66B566] text-white rounded-2xl mt-10
               flex flex-col justify-center items-center p-2 text-lg font-semibold"
       >
         Sign in with Google
       </button>
 
+      {/* Sign in with Buckyworld form */}
       <form role="form" className={'flex flex-col pt-20 text-2xl font-light'} onSubmit={submitSignIn}>
         <label htmlFor="username" className={'text-xl'}>Username</label>
         <input
@@ -60,7 +97,10 @@ export default function SignInPage() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder=""
         />
+        {/* if the username or password is blank, show an error message */}
         {isBadCredentials && <div className={'text-red-500 pt-4 font-light text-sm'}>Please enter a valid username and password</div>}
+        {/* if the username or password is incorrect, show an error message */}
+        {isErrorShowing && <div className={'text-red-500 pt-4 font-light text-sm'}>{errorMessage}</div>}
         <button
           className={'mt-12 rounded-2xl bg-[#66B566] text-xl text-white w-20 h-10 self-center'}
           type="submit"
