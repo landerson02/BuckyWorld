@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
 
 
 @Entity
@@ -14,36 +16,37 @@ public class Attended {
 
     }
 
-    public Attended(long attendedId, String username, long eventId){
+    public Attended(long attendedId, long userId, long landmarkId){
         this.attendedId = attendedId;
-        this.username = username;
-        this.eventId = eventId;
+        this.userId = userId;
+        this.landmarkId = landmarkId;
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long attendedId;
 
-    @Column(name = "USERNAME")
-    private String username;
+    @Column(name = "USERID")
+    private long userId;
 
-    @Column(name = "EVENTID")
-    private long eventId;
+    @Column(name = "LANDMARKID")
+    private long landmarkId;
 
 
-    public void setUsername(String username){
-        this.username = username;
+    public void setUsername(long userId){
+        this.userId = userId;
     }
 
-    public String getUsername(){
-        return username;
+    public long getUserId(){
+        return userId;
     }
 
-    public void setEventID(long eventId){
-        this.eventId = eventId;
+    public void setEventID(long landmarkId){
+        this.landmarkId =  landmarkId;
     }
     
     public long getEventID(){
-        return eventId;
+        return landmarkId;
     }
 }
