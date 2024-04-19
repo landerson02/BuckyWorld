@@ -1,7 +1,8 @@
 'use client';
 import { User_type } from "@/lib/Types";
-import { useState, useEffect } from "react";
-import { getTop10Users } from "@/lib/Service";
+import { useState, useEffect, useContext } from "react";
+import { getTop10Users, getLeaderboardRanking } from "@/lib/Service";
+import { UserContext } from "@/lib/UserContext";
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 import Link from "next/link";
 
@@ -14,25 +15,30 @@ export default function Page() {
   // Position on leaderboard
   const [place, setPlace] = useState<number>();
 
+  // Get the user data
+  const { user } = useContext(UserContext);
+
   // Load in leaderboard data on page load
   useEffect(() => {
     // Load top 10 users by points
     async function fetchTopUsers() {
       const users = await getTop10Users();
-      console.log(users);
       setTopUsers(users);
     }
 
     // Load user's position on leaderboard
     async function fetchUserPlace() {
-      // TODO: Fetch the user's place on the leaderboard
-      const userPlace = -1;
+      if (!user) {
+        setPlace(undefined);
+        return;
+      }
+      const userPlace = await getLeaderboardRanking(user.username);
       setPlace(userPlace);
     }
 
     fetchTopUsers();
     fetchUserPlace();
-  }, []);
+  }, [user]);
 
   return (
     <div className={'w-full h-screen flex flex-col items-center justify-center'}>
@@ -53,6 +59,7 @@ export default function Page() {
           <div className={'text-xl text-center w-1/3'}>Username</div>
           <div className={'text-xl text-center w-1/3'}>Points</div>
         </div>
+
         {/* List the users */}
         {topUsers ? (topUsers.map((user: User_type, index: number) => (
           <li key={index} className={'w-full px-2 flex justify-between items-center h-12 ' + (index % 2 === 1 && 'bg-gray-50')}>
@@ -60,7 +67,7 @@ export default function Page() {
             {index === 0 && <div className={'font-bold text-3xl w-1/3 text-center'}>🥇</div>}
             {index === 1 && <div className={'font-bold text-3xl w-1/3 text-center'}>🥈</div>}
             {index === 2 && <div className={'font-bold text-3xl w-1/3 text-center'}>🥉</div>}
-            {index > 2 && <div className={'font-bold text-xl w-1/3 text-center'}>{index + 1}</div>}
+            {index > 2 && <div className={'font-bold text-xl w-1/3 text-center'}>{index + 1}th</div>}
             <div className={'font-light text-md w-1/3 text-center'}>{user.username}</div>
             <div className={'font-semibold text-2xl w-1/3 text-center'}>{user.points}</div>
           </li>
@@ -68,7 +75,7 @@ export default function Page() {
           <div className={'font-light text-lg text-center w-full'}>Loading...</div>
         )}
 
-        {/* Your place on the leaderboard */}
+        {/* users position on the leaderboard */}
         {place && <div className={'font-light text-lg text-center flex justify-center items-center gap-3'}>
           Your position is:
           <span className={'font-bold text-4xl text-[#FF5A64]'}>

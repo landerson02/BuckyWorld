@@ -184,3 +184,22 @@ export async function getTop10Users() {
     console.log(error);
   }
 }
+
+/**
+ * Fetches the users points
+ * @param username username of the account
+ * @returns a promise that resolves to the points of the user
+ */
+export async function getLeaderboardRanking(username: string) {
+  // url in UserControllet.java to get the ranking of the user
+  const url = `${BASE_URL}/get-user-ranking?username=${username}`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+    });
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

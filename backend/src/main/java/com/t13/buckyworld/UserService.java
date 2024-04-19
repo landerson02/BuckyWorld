@@ -102,4 +102,24 @@ public class UserService {
             return ResponseEntity.ok(user);
         }
     }
+
+    /**
+     * gets the position of the user in the leaderboard by points
+     *
+     * @param username username of the user
+     * @return position of the user
+     */
+    public int getLeaderboardPosition(String username) {
+        System.out.println("USERNAME: " + username);
+        if(username == null || username.isEmpty()) {
+            return -1;
+        }
+        List<User> users = userRepository.findAllByOrderByPointsDesc();
+        for(int i = 0; i < users.size(); i++) {
+            if(users.get(i).getUsername().equals(username)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
 }

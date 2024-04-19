@@ -69,7 +69,7 @@ function Home() {
         }
       });
     }
-  }, [session, updateUser]);
+  }, [session]);
 
   return (
     <>

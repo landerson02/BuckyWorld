@@ -1,10 +1,9 @@
 package com.t13.buckyworld;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -59,5 +58,16 @@ public class UserController {
     @GetMapping("/top-10-users")
     public List<User> getTop10Users() {
         return userService.getTop10UsersByPoints();
+    }
+
+    /**
+     * Gets The position of the user on the leaderboard
+     *
+     * @param username The username of the user
+     * @return The ranking of the user by points
+     */
+    @GetMapping("/get-user-ranking")
+    public int getUserRanking(@RequestParam String username) {
+        return userService.getLeaderboardPosition(username);
     }
 }

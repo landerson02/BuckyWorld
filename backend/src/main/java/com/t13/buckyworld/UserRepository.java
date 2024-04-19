@@ -9,4 +9,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findTop10ByOrderByPointsDesc();
     User findByUsername(String username);
     boolean existsByUsername(String username);
+    List<User> findAllByOrderByPointsDesc();
 }
