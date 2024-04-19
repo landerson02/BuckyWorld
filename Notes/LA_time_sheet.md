@@ -1,5 +1,13 @@
 # Lucas Anderson Time Sheet
 
+## 4/18
+- Time spent 240 mins
+- Created the leaderbaord page to display the top ten users
+
+## 4/17
+- time spent: 120 mins
+- Created a new api call to get the top ten users
+
 ## 4/14
 #### Issue #131
 - time spent: 60 mins

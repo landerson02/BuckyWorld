@@ -13,30 +13,38 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
-
 @RestController
 public class UserController {
     private UserService userService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    //Controller method to call UserService saveUser() method. Refer to UserService.java for documentation
+    // Controller method to call UserService saveUser() method. Refer to
+    // UserService.java for documentation
     @PostMapping("/save-user")
     public ResponseEntity<User> saveUser(@RequestBody LoginRequest loginRequest) {
         return userService.saveUser(loginRequest.getUsername(), loginRequest.getPassword());
     }
 
-    //Controller method to call UserService login() method. Refer to UserService.java for documentation
+    // Controller method to call UserService login() method. Refer to
+    // UserService.java for documentation
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         return userService.login(loginRequest.getUsername(), loginRequest.getPassword());
     }
 
-    //Controller method to call UserService updatePoints() method. refer to UserService.java for documentation
+    // Controller method to call UserService updatePoints() method. refer to
+    // UserService.java for documentation
     @PostMapping("/update-points")
     public ResponseEntity<User> updatePoints(@RequestParam int points, @RequestBody LoginRequest user) {
         return userService.updatePoints(points, user.getUsername());
+    }
+
+    //
+    @GetMapping("/top-10-users")
+    public List<User> getTop10Users() {
+        return userService.getTop10UsersByPoints();
     }
 }

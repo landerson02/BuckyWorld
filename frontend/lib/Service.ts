@@ -167,3 +167,20 @@ export async function createUserAccount(username: string, password: string) {
   }
 }
 
+/**
+ * Fetches the top 10 users by points
+ * @returns a promise that resolves to an array of users
+ */
+export async function getTop10Users() {
+  // url in UserController.java to get the top 10 users
+  const url = `${BASE_URL}/top-10-users`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+    });
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
