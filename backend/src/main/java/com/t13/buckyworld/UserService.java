@@ -21,7 +21,7 @@ public class UserService {
 
     /**
      * Finds the user in the database based on their id, else returns null.
-     * 
+     *
      * @param id the userID to look for in the database
      * @return Returns a user object if the uID is found, Optional.null if not
      *         found.
@@ -32,7 +32,7 @@ public class UserService {
 
     /**
      * Queries the database for the 10 users with the most points
-     * 
+     *
      * @return A list of the top 10 users with the most points in descending order.
      */
     public List<User> getTop10UsersByPoints() {
@@ -41,7 +41,7 @@ public class UserService {
 
     /**
      * Saves a user to the database
-     * 
+     *
      * @param username The user's username
      * @param password The user's password
      * @return Http status codes depending on if the user is found, returns ok (code 200) if found
@@ -61,7 +61,7 @@ public class UserService {
 
     /**
      * Finds a user in the database to give to current user session
-     * 
+     *
      * @param username the user's username
      * @param password the user's password
      * @return Http status codes depending on if the user is found, body of response
@@ -85,7 +85,7 @@ public class UserService {
 
     /**
      * Adds points to the specified user
-     * 
+     *
      * @param points   The number of points to be added to the user's current total
      * @param username The username of the user to update
      * @return Http code 404 if not found, else returns code 200 with user in body
@@ -101,5 +101,25 @@ public class UserService {
             userRepository.save(user);
             return ResponseEntity.ok(user);
         }
+    }
+
+    /**
+     * gets the position of the user in the leaderboard by points
+     *
+     * @param username username of the user
+     * @return position of the user
+     */
+    public int getLeaderboardPosition(String username) {
+        System.out.println("USERNAME: " + username);
+        if(username == null || username.isEmpty()) {
+            return -1;
+        }
+        List<User> users = userRepository.findAllByOrderByPointsDesc();
+        for(int i = 0; i < users.size(); i++) {
+            if(users.get(i).getUsername().equals(username)) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 }

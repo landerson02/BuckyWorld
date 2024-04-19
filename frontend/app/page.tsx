@@ -69,7 +69,7 @@ function Home() {
         }
       });
     }
-  }, [session, updateUser]);
+  }, [session]);
 
   return (
     <>
@@ -89,7 +89,7 @@ function Home() {
                   className='rounded-full cursor-pointer shadow-lg'
                 />
               </Link>
-              <h1 className='text-6xl text-[#FF5A64] mt-3'>{user.totalPoints}</h1>
+              <h1 className='text-6xl text-[#FF5A64] mt-3'>{user.points}</h1>
               <p className='text-lg'>POINTS</p>
 
             </div>

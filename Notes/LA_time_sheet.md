@@ -1,5 +1,24 @@
 # Lucas Anderson Time Sheet
 
+## 4/19
+#### Issue #145
+- time spent: 90 mins
+- Craeted a new api call to get the users ranking on the leaderboard
+#### Issue #146 + #147
+- time spent: 90 mins
+- Changed the userpage to display the user's rank and points
+- Added routing between the leaderboard and userpage
+
+## 4/18
+#### Issue #133
+- Time spent 240 mins
+- Created the leaderboard page to display the top ten users
+
+## 4/17
+#### Issue #133
+- time spent: 120 mins
+- Created a new api call to get the top ten users
+
 ## 4/14
 #### Issue #131
 - time spent: 60 mins
