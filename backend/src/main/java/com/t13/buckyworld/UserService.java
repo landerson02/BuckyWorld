@@ -21,10 +21,10 @@ public class UserService {
 
     /**
      * Finds the user in the database based on their id, else returns null.
-     * 
+     *
      * @param id the userID to look for in the database
-     * @return Returns an Optional<User> which is a User object if the uID is found,
-     *         and null if not found.
+     * @return Returns a user object if the uID is found, Optional.null if not
+     *         found.
      */
     public Optional<User> getuserById(Long id) {
         return userRepository.findById(id);
@@ -32,7 +32,7 @@ public class UserService {
 
     /**
      * Queries the database for the 10 users with the most points
-     * 
+     *
      * @return A list of the top 10 users with the most points in descending order.
      */
     public List<User> getTop10UsersByPoints() {
@@ -41,11 +41,10 @@ public class UserService {
 
     /**
      * Saves a user to the database
-     * 
+     *
      * @param username The user's username
      * @param password The user's password
-     * @return Http status codes depending on if the user is found, returns ok (code
-     *         200) if found
+     * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
         if (userRepository.existsByUsername(username)) {
@@ -62,12 +61,11 @@ public class UserService {
 
     /**
      * Finds a user in the database to give to current user session
-     * 
+     *
      * @param username the user's username
      * @param password the user's password
      * @return Http status codes depending on if the user is found, body of response
-     *         is null if any error occurred, returns ok (code 200) and user object
-     *         if found
+     *         is null if any error occurred, returns ok (code 200) and user object if found
      */
     public ResponseEntity<User> login(String username, String password) {
         User user = userRepository.findByUsername(username);
@@ -87,11 +85,10 @@ public class UserService {
 
     /**
      * Adds points to the specified user
-     * 
+     *
      * @param points   The number of points to be added to the user's current total
      * @param username The username of the user to update
      * @return Http code 404 if not found, else returns code 200 with user in body
-     *         (With updated total)
      */
     public ResponseEntity<User> updatePoints(int points, String username) {
         User user = userRepository.findByUsername(username);
