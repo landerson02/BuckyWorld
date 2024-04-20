@@ -47,13 +47,12 @@ public class UserService {
      * @return Http status codes depending on if the user is found, returns ok (code 200) if found
      */
     public ResponseEntity<User> saveUser(String username, String password) {
-        if (userRepository.existsByUsername(username)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Code 409
-        }
         if (username == null || username.isEmpty()) { // Username was empty
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Code 400
         }
-
+        if (userRepository.existsByUsername(username)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Code 409
+        }
         User newUser = new User(username, password);
         userRepository.save(newUser);
         return ResponseEntity.ok().build(); // Code 200
@@ -68,6 +67,9 @@ public class UserService {
      *         is null if any error occurred, returns ok (code 200) and user object if found
      */
     public ResponseEntity<User> login(String username, String password) {
+        if (username == null || username.isEmpty()) { // Username was empty
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Code 400
+        }
         User user = userRepository.findByUsername(username);
         if (user == null) {
             // Username not found
