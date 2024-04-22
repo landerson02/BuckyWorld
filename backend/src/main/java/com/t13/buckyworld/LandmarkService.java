@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,20 @@ public class LandmarkService {
      * @param landmark
      * @return
      */
-    public ResponseEntity<Landmark> saveLandmark(Landmark landmark) {
-        landmarkRepository.save(landmark);
-        return ResponseEntity.ok().build(); // Code 200
+    public ResponseEntity<Landmark> saveLandmark(Landmark landmark){
+
+ 
+        try{
+            landmarkRepository.save(landmark);
+            // successful
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            // db error (500)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            
+
+        }
+        
     }
     
     public void deleteLandmark(Long id) {

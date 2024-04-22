@@ -24,6 +24,7 @@ dependencies {
 
 // tasks.named('test') {
 // 	useJUnitPlatform()
+// 	include '**/LandmarkControllerTest.class'
 // }
 
 tasks.withType(JavaCompile) {
