@@ -174,7 +174,9 @@ const Page: NextPage = () => {
               <button
                 type="button"
                 onClick={() => router.push('/')}
-                className="secondary-button bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex-1"
+                className="secondary-button bg-gray-500 hover:bg-gray-700 
+                text-white font-bold py-2 px-4 rounded 
+                focus:outline-none focus:shadow-outline flex-1"
               >
                 Cancel
               </button>
@@ -182,7 +184,9 @@ const Page: NextPage = () => {
               {/* Submit button */}
               <button
                 type="submit"
-                className="primary-button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex-1"
+                className="primary-button bg-green-500 hover:bg-green-700 
+                text-white font-bold py-2 px-4 rounded focus:outline-none 
+                focus:shadow-outline flex-1"
               >
                 Submit
               </button>
