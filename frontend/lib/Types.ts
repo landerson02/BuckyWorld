@@ -19,3 +19,9 @@ export type Attended_type = {
   username: string;
   locationId: number;
 };
+
+
+export type Pin_type = {
+    lat: number;
+    lng: number;
+};

@@ -11,6 +11,8 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image';
 import SignInPage from './signin/page';
 import { UserContext } from '@/lib/UserContext';
+import { useRouter } from 'next/navigation'
+
 
 
 // Define the React component (following naming convention)
@@ -23,6 +25,8 @@ function Home() {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   // zoom
   const [defaultZoom, setDefaultZoom] = useState(14);
+  // route to landmark page
+  const router = useRouter();
 
 
   // Fetch locations data
@@ -40,6 +44,24 @@ function Home() {
       console.log(error);
     });
   }, [])
+
+  // add pins
+  const handleMapClick = (event: any) => {
+
+    const coordinates = event.detail.latLng;
+
+    if (coordinates) {
+
+      // save to local storage
+      const coordinatesString = JSON.stringify(coordinates); 
+      localStorage.setItem("coordinates", coordinatesString);
+
+      // go att addlandmark for additional details
+      router.push('/addlandmark')
+
+      
+    }
+  };
 
   const { user, updateUser } = useContext(UserContext); // Get the user context
   const { data: session } = useSession(); // Get the session context
@@ -94,12 +116,13 @@ function Home() {
 
             </div>
             {/* Wrap the Map component with APIProvider and provide the API key */}
-            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
+            <APIProvider apiKey={'AIzaSyASGvI0TbbNWsG_5c5Poh5i5Kv9vudGFXI'}>
               <div className='flex-grow'>
                 <Map
                   defaultCenter={position}
                   defaultZoom={defaultZoom}
                   mapId={'f292b91ec3d6c7d6'}
+                  onClick={handleMapClick}
                   zoomControl={false}
                   mapTypeControl={false}
                   streetViewControl={false}
@@ -116,6 +139,7 @@ function Home() {
                   {
                     userLocation && <EventMarker key={-1} landmark={{ landmarkId: -1, description: "Your location", latitude: userLocation.lat, longitude: userLocation.long } as Landmark_type} />
                   }
+
                 </Map>
               </div>
             </APIProvider>
