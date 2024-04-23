@@ -1,5 +1,9 @@
 package com.t13.buckyworld;
 
+import java.time.LocalDateTime;
+
+import org.springframework.cglib.core.Local;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,8 +37,11 @@ public class Attended {
     @Column(name = "LANDMARKID")
     private long landmarkId;
 
+    @Column(name = "ATTENDTIME")
+    private LocalDateTime attendTime;
 
-    public void setUsername(long userId){
+
+    public void setUserId(long userId){
         this.userId = userId;
     }
 
@@ -42,11 +49,19 @@ public class Attended {
         return userId;
     }
 
-    public void setEventID(long landmarkId){
+    public void setLandmarkID(long landmarkId){
         this.landmarkId =  landmarkId;
     }
     
-    public long getEventID(){
+    public long getLandmarkID(){
         return landmarkId;
+    }
+
+    public void setAttendTime(LocalDateTime attendTime){
+        this.attendTime = attendTime;
+    }
+    
+    public LocalDateTime getAttendTime(){
+        return attendTime;
     }
 }
