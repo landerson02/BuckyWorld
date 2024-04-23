@@ -1,12 +1,12 @@
 package com.t13.buckyworld;
 
-// import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,18 +15,39 @@ public class AttendedService {
     @Autowired
     private AttendedRepository attendedRepository;
 
+    private UserService userService;
+
+    private LandmarkService landmarkService;
+
     public AttendedService(){
 
     }
  
+
     /**
-     * records the user and corresponding landmark visited
-     * @param attendedRecord
+     * 
+     * @param userId
+     * @param landmarkId
      * @return
      */
-    public ResponseEntity<Attended> saveAttended(Attended attendedRecord) {
-        attendedRepository.save(attendedRecord);
-        return ResponseEntity.ok().build(); // Code 200
+    public boolean attendLandmark(Long userId, Long landmarkId){
+        Optional<Landmark> landmark = landmarkService.getLandmarkById(landmarkId);
+        Optional<User> user = userService.getuserById(userId);
+        if (user.isPresent() && landmark.isPresent()){
+            LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+            Optional<Attended> lastAttendTime = attendedRepository.findByUserAndLandmarkAndAttendTimeAfter(userId, landmarkId, yesterday);
+            if (lastAttendTime.isPresent()){
+                return false;
+            }
+            Attended attended = new Attended();
+            attended.setUserId(userId);
+            attended.setLandmarkID(landmarkId);
+            attended.setAttendTime(LocalDateTime.now());
+            attendedRepository.save(attended);
+            userService.updatePoints(landmark.get().getPoints(), user.get().getUsername());
+            return true;
+        }
+        return false;
     }
     
 
