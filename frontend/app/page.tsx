@@ -143,9 +143,6 @@ function Home() {
                 </Map>
               </div>
             </APIProvider>
-            <div className='bottom-0'>
-              <EventsList />
-            </div>
           </div>
         ) : (
           <>
