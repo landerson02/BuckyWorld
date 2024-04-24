@@ -7,6 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
 
-    Optional<Attended> findByPlayerAndLandmarkAndCheckInTimeAfter(User user, Landmark landmark, LocalDateTime time);
-
 }

@@ -35,7 +35,7 @@ public class AttendedService {
         Optional<User> user = userService.getuserById(userId);
         if (user.isPresent() && landmark.isPresent()){
             LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
-            Optional<Attended> lastAttendTime = attendedRepository.findByUserAndLandmarkAndAttendTimeAfter(userId, landmarkId, yesterday);
+            Optional<Attended> lastAttendTime = attendedRepository.findByUserIdAndLandmarkIdAndAttendTimeAfter(userId, landmarkId, yesterday);
             if (lastAttendTime.isPresent()){
                 return false;
             }
