@@ -70,14 +70,15 @@ public class UserService {
         if (username == null || username.isEmpty()) { // Username was empty
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Code 400
         }
-        User user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (user == null) {
             // Username not found
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Code 404
         } else {
-            if (user.getPassword().equals(password)) {
+            User validUser = user.get();
+            if (validUser.getPassword().equals(password)) {
                 // Login successful
-                return ResponseEntity.ok(user); // Code 200 and user in body
+                return ResponseEntity.ok(validUser); // Code 200 and user in body
             } else {
                 // Incorrect password
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // Code 401
@@ -93,15 +94,16 @@ public class UserService {
      * @return Http code 404 if not found, else returns code 200 with user in body
      */
     public ResponseEntity<User> updatePoints(int points, String username) {
-        User user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (user == null) {
             // Username not found
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Code 404
         } else {
+            User validUser = (User) user.get();
             // Assumes that location checking was done in frontend before calling this
-            user.setPoints(user.getPoints() + points);
-            userRepository.save(user);
-            return ResponseEntity.ok(user);
+            validUser.setPoints(validUser.getPoints() + points);
+            userRepository.save(validUser);
+            return ResponseEntity.ok(validUser);
         }
     }
 

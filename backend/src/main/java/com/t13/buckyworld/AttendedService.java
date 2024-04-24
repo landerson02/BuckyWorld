@@ -15,8 +15,13 @@ public class AttendedService {
     @Autowired
     private AttendedRepository attendedRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private UserService userService;
 
+    @Autowired
     private LandmarkService landmarkService;
 
     public AttendedService(){
@@ -30,9 +35,12 @@ public class AttendedService {
      * @param landmarkId
      * @return
      */
-    public boolean attendLandmark(Long userId, Long landmarkId){
+    public boolean attendLandmark(String username, Long landmarkId){
+
         Optional<Landmark> landmark = landmarkService.getLandmarkById(landmarkId);
-        Optional<User> user = userService.getuserById(userId);
+        Optional<User> user = userRepository.findByUsername(username);
+        Long userId = userRepository.findIdByUsername(username);
+
         if (user.isPresent() && landmark.isPresent()){
             LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
             Optional<Attended> lastAttendTime = attendedRepository.findByUserIdAndLandmarkIdAndAttendTimeAfter(userId, landmarkId, yesterday);
