@@ -6,53 +6,35 @@ package com.t13.buckyworld;
  * */ 
 public class AttendedRequest {
 
-    private long attendedId; // id of attended table
-    private long userId; // user id
+    private String username; 
     private long landmarkId; 
 
 
     /**
      * creates a new request
-     * @param attendedId
-     * @param userId
+     * @param username
      * @param landmarkId
      */
-    public AttendedRequest(long attendedId, long userId, long landmarkId){
-        this.attendedId = attendedId;
-        this.userId = userId;
+    public AttendedRequest(String username, long landmarkId){
+        this.username = username;
         this.landmarkId = landmarkId;
 
     }
-    
+
     /** 
-     * @return attendedId
+     * @return username
      */
-    public long getAttendedId() {
-        return this.attendedId;
+    public String getUsername() {
+        return this.username;
     }
 
     /** 
-     * @param attendedId
-     * sets eventId to value of param
-     */
-    public void setAttendedId(long attendedId) {
-        this.attendedId = attendedId;
-    }
-
-    /** 
-     * @return userId
-     */
-    public long getUserId() {
-        return this.userId;
-    }
-
-    /** 
-     * @param userId
-     * sets userId to value of param
+     * @param username
+     * sets username to value of param
      */
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /** 
@@ -64,10 +46,10 @@ public class AttendedRequest {
 
     
     /** 
-     * @param eventId
-     * sets eventId to value of param
+     * @param landmarkId
+     * sets landmarkId to value of param
      */
-    public void setEventId(long landmarkId) {
+    public void setLandmarkId(long landmarkId) {
         this.landmarkId = landmarkId;
     }
 

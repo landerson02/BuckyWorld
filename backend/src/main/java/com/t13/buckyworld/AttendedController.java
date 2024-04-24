@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 public class AttendedController {
 
+    
     private AttendedService attendedService;
 
     public AttendedController(AttendedService attendedService) {
@@ -26,8 +27,8 @@ public class AttendedController {
      * @return whether the call was successfull or not
      */
     @PostMapping("/attend")
-    public ResponseEntity<?> attendLandmark(@RequestParam Long userId, @RequestParam Long landmarkId) { 
-        boolean result = attendedService.attendLandmark(userId, landmarkId);
+    public ResponseEntity<?> attendLandmark(@RequestBody AttendedRequest attendedRequest) { 
+        boolean result = attendedService.attendLandmark(attendedRequest.getUsername(), attendedRequest.getLandmarkId());
         if(result){
             return ResponseEntity.ok("Landmark Attended Successfully");
         }
