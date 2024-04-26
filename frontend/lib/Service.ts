@@ -208,28 +208,6 @@ export async function getLeaderboardRanking(username: string) {
 
 export async function addToAttended(username: string, landmarkId: number) {
   // url in UserController.java to add a landmark to the users attended list
-  // const url = `${BASE_URL}/attend`;
-  // try {
-  //   const res = await fetch(url, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ username, landmarkId }),
-  //   });
-    
-  //   if (!res.ok) {
-  //     console.log("res NOT ok")
-  //     throw new Error(`Failed to add landmark to attended list.`);
-  //   }
-
-  //   console.log("res ok")
-  //   return await res.json();
-
-  // } catch (error) {
-  //   console.log("throwing error")
-  //   throw error;
-  // }
   return new Promise((resolve, reject) => {
     fetch(`${BASE_URL}/attend`, {
       method: "POST",
@@ -241,11 +219,8 @@ export async function addToAttended(username: string, landmarkId: number) {
     .then((res) => {
       console.log("---------RES STATUS: ", res.status);
       if (res.status === 400) {
-        console.log("wtf is going on")
         return reject();
       } else {
-        console.log("lol you failed")
-        // return res.json();
         return resolve("Success");
       }
     })
