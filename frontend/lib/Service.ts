@@ -1,3 +1,4 @@
+import { ok } from "assert";
 import { Landmark_type } from "./Types";
 
 // get the BACKEND_URL from the .env file
@@ -207,19 +208,71 @@ export async function getLeaderboardRanking(username: string) {
 
 export async function addToAttended(username: string, landmarkId: number) {
   // url in UserController.java to add a landmark to the users attended list
-  const url = `${BASE_URL}/attended`;
-  try {
-    const res = await fetch(url, {
+  // const url = `${BASE_URL}/attend`;
+  // try {
+  //   const res = await fetch(url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ username, landmarkId }),
+  //   });
+    
+  //   if (!res.ok) {
+  //     console.log("res NOT ok")
+  //     throw new Error(`Failed to add landmark to attended list.`);
+  //   }
+
+  //   console.log("res ok")
+  //   return await res.json();
+
+  // } catch (error) {
+  //   console.log("throwing error")
+  //   throw error;
+  // }
+  return new Promise((resolve, reject) => {
+    fetch(`${BASE_URL}/attend`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, landmarkId }),
-    });
-    
-    return await res.json();
+    })
+    .then((res) => {
+      console.log("---------RES STATUS: ", res.status);
+      if (res.status === 400) {
+        console.log("wtf is going on")
+        return reject();
+      } else {
+        console.log("lol you failed")
+        // return res.json();
+        return resolve("Success");
+      }
+    })
+  });
+}
 
-  } catch (error) {
-    console.log(error);
-  }
+/**
+ * Checks if two coordinates are within a certain distance from each other.
+ * @param lat1 - The latitude of the first coordinate.
+ * @param lon1 - The longitude of the first coordinate.
+ * @param lat2 - The latitude of the second coordinate.
+ * @param lon2 - The longitude of the second coordinate.
+ * @returns A boolean indicating whether the two coordinates are within the specified distance.
+ */
+export function isAtLandmark(lat1: number, lon1: number, lat2: number, lon2: number) {
+  const R = 3958.8; // Earth radius in miles
+  const dLat = toRadians(lat2 - lat1);
+  const dLon = toRadians(lon2 - lon1);
+  const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in miles
+  return distance < 0.1;
+}
+
+function toRadians(degrees: number) {
+  return degrees * (Math.PI / 180);
 }
