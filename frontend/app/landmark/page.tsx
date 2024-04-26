@@ -1,11 +1,13 @@
 'use client'
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getLandmarkById } from "@/lib/Service";
 import { Landmark_type } from "@/lib/Types";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { addToAttended } from "@/lib/Service";
+import { UserContext } from "@/lib/UserContext";
 
 
 // search params accesses the query parameters in the URL
@@ -13,6 +15,8 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 export default function Page({ searchParams }: { searchParams: { id: number } }) {
   // location state
   const [landmark, setLandmark] = useState<Landmark_type>();
+
+  const { user } = useContext(UserContext);
 
   // On render load in the location object by its id
   useEffect(() => {
@@ -26,7 +30,9 @@ export default function Page({ searchParams }: { searchParams: { id: number } })
   // On button click, check if the user is at the location and give points to the user
   const submitImHere = () => {
     // TODO: Implement adding points
-    console.log('Im Here');
+    // addToAttended(user!.username, searchParams.id).then(() => {
+    //   console.log('Added to attended');
+    // });
   }
 
   return (

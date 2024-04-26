@@ -203,3 +203,23 @@ export async function getLeaderboardRanking(username: string) {
     console.log(error);
   }
 }
+
+
+export async function addToAttended(username: string, landmarkId: number) {
+  // url in UserController.java to add a landmark to the users attended list
+  const url = `${BASE_URL}/attended`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, landmarkId }),
+    });
+    
+    return await res.json();
+
+  } catch (error) {
+    console.log(error);
+  }
+}
