@@ -27,6 +27,8 @@ function Home() {
   const [defaultZoom, setDefaultZoom] = useState(14);
   // route to landmark page
   const router = useRouter();
+  // state for if user is adding landmark
+  const [addingLandmark, setAddingLandmark] = useState(false);
 
 
   // Fetch locations data
@@ -59,7 +61,6 @@ function Home() {
       // go att addlandmark for additional details
       router.push('/addlandmark')
 
-      
     }
   };
 
@@ -102,7 +103,7 @@ function Home() {
             {/* POINTS DIV */}
             <div className={'absolute z-10 top-10 m-2 font-bold flex flex-col items-center'}>
 
-              <Link href={'userpage'} >
+              <Link href={'userpage'}>
                 <Image
                   src={session ? session.user?.image! : '/logo.png'}
                   alt="user"
@@ -115,14 +116,23 @@ function Home() {
               <p className='text-lg'>POINTS</p>
 
             </div>
+            <div className='absolute flex w-full justify-center items-center top-3 z-20 opacty-100'>
+              <p className='text-2xl text-red-500 font-bold outline-2 outline-black'>
+                {
+                  addingLandmark ? 'Click on the map to add a landmark' : ''
+                }
+              </p>
+            </div>
             {/* Wrap the Map component with APIProvider and provide the API key */}
             <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
-              <div className='flex-grow'>
+              <div className={`flex-grow ${addingLandmark ? 'opacity-60' : 'opacity-100'}`}>
                 <Map
                   defaultCenter={position}
                   defaultZoom={defaultZoom}
                   mapId={'f292b91ec3d6c7d6'}
-                  onClick={handleMapClick}
+                  onClick={
+                    addingLandmark ? handleMapClick : undefined
+                  }
                   zoomControl={false}
                   mapTypeControl={false}
                   streetViewControl={false}
@@ -143,6 +153,18 @@ function Home() {
                 </Map>
               </div>
             </APIProvider>
+            <div className='absolute z-10 bottom-10 flex w-full justify-center items-center'>
+              <button 
+                className={`px-5 py-3 text-white text-center font-semibold rounded-lg text-xl
+                            ${addingLandmark ? 'bg-red-500' : 'bg-green-500'}`
+                          }
+                onClick={() => setAddingLandmark(!addingLandmark)}
+              >
+                    {
+                      addingLandmark ? 'Cancel' : 'Add Landmark'
+                    }
+              </button>
+            </div>
           </div>
         ) : (
           <>
