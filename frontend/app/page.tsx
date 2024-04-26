@@ -94,6 +94,15 @@ function Home() {
     }
   }, [session]);
 
+  // need to update points
+  useEffect(() => {
+    if (user) {
+      login(user.username, user.password).then((data: User_type) => {
+        updateUser(data);
+      });
+    }
+  }, [user]);
+
   return (
     <>
       {
