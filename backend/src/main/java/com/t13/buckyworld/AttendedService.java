@@ -31,7 +31,7 @@ public class AttendedService {
 
     /**
      * 
-     * @param userId
+     * @param username
      * @param landmarkId
      * @return
      */
