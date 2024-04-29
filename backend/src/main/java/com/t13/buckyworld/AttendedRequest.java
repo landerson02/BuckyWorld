@@ -2,7 +2,7 @@ package com.t13.buckyworld;
 
 /**
  *  Request for modifiying attended table
- * 
+ *  Takes less parameters than Attended object for simplicity
  * */ 
 public class AttendedRequest {
 

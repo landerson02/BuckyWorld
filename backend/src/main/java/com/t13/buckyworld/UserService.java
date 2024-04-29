@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * Service class that takes requests found by UserController and processes them
+ * Queries UserRepository when needed
+ * Acts as an intermediary between UserController and UserRepository
+ */
 @Service
 public class UserService {
     // Automatically instantiates userRepository and connects it with the database

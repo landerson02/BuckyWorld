@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ * Controller class created to handle requests from the frontend
+ * Listens for mapping calls and calls UserService methods
+ */
 @RestController
 public class UserController {
     private UserService userService;
@@ -17,13 +21,13 @@ public class UserController {
     /**
      * Saves a user to the database
      *
-     * @param loginRequest A JSON object containing username and password fields
+     * @param user A JSON object containing a user object with username and password
      * @return Http status codes depending on if the user is found, returns ok (code
      *         200) if found
      */
     @PostMapping("/save-user")
-    public ResponseEntity<User> saveUser(@RequestBody LoginRequest loginRequest) {
-        return userService.saveUser(loginRequest.getUsername(), loginRequest.getPassword());
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        return userService.saveUser(user.getUsername(), user.getPassword());
     }
 
     /**
@@ -35,8 +39,8 @@ public class UserController {
      *         if found
      */
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
-        return userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+    public ResponseEntity<User> login(@RequestBody User user) {
+        return userService.login(user.getUsername(), user.getPassword());
     }
 
     /**
@@ -48,7 +52,7 @@ public class UserController {
      */
     @PostMapping("/update-points")
     public ResponseEntity<User> updatePoints(@RequestParam int points,
-            @RequestBody LoginRequest user) {
+            @RequestBody User user) {
         return userService.updatePoints(points, user.getUsername());
     }
 

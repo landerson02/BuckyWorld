@@ -27,6 +27,11 @@ tasks.named('test') {
 	beforeTest { descriptor ->
      logger.lifecycle("Running test: ${descriptor}")
   }
+	afterTest { descriptor, result ->
+        if (result.resultType == TestResult.ResultType.SUCCESS) {
+            logger.lifecycle("Test ${descriptor.displayName} passed successfully.")
+        }
+    }
 }
 
 tasks.withType(JavaCompile) {

@@ -1,12 +1,10 @@
 package com.t13.buckyworld;
 
-import java.beans.Transient;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.MockitoAnnotations;
 import static org.mockito.BDDMockito.given;
@@ -25,7 +23,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.http.ResponseEntity;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.http.HttpStatus;
 
@@ -36,8 +33,6 @@ import org.springframework.http.HttpStatus;
 @WebMvcTest(LandmarkController.class)
 public class LandmarkControllerTest {
 
-    // @Mock
-    // private LandmarkService landmarkService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -126,15 +121,6 @@ public class LandmarkControllerTest {
     public void testAddLandmarks() throws Exception {
 
         // given
-        LandmarkRequest landmarkRequest = new LandmarkRequest(
-            1L, 
-            "Eiffel Tower", 
-            2.2945, 
-            48.8584, 
-            "http://example.com/eiffel.jpg",
-            100, 
-            "Iconic French landmark located in Paris."
-        );
         Landmark landmark = new Landmark(
             1L, 
             "Eiffel Tower", 
@@ -153,7 +139,7 @@ public class LandmarkControllerTest {
         try {
 
             // when
-            jsonRequest = objectMapper.writeValueAsString(landmarkRequest);
+            jsonRequest = objectMapper.writeValueAsString(landmark);
 
         } catch (JsonProcessingException e) {
             fail("Failed to serialize landmarkRequest to JSON", e);
@@ -181,9 +167,9 @@ public class LandmarkControllerTest {
     public void testAddLandmarkDatabaseError() throws Exception {
     
         // Given
-        LandmarkRequest landmarkRequest = new LandmarkRequest(
-            2L, "Statue of Liberty", -74.0445, 40.6892, "http://example.com/liberty.jpg", 80, 
-            "Famous American landmark in New York."
+        Landmark landmarkRequest = new Landmark(
+            2L, "Statue of Liberty", 40.6892, -74.0445, "http://example.com/liberty.jpg", 
+            "Famous American landmark in New York.", 80
         );
 
         // Create JSON out of request

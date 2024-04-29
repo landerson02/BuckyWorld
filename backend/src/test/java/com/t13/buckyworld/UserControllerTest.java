@@ -38,7 +38,7 @@ public class UserControllerTest {
     @Test
     public void testSaveUser_Success() {
         //Create successful login request
-        LoginRequest loginRequest = new LoginRequest("testUser", "testPassword");
+        User loginRequest = new User("testUser", "testPassword");
 
         //Define mock behavior for userService.saveUser()
         when(userService.saveUser("testUser", "testPassword"))
@@ -57,16 +57,16 @@ public class UserControllerTest {
     @Test
     public void testSaveUser_Conflict() {
         //Create original login request
-        LoginRequest loginRequest = new LoginRequest("testUser", "testPassword");
+        User loginRequest = new User("testUser", "testPassword");
         
         //Create conflicting login request with the same username
-        LoginRequest conflictRequest = new LoginRequest("testUser", "differentPassword");
+        User conflictRequest = new User("testUser", "differentPassword");
 
         //Define mock beavior for userSErvice.saveUser()
         when(userService.saveUser("testUser", "testPassword"))
             .thenReturn(ResponseEntity.ok().build());
         when(userService.saveUser("testUser", "differentPassword"))
-            .thenReturn(new ResponseEntity<>(null, HttpStatus.CONFLICT));
+            .thenReturn(ResponseEntity.status(HttpStatus.CONFLICT).build());
 
         //Verify the response for the successful login request
         ResponseEntity<User> responseEntity = userController.saveUser(loginRequest);
@@ -86,10 +86,10 @@ public class UserControllerTest {
     @Test
     public void testSaveUser_BadRequest() {
         //Create login request with empty username
-        LoginRequest emptyUsername = new LoginRequest("", "testPassword");
+        User emptyUsername = new User("", "testPassword");
 
         //Create login request with null username
-        LoginRequest nullUsername = new LoginRequest(null, "testPassword");
+        User nullUsername = new User(null, "testPassword");
 
         //Define mock behavior for userService.saveUser() when an empty username is passed
         when(userService.saveUser(eq(""), anyString()))
@@ -119,7 +119,7 @@ public class UserControllerTest {
     @Test
     public void testLogin_Success() {
         //Create login request
-        LoginRequest loginRequest = new LoginRequest("testUsername", "testPassword");
+        User loginRequest = new User("testUsername", "testPassword");
         
         //Create user object
         User user = new User("testUsername", "testPassword");
@@ -141,10 +141,10 @@ public class UserControllerTest {
     @Test
     public void testLogin_BadRequest() {
         //Create login request with empty username
-        LoginRequest emptyUsername = new LoginRequest("", "testPassword");
+        User emptyUsername = new User("", "testPassword");
         
         //Create login request with null username
-        LoginRequest nullUsername = new LoginRequest(null, "testPassword");
+        User nullUsername = new User(null, "testPassword");
 
         //Define mock behavior for userService.login() for empty username
         when(userService.login(eq(""), anyString()))
@@ -171,7 +171,7 @@ public class UserControllerTest {
     @Test
     public void testLogin_NotFound() {
         //Create login request
-        LoginRequest userNotFound = new LoginRequest("wrongUsername", "testPassword");
+        User userNotFound = new User("wrongUsername", "testPassword");
 
         //Define mock behavior for userService.login()
         when(userService.login("wrongUsername", "testPassword"))
@@ -190,7 +190,7 @@ public class UserControllerTest {
     @Test
     public void testLogin_Unauthorized() {
         //Create login request with "incorrect" password
-        LoginRequest loginRequest = new LoginRequest("testUsername", "testPassword");
+        User loginRequest = new User("testUsername", "testPassword");
 
         //Define mock behavior for userService.login() for incorrect password
         when(userService.login("testUsername", "testPassword"))
@@ -210,7 +210,7 @@ public class UserControllerTest {
     @Test
     public void testUpdatePoints_NotFound() {
         //Create login request for invalid user
-        LoginRequest loginRequest = new LoginRequest("testUsername", "testPassword");
+        User loginRequest = new User("testUsername", "testPassword");
         
         //Points to be given
         int points = 10;
@@ -231,7 +231,7 @@ public class UserControllerTest {
     @Test
     public void testUpdatePoints_Success() {
         //Create login request for valid user
-        LoginRequest loginRequest = new LoginRequest("testUsername", "testPassword");
+        User loginRequest = new User("testUsername", "testPassword");
         
         //Points to be given
         int points = 10;
