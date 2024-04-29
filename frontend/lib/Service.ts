@@ -169,6 +169,27 @@ export async function createUserAccount(username: string, password: string) {
 }
 
 /**
+ * Edits the username in the database
+ * @returns the status of the response
+ * @param oldusername username to be changed
+ * @param newusername new username to change to
+ */
+export async function changeUsername(oldusername: string, newusername: string) {
+  // 
+  const url = `${BASE_URL}/change-username?oldusername=${oldusername}&newusername=${newusername}`;
+  try {
+    const res = await fetch(url, {
+      method: "PUT",
+    });
+    // Return the status of the response
+    return res.status;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+/**
  * Fetches the top 10 users by points
  * @returns a promise that resolves to an array of users
  */

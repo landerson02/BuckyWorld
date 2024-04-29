@@ -4,6 +4,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
+
 
 public interface UserRepository extends JpaRepository<User, Long> {
     //Refer to UserService.java
@@ -14,4 +17,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT id FROM User WHERE username = :username")
     Long findIdByUsername(@Param("username") String username);
+
+    // update username to match new username
+    @Modifying
+    @Transactional
+    @Query("UPDATE User SET username = :newusername WHERE username = :oldusername")
+    int updateUsername(@Param("oldusername") String oldUsername, @Param("newusername") String newUsername);
 }
