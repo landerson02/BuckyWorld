@@ -126,4 +126,24 @@ public class UserService {
         }
         return -1;
     }
+
+    /**
+     * changes the username if newUsername is not taken
+     * 
+     * @param oldUsername
+     * @param newUsername
+     * 
+     * @return appropriate https code
+     */
+    public ResponseEntity<User> changeUsername(String oldUsername, String newUsername){
+
+        // new username already taken
+        if (userRepository.existsByUsername(newUsername)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Code 400
+        }else{
+            // change username officially
+            userRepository.updateUsername(oldUsername, newUsername);
+            return ResponseEntity.ok().build(); // 200
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.t13.buckyworld;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+
 import java.util.List;
 
 @RestController
@@ -69,5 +70,16 @@ public class UserController {
     @GetMapping("/get-user-ranking")
     public int getUserRanking(@RequestParam String username) {
         return userService.getLeaderboardPosition(username);
+    }
+
+
+    /**
+     * @param oldusername current username
+     * @param newusername desired username change
+     */
+    @PutMapping("change-username")
+    public ResponseEntity<User> changeUsername(@RequestParam String oldusername, @RequestParam String newusername){
+        return userService.changeUsername(oldusername, newusername);
+
     }
 }
