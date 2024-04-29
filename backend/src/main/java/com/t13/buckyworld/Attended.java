@@ -2,8 +2,6 @@ package com.t13.buckyworld;
 
 import java.time.LocalDateTime;
 
-import org.springframework.cglib.core.Local;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +9,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 
-
+/**
+ * Represents an attendance record for a user at a specific landmark.
+ * This class encapsulates the user ID, landmark ID, attendance ID, and the time of attendance.
+ * It provides a convenient way to store and retrieve information about user attendance.
+ */
 @Entity
 @Table(name = "ATTENDED")
 public class Attended {

@@ -2,14 +2,15 @@ package com.t13.buckyworld;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 
-
+/**
+ * Controller class made to receive attendance requests
+ * Receives attendance communication from frontend
+ * Sends input to AttendedService for processing
+ */
 @RestController
 public class AttendedController {
 
@@ -28,7 +29,8 @@ public class AttendedController {
      */
     @PostMapping("/attend")
     public ResponseEntity<?> attendLandmark(@RequestBody AttendedRequest attendedRequest) { 
-        boolean result = attendedService.attendLandmark(attendedRequest.getUsername(), attendedRequest.getLandmarkId());
+        boolean result = attendedService.attendLandmark(attendedRequest.getUsername(), 
+            attendedRequest.getLandmarkId());
         if(result){
             return ResponseEntity.ok("Landmark Attended Successfully");
         }

@@ -1,14 +1,17 @@
 package com.t13.buckyworld;
 
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * Service class responsible for managing user attendance at landmarks
+ * Acts as an intermediary between AttendedController and AttendedRepository to process requests
+ */
 @Service
 public class AttendedService {
 
@@ -30,10 +33,12 @@ public class AttendedService {
  
 
     /**
+     * Records a user's attendance at a landmark
      * 
-     * @param username
-     * @param landmarkId
-     * @return
+     * @param username The username of the user attending the landmark
+     * @param landmarkId The ID of the landmark being attended
+     * @return False if the user has attended the specified landmark in the last 24 hours,
+     *         True for successful attendance
      */
     public boolean attendLandmark(String username, Long landmarkId){
 

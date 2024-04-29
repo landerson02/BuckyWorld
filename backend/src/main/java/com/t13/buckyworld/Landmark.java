@@ -34,10 +34,10 @@ public class Landmark {
     public Landmark(long id, String locationName, double latitude, double longitude, String pictureUrl,
             String description, int points) {
         this.id = id;
-        this.locationName = locationName;
+        this.name = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.pictureUrl = pictureUrl;
+        this.url = pictureUrl;
         this.description = description;
         this.points = points;
     }
@@ -48,7 +48,7 @@ public class Landmark {
     private long id;
 
     @Column(name = "NAME")
-    private String locationName;
+    private String name;
 
     @Column(name = "LATITUDE")
     private double latitude;
@@ -57,7 +57,7 @@ public class Landmark {
     private double longitude;
 
     @Column(name = "URL")
-    private String pictureUrl;
+    private String url;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -80,7 +80,7 @@ public class Landmark {
      * @return The landmark name.
      */
     public String getLandmarkName() {
-        return locationName;
+        return name;
     }
 
     /**
@@ -89,7 +89,7 @@ public class Landmark {
      * @param locationName The name to set for the landmark.
      */
     public void setLandmarkName(String locationName) {
-        this.locationName = locationName;
+        this.name = locationName;
     }
 
     /**
@@ -134,7 +134,7 @@ public class Landmark {
      * @return The URL of the picture.
      */
     public String getPictureUrl() {
-        return pictureUrl;
+        return url;
     }
 
     /**
@@ -143,7 +143,7 @@ public class Landmark {
      * @param pictureUrl The URL to set for the picture.
      */
     public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
+        this.url = pictureUrl;
     }
 
     /**

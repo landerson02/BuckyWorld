@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * The main process run when starting the application
+ * Sets up beans, controllers, services, etc.
+ */
 @SpringBootApplication
 public class BuckyworldApplication {
 

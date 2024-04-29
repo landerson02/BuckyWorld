@@ -8,7 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+/**
+ * User entity representing a user with their login information and their points
+ */
 @Entity
 @Table(
     name = "USERS",
