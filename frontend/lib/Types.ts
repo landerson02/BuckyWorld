@@ -11,11 +11,17 @@ export type Landmark_type = {
 export type User_type = {
   username: string;
   password: string;
-  totalPoints: number;
+  points: number;
 };
 
 export type Attended_type = {
   attendedId: number;
   username: string;
   locationId: number;
+};
+
+
+export type Pin_type = {
+    lat: number;
+    lng: number;
 };

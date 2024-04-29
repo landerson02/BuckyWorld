@@ -1,22 +1,43 @@
 package com.t13.buckyworld;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
+import org.mockito.InjectMocks;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.http.ResponseEntity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.http.HttpStatus;
 
+
+
+
+
+@WebMvcTest(LandmarkController.class)
 public class LandmarkControllerTest {
 
-    @Mock
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
     private LandmarkService landmarkService;
 
     @InjectMocks
@@ -90,4 +111,87 @@ public class LandmarkControllerTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
+
+
+   /**
+     * tests functionality of addLandmarks api call
+     * @throws Exception
+     */
+    @Test
+    public void testAddLandmarks() throws Exception {
+
+        // given
+        Landmark landmark = new Landmark(
+            1L, 
+            "Eiffel Tower", 
+            48.8584, 
+            2.2945, 
+            "http://example.com/eiffel.jpg", 
+            "Iconic French landmark located in Paris.", 
+            100
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonRequest;
+
+
+        // create request
+        try {
+
+            // when
+            jsonRequest = objectMapper.writeValueAsString(landmark);
+
+        } catch (JsonProcessingException e) {
+            fail("Failed to serialize landmarkRequest to JSON", e);
+            return;
+        }
+
+
+        given(landmarkService.saveLandmark(landmark)).willReturn(ResponseEntity.ok().build());
+
+        // then
+        // mock post request and expect ok response
+        mockMvc.perform(MockMvcRequestBuilders.post("/addlandmark")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequest))
+                .andDo(MockMvcResultHandlers.print()) 
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    /**
+     * tests how rejection is handled for landmark
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testAddLandmarkDatabaseError() throws Exception {
+    
+        // Given
+        Landmark landmarkRequest = new Landmark(
+            2L, "Statue of Liberty", 40.6892, -74.0445, "http://example.com/liberty.jpg", 
+            "Famous American landmark in New York.", 80
+        );
+
+        // Create JSON out of request
+        // when
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonRequest = objectMapper.writeValueAsString(landmarkRequest);
+
+        // Return an internal server error for any Landmark object
+        given(landmarkService.saveLandmark(any(Landmark.class))).willReturn(
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+        );
+
+        // then
+        // Perform the request
+        mockMvc.perform(MockMvcRequestBuilders.post("/addlandmark")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequest))
+                .andExpect(status().isInternalServerError());
+    }
+
+
+
+
 }
+

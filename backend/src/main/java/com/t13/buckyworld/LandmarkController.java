@@ -12,6 +12,11 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.http.MediaType;
 
+/**
+ * Controller class made to receive landmark
+ * Receives requests for locations from frontend
+ * Sends input to LandmarkService for processing
+ */
 @RestController
 public class LandmarkController {
     private LandmarkService landmarkService;
@@ -20,10 +25,11 @@ public class LandmarkController {
         this.landmarkService = landmarkService;
     }
 
-    // @GetMapping("/location")
-    // public Location getLocationById(@RequestParam("id") Long id) {
-    // return locationService.getLocationById(id).orElse(null);
-    // }
+    /**
+     * Finds a landmark in the database with the corresponding ID
+     * @param id the ID of the landmark being searched for
+     * @return Landmark object if found, null if not found
+     */
     @GetMapping(value = "/landmark", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Landmark getLandmarkById(@RequestParam("id") Long id) {
         // return locationService.getLocationById(id).orElse(null);
@@ -41,22 +47,12 @@ public class LandmarkController {
 
     /**
      * 
-     * adds a landmark to the db
      * 
      * @param landmarkRequest
      * @return
      */
     @PostMapping("/addlandmark")
-    public ResponseEntity<Landmark> addLandmark(@RequestBody LandmarkRequest landmarkRequest) {
-
-        // create a landmark from attributes passed
-        Landmark landmark = new Landmark(landmarkRequest.getId(),
-                landmarkRequest.getName(),
-                landmarkRequest.getLatitude(),
-                landmarkRequest.getLongitude(),
-                landmarkRequest.getUrl(),
-                landmarkRequest.getDescription(),
-                landmarkRequest.getPoints());
+    public ResponseEntity<Landmark> addLandmark(@RequestBody Landmark landmark) {
         return landmarkService.saveLandmark(landmark);
     }
 

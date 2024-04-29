@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import Link from 'next/link';
@@ -21,8 +22,14 @@ function EventMarker({ landmark }: EventMarkerProps) {
   return (
     <>
       {/* Link to the landmark page onclick, user pin has id -1, so don't route to it */}
-      <Link href={landmark.landmarkId == -1 ? '' : `landmark?id=${landmark.landmarkId}`}>
-        <AdvancedMarker position={{ lat: landmark.latitude, lng: landmark.longitude }}>
+      <Link 
+        href={landmark.landmarkId == -1 ? '' : `landmark?id=${landmark.landmarkId}`}
+        // onClick={() => setIsOpen(true)}  
+      >
+        <AdvancedMarker 
+            position={{ lat: landmark.latitude, lng: landmark.longitude }}
+            onClick={() => console.log('clicked')}  
+        >
           {
             landmark.landmarkId === -1 ? (
               <Pin

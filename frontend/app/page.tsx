@@ -11,6 +11,8 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image';
 import SignInPage from './signin/page';
 import { UserContext } from '@/lib/UserContext';
+import { useRouter } from 'next/navigation'
+
 
 
 // Define the React component (following naming convention)
@@ -23,6 +25,10 @@ function Home() {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   // zoom
   const [defaultZoom, setDefaultZoom] = useState(14);
+  // route to landmark page
+  const router = useRouter();
+  // state for if user is adding landmark
+  const [addingLandmark, setAddingLandmark] = useState(false);
 
 
   // Fetch locations data
@@ -41,35 +47,53 @@ function Home() {
     });
   }, [])
 
+  // add pins
+  const handleMapClick = (event: any) => {
+
+    const coordinates = event.detail.latLng;
+
+    if (coordinates) {
+
+      // save to local storage
+      const coordinatesString = JSON.stringify(coordinates); 
+      localStorage.setItem("coordinates", coordinatesString);
+
+      // go att addlandmark for additional details
+      router.push('/addlandmark')
+
+    }
+  };
+
   const { user, updateUser } = useContext(UserContext); // Get the user context
   const { data: session } = useSession(); // Get the session context
 
   // Check if the user is logged in with google
   useEffect(() => {
-    // If session != null, then the user is logged in with google
-    // then, try login to check if the user exists in the db
-    if (session && session.user && session.user.email) {
-      login(session.user.email, "").then((data: User_type | string) => {
-        if (typeof data === 'string') { // User Account does not exist
-          // Create a new account with email as username
+    async function checkUser() {
+      // If session != null, then the user is logged in with google
+      // then, try login to check if the user exists in the db
+      if (session && session.user && session.user.email) {
+        const data = await login(session.user.email, "");
+        if (typeof data === 'string') { // login failed, user account does not exist
+          // Create a new account with email as username, empty password
           if (session && session.user && session.user.email) {
-            createUserAccount(session.user.email, "").then((data) => {
-
-              if (data === 200) { // make sure the account was created
-                if (!session || !session.user || !session.user.email) return;
-                // Then login to new account
-                login(session.user.email, "").then((data: User_type) => {
-                  updateUser(data);
-                });
-              }
-            });
+            const status = await createUserAccount(session.user.email, "");
+            if (status !== 200) { // make sure the account was created
+              console.error("Failed to create user account");
+              return;
+            }
+            // Then login to new account
+            const data = await login(session.user.email, "");
+            updateUser(data); // update the user context
           }
-        } else { // User account exists; update the user context
+        } else { // User account exists
           updateUser(data);
         }
-      });
+      }
     }
-  }, [session, updateUser]);
+
+    checkUser(); // Call the function to login
+  }, [session]);
 
   return (
     <>
@@ -80,7 +104,7 @@ function Home() {
             {/* POINTS DIV */}
             <div className={'absolute z-10 top-10 m-2 font-bold flex flex-col items-center'}>
 
-              <Link href={'userpage'} >
+              <Link href={'userpage'}>
                 <Image
                   src={session ? session.user?.image! : '/logo.png'}
                   alt="user"
@@ -89,17 +113,27 @@ function Home() {
                   className='rounded-full cursor-pointer shadow-lg'
                 />
               </Link>
-              <h1 className='text-6xl text-[#FF5A64] mt-3'>{user.totalPoints}</h1>
+              <h1 className='text-6xl text-[#FF5A64] mt-3'>{user.points}</h1>
               <p className='text-lg'>POINTS</p>
 
             </div>
+            <div className='absolute flex w-full justify-center items-center top-3 z-20 opacty-100'>
+              <p className='text-2xl text-red-500 font-bold outline-2 outline-black'>
+                {
+                  addingLandmark ? 'Click on the map to add a landmark' : ''
+                }
+              </p>
+            </div>
             {/* Wrap the Map component with APIProvider and provide the API key */}
             <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}>
-              <div className='flex-grow'>
+              <div className={`flex-grow ${addingLandmark ? 'opacity-60' : 'opacity-100'}`}>
                 <Map
                   defaultCenter={position}
                   defaultZoom={defaultZoom}
                   mapId={'f292b91ec3d6c7d6'}
+                  onClick={
+                    addingLandmark ? handleMapClick : undefined
+                  }
                   zoomControl={false}
                   mapTypeControl={false}
                   streetViewControl={false}
@@ -116,11 +150,21 @@ function Home() {
                   {
                     userLocation && <EventMarker key={-1} landmark={{ landmarkId: -1, description: "Your location", latitude: userLocation.lat, longitude: userLocation.long } as Landmark_type} />
                   }
+
                 </Map>
               </div>
             </APIProvider>
-            <div className='bottom-0'>
-              <EventsList />
+            <div className='absolute z-10 bottom-10 flex w-full justify-center items-center'>
+              <button
+                className={`px-5 py-3 text-white text-center font-semibold rounded-lg text-xl
+                            ${addingLandmark ? 'bg-red-500' : 'bg-green-500'}`
+                }
+                onClick={() => setAddingLandmark(!addingLandmark)}
+              >
+                {
+                  addingLandmark ? 'Cancel' : 'Add Landmark'
+                }
+              </button>
             </div>
           </div>
         ) : (

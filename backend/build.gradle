@@ -22,9 +22,17 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-// tasks.named('test') {
-// 	useJUnitPlatform()
-// }
+tasks.named('test') {
+	useJUnitPlatform()
+	beforeTest { descriptor ->
+     logger.lifecycle("Running test: ${descriptor}")
+  }
+	afterTest { descriptor, result ->
+        if (result.resultType == TestResult.ResultType.SUCCESS) {
+            logger.lifecycle("Test ${descriptor.displayName} passed successfully.")
+        }
+    }
+}
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-parameters"

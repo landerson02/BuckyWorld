@@ -1,11 +1,16 @@
 'use client'
-
-import React, { useState, useEffect } from "react";
-import { getLandmarkById } from "@/lib/Service";
+import React, { useState, useEffect, useContext } from "react";
+import { UserLocation, getLandmarkById, getUserLocation } from "@/lib/Service";
 import { Landmark_type } from "@/lib/Types";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { addToAttended } from "@/lib/Service";
+import { UserContext } from "@/lib/UserContext";
+import { isAtLandmark } from "@/lib/Service";
+import toast from "react-hot-toast";
+import { login } from "@/lib/Service";
+import { User_type } from "@/lib/Types";
 
 
 // search params accesses the query parameters in the URL
@@ -13,6 +18,21 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 export default function Page({ searchParams }: { searchParams: { id: number } }) {
   // location state
   const [landmark, setLandmark] = useState<Landmark_type>();
+
+  const { user, updateUser } = useContext(UserContext);
+
+  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
+
+  // const router = useRouter();
+
+  // Fetch user location data
+  useEffect(() => {
+    getUserLocation().then((value: UserLocation | null) => {
+      setUserLocation(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, [])
 
   // On render load in the location object by its id
   useEffect(() => {
@@ -24,9 +44,33 @@ export default function Page({ searchParams }: { searchParams: { id: number } })
   }, [searchParams.id]);
 
   // On button click, check if the user is at the location and give points to the user
-  const submitImHere = () => {
-    // TODO: Implement adding points
-    console.log('Im Here');
+  const submitImHere = async () => {
+    if (!userLocation || !landmark) return;
+
+    if (isAtLandmark(userLocation!.lat, userLocation!.long, landmark!.latitude, landmark!.longitude)) {
+      // addToAttended(user!.username, searchParams.id).then((res) => {
+      //   if (res.ok) {
+      //     alert('Added to attended');
+      //   } else {
+      //     alert('Failed to add to attended');
+      //   }
+      // });
+      toast.promise(
+        addToAttended(user!.username, searchParams.id),
+        {
+          loading: 'Checking Location...',
+          success: <b>Points Added!</b>,
+          error: <b>Visit Again Tomorrow!</b>,
+        }
+      ).then(() => { // Get and update the user's points
+        user && login(user.username, user.password).then((data: User_type) => {
+          updateUser(data);
+        });
+      });
+    } else {
+      // alert('User is not at location');
+      toast.error("Make sure you're at the location!");
+    }
   }
 
   return (
@@ -53,7 +97,7 @@ export default function Page({ searchParams }: { searchParams: { id: number } })
 
       <div className={'flex justify-between w-56 items-center gap-12'}>
         <button
-          className={'rounded-3xl bg-[#66B566] text-2xl text-white w-36 h-14 self-center'}
+          className={'inline rounded-3xl bg-[#66B566] text-2xl text-white w-44 h-16 self-center'}
           onClick={submitImHere}
         >Im Here </button>
 

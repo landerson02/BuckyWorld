@@ -1,3 +1,4 @@
+import { ok } from "assert";
 import { Landmark_type } from "./Types";
 
 // get the BACKEND_URL from the .env file
@@ -131,13 +132,14 @@ export async function login(username: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }), // Send the username and password in the body
+      body: JSON.stringify({ username: username, password: password }), // Send the username and password in the body
     });
     // If the response is not okay, return the error message
-    if (res.status === 404) return "Username not found";
+    if (res.status === 404 || res.status === 400 || res.status === 500)
+      return "Username not found";
     if (res.status === 401) return "Incorrect password";
     // Otherwise return the user account
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.log(error);
   }
@@ -158,7 +160,7 @@ export async function createUserAccount(username: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username: username, password: password }),
     });
     // Return the status of the response
     return res.status;
@@ -167,3 +169,104 @@ export async function createUserAccount(username: string, password: string) {
   }
 }
 
+/**
+ * Edits the username in the database
+ * @returns the status of the response
+ * @param oldusername username to be changed
+ * @param newusername new username to change to
+ */
+export async function changeUsername(oldusername: string, newusername: string) {
+  const url = `${BASE_URL}/change-username?oldusername=${oldusername}&newusername=${newusername}`;
+  try {
+    const res = await fetch(url, {
+      method: "PUT",
+    });
+    // Return the status of the response
+    return res.status;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Fetches the top 10 users by points
+ * @returns a promise that resolves to an array of users
+ */
+export async function getTop10Users() {
+  // url in UserController.java to get the top 10 users
+  const url = `${BASE_URL}/top-10-users`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+    });
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Fetches the users points
+ * @param username username of the account
+ * @returns a promise that resolves to the points of the user
+ */
+export async function getLeaderboardRanking(username: string) {
+  // url in UserControllet.java to get the ranking of the user
+  const url = `${BASE_URL}/get-user-ranking?username=${username}`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+    });
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addToAttended(username: string, landmarkId: number) {
+  // url in UserController.java to add a landmark to the users attended list
+  return new Promise((resolve, reject) => {
+    fetch(`${BASE_URL}/attend`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, landmarkId }),
+    })
+    .then((res) => {
+      console.log("---------RES STATUS: ", res.status);
+      if (res.status === 400) {
+        return reject();
+      } else {
+        return resolve("Success");
+      }
+    })
+  });
+}
+
+/**
+ * Checks if two coordinates are within a certain distance from each other.
+ * @param lat1 - The latitude of the first coordinate.
+ * @param lon1 - The longitude of the first coordinate.
+ * @param lat2 - The latitude of the second coordinate.
+ * @param lon2 - The longitude of the second coordinate.
+ * @returns A boolean indicating whether the two coordinates are within the specified distance.
+ */
+export function isAtLandmark(lat1: number, lon1: number, lat2: number, lon2: number) {
+  const R = 3958.8; // Earth radius in miles
+  const dLat = toRadians(lat2 - lat1);
+  const dLon = toRadians(lon2 - lon1);
+  const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in miles
+  return distance < 0.1;
+}
+
+function toRadians(degrees: number) {
+  return degrees * (Math.PI / 180);
+}

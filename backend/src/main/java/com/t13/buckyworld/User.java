@@ -2,14 +2,21 @@ package com.t13.buckyworld;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+/**
+ * User entity representing a user with their login information and their points
+ */
 @Entity
-@Table(name = "USERS")
+@Table(
+    name = "USERS",
+    uniqueConstraints=@UniqueConstraint(columnNames={"USERNAME"})
+    
+)
 public class User {
     public User() {
         points = 0;
