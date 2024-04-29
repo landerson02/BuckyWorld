@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ * Repository interface that allows UserService to search through
+ * the USERS table in the Buckymongo MySQL database
+ */
 public interface UserRepository extends JpaRepository<User, Long> {
     //Refer to UserService.java
     List<User> findTop10ByOrderByPointsDesc();
