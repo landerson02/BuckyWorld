@@ -69,39 +69,31 @@ function Home() {
 
   // Check if the user is logged in with google
   useEffect(() => {
-    // If session != null, then the user is logged in with google
-    // then, try login to check if the user exists in the db
-    if (session && session.user && session.user.email) {
-      login(session.user.email, "").then((data: User_type | string) => {
-        if (typeof data === 'string') { // User Account does not exist
-          // Create a new account with email as username
+    async function checkUser() {
+      // If session != null, then the user is logged in with google
+      // then, try login to check if the user exists in the db
+      if (session && session.user && session.user.email) {
+        const data = await login(session.user.email, "");
+        if (typeof data === 'string') { // login failed, user account does not exist
+          // Create a new account with email as username, empty password
           if (session && session.user && session.user.email) {
-            createUserAccount(session.user.email, "").then((data) => {
-
-              if (data === 200) { // make sure the account was created
-                if (!session || !session.user || !session.user.email) return;
-                // Then login to new account
-                login(session.user.email, "").then((data: User_type) => {
-                  updateUser(data);
-                });
-              }
-            });
+            const status = await createUserAccount(session.user.email, "");
+            if (status !== 200) { // make sure the account was created
+              console.error("Failed to create user account");
+              return;
+            }
+            // Then login to new account
+            const data = await login(session.user.email, "");
+            updateUser(data); // update the user context
           }
-        } else { // User account exists; update the user context
+        } else { // User account exists
           updateUser(data);
         }
-      });
+      }
     }
-  }, [session]);
 
-  // need to update points
-  useEffect(() => {
-    if (user) {
-      login(user.username, user.password).then((data: User_type) => {
-        updateUser(data);
-      });
-    }
-  }, [user]);
+    checkUser(); // Call the function to login
+  }, [session]);
 
   return (
     <>
@@ -163,15 +155,15 @@ function Home() {
               </div>
             </APIProvider>
             <div className='absolute z-10 bottom-10 flex w-full justify-center items-center'>
-              <button 
+              <button
                 className={`px-5 py-3 text-white text-center font-semibold rounded-lg text-xl
                             ${addingLandmark ? 'bg-red-500' : 'bg-green-500'}`
-                          }
+                }
                 onClick={() => setAddingLandmark(!addingLandmark)}
               >
-                    {
-                      addingLandmark ? 'Cancel' : 'Add Landmark'
-                    }
+                {
+                  addingLandmark ? 'Cancel' : 'Add Landmark'
+                }
               </button>
             </div>
           </div>

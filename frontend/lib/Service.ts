@@ -132,13 +132,14 @@ export async function login(username: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }), // Send the username and password in the body
+      body: JSON.stringify({ username: username, password: password }), // Send the username and password in the body
     });
     // If the response is not okay, return the error message
-    if (res.status === 404) return "Username not found";
+    if (res.status === 404 || res.status === 400 || res.status === 500)
+      return "Username not found";
     if (res.status === 401) return "Incorrect password";
     // Otherwise return the user account
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.log(error);
   }
@@ -159,7 +160,7 @@ export async function createUserAccount(username: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username: username, password: password }),
     });
     // Return the status of the response
     return res.status;
@@ -175,7 +176,6 @@ export async function createUserAccount(username: string, password: string) {
  * @param newusername new username to change to
  */
 export async function changeUsername(oldusername: string, newusername: string) {
-  // 
   const url = `${BASE_URL}/change-username?oldusername=${oldusername}&newusername=${newusername}`;
   try {
     const res = await fetch(url, {
@@ -187,7 +187,6 @@ export async function changeUsername(oldusername: string, newusername: string) {
     console.log(error);
   }
 }
-
 
 /**
  * Fetches the top 10 users by points
@@ -225,7 +224,6 @@ export async function getLeaderboardRanking(username: string) {
     console.log(error);
   }
 }
-
 
 export async function addToAttended(username: string, landmarkId: number) {
   // url in UserController.java to add a landmark to the users attended list
